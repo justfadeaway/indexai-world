@@ -147,17 +147,32 @@
     color: var(--text-faint); margin-bottom: 24px;
     font-family: var(--mono);
   }
-  .pedigree-row {
-    display: flex; flex-wrap: wrap; justify-content: center;
-    gap: 16px 40px;
+  .marquee {
+    overflow: hidden;
+    mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
   }
-  .pedigree-row span {
+  .marquee-track {
+    display: flex; width: max-content;
+    animation: marquee 30s linear infinite;
+  }
+  .marquee-track:hover { animation-play-state: paused; }
+  .marquee-group {
+    display: flex; gap: 56px; padding-right: 56px;
+    align-items: center;
+  }
+  .marquee-group span {
     font-size: 17px; font-weight: 600;
-    color: var(--text-dim);
+    color: var(--text-dim); white-space: nowrap;
     opacity: 0.85;
-    transition: opacity .2s, color .2s;
   }
-  .pedigree-row span:hover { opacity: 1; color: var(--text); }
+  @keyframes marquee { to { transform: translateX(-50%); } }
+  @media (prefers-reduced-motion: reduce) {
+    .marquee-track { animation: none; width: auto; flex-wrap: wrap; justify-content: center; }
+    .marquee { mask-image: none; -webkit-mask-image: none; }
+    .marquee-group { flex-wrap: wrap; justify-content: center; padding-right: 0; }
+    .marquee-group + .marquee-group { display: none; }
+  }
 
   /* ---------- Sections ---------- */
   section { padding: 96px 0; position: relative; }
@@ -176,7 +191,7 @@
 
   /* ---------- Stats ---------- */
   .stats {
-    display: grid; grid-template-columns: repeat(4, 1fr);
+    display: grid; grid-template-columns: repeat(5, 1fr);
     gap: 1px; background: var(--border);
     border: 1px solid var(--border); border-radius: 16px;
     overflow: hidden; margin-top: 8px;
@@ -191,7 +206,7 @@
   .stat span { font-size: 14px; color: var(--text-faint); }
 
   /* ---------- Cards ---------- */
-  .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px; }
   .card {
     background: var(--bg-card);
     border: 1px solid var(--border);
@@ -222,37 +237,13 @@
     color: var(--text-faint);
   }
 
-  /* ---------- Founder ---------- */
-  .founder {
-    display: grid; grid-template-columns: 340px 1fr; gap: 56px;
-    align-items: start;
-  }
-  .founder-photo {
-    aspect-ratio: 4/5;
-    border-radius: 20px;
-    background:
-      radial-gradient(300px 240px at 30% 20%, rgba(91,140,255,0.25), transparent),
-      radial-gradient(260px 220px at 80% 90%, rgba(143,107,255,0.2), transparent),
-      var(--bg-card);
-    border: 1px solid var(--border-strong);
-    display: grid; place-items: center;
-    position: sticky; top: 96px;
-  }
-  .founder-photo .initials {
-    font-size: 72px; font-weight: 800; letter-spacing: -0.03em;
-    background: linear-gradient(135deg, var(--accent), var(--accent-2));
-    -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
-  }
-  .founder-name { font-size: 26px; font-weight: 750; letter-spacing: -0.01em; }
-  .founder-role {
-    font-family: var(--mono); font-size: 13.5px; color: var(--accent);
-    margin: 6px 0 24px;
-  }
+  /* ---------- Founders ---------- */
+  .founder-bio { max-width: 780px; }
   .founder-bio p { color: var(--text-dim); font-size: 16px; margin-bottom: 18px; }
   .founder-bio strong { color: var(--text); font-weight: 600; }
   .founder-highlights {
     display: grid; grid-template-columns: 1fr 1fr; gap: 14px;
-    margin-top: 28px;
+    margin-top: 28px; max-width: 780px;
   }
   .fh {
     background: var(--bg-card); border: 1px solid var(--border);
@@ -296,6 +287,21 @@
     font-size: 14.5px; color: var(--text-dim);
   }
   .wm-item::before { content: "◈"; color: var(--accent); font-size: 12px; }
+  .partner-chips { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 26px; }
+  .chip {
+    padding: 8px 16px; border-radius: 999px;
+    border: 1px solid var(--border-strong);
+    background: rgba(255,255,255,0.04);
+    font-family: var(--mono); font-size: 13px;
+    color: var(--text-dim); white-space: nowrap;
+  }
+  .chip-hl { border-color: rgba(91,140,255,0.5); color: var(--text); }
+  .domains { margin-top: 40px; text-align: center; }
+  .domains p {
+    font-family: var(--mono); font-size: 12px; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--text-faint); margin-bottom: 20px;
+  }
+  .domains .partner-chips { justify-content: center; margin-top: 0; }
 
   /* ---------- Contact ---------- */
   .contact { text-align: center; }
@@ -328,8 +334,6 @@
   @media (max-width: 900px) {
     .cards, .team-grid { grid-template-columns: 1fr 1fr; }
     .stats { grid-template-columns: 1fr 1fr; }
-    .founder { grid-template-columns: 1fr; }
-    .founder-photo { max-width: 300px; position: static; }
     .wm-band { grid-template-columns: 1fr; padding: 44px 32px; }
     .nav-links a:not(.btn) { display: none; }
   }
@@ -379,13 +383,35 @@
 
 <div class="pedigree wrap">
   <p>Founded &amp; backed by alumni of</p>
-  <div class="pedigree-row">
-    <span>Google DeepMind</span>
-    <span>Gemini</span>
-    <span>Microsoft</span>
-    <span>Airbnb</span>
-    <span>Y Combinator</span>
-    <span>Silicon Valley Bank</span>
+  <div class="marquee">
+    <div class="marquee-track">
+      <div class="marquee-group">
+        <span>OpenAI</span>
+        <span>Anthropic</span>
+        <span>AWS</span>
+        <span>Stanford</span>
+        <span>Google DeepMind</span>
+        <span>Gemini</span>
+        <span>Microsoft</span>
+        <span>Airbnb</span>
+        <span>TikTok</span>
+        <span>Y Combinator</span>
+        <span>Silicon Valley Bank</span>
+      </div>
+      <div class="marquee-group" aria-hidden="true">
+        <span>OpenAI</span>
+        <span>Anthropic</span>
+        <span>AWS</span>
+        <span>Stanford</span>
+        <span>Google DeepMind</span>
+        <span>Gemini</span>
+        <span>Microsoft</span>
+        <span>Airbnb</span>
+        <span>TikTok</span>
+        <span>Y Combinator</span>
+        <span>Silicon Valley Bank</span>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -403,6 +429,7 @@
       <div class="stat"><b>End-to-end</b><span>Autonomous data synthesis pipelines</span></div>
       <div class="stat"><b>RL-native</b><span>Post-training &amp; reward-model expertise</span></div>
       <div class="stat"><b>World-scale</b><span>Partnering with world model companies</span></div>
+      <div class="stat"><b>AI for Science</b><span>Data powering scientific discovery models</span></div>
     </div>
   </div>
 </section>
@@ -412,8 +439,8 @@
     <p class="kicker reveal">// Business Units</p>
     <h2 class="reveal">What we build</h2>
     <p class="section-sub reveal">
-      Three business units, one mission: supply frontier and world models with the
-      highest-fidelity data on earth.
+      Four business units, one mission: supply frontier models, world models and
+      AI-for-Science with the highest-fidelity data on earth.
     </p>
     <div class="cards">
       <div class="card reveal">
@@ -437,45 +464,50 @@
           world model companies defining the next paradigm of AI.</p>
         <span class="tag">agents · planning · multimodal</span>
       </div>
+      <div class="card reveal">
+        <div class="icon">🔬</div>
+        <h3>AI for Science</h3>
+        <p>High-fidelity data for scientific foundation models — research corpora, simulation
+          and experimental datasets that power AI-driven discovery across the sciences.</p>
+        <span class="tag">science · simulation · discovery</span>
+      </div>
     </div>
   </div>
 </section>
 
 <section id="founder">
   <div class="wrap">
-    <p class="kicker reveal">// Founder</p>
-    <h2 class="reveal" style="margin-bottom:56px">Built by the people who build Gemini</h2>
-    <div class="founder">
-      <div class="founder-photo reveal"><span class="initials">IA</span></div>
-      <div class="reveal">
-        <div class="founder-name">[Founder Name]</div>
-        <div class="founder-role">Founder &amp; CEO · Research Scientist, Google DeepMind</div>
-        <div class="founder-bio">
-          <p>
-            As a Research Scientist at <strong>Google DeepMind</strong>, he is a core contributor to the
-            <strong>Gemini</strong> model ecosystem with deep expertise in Large Language Models,
-            particularly excelling in <strong>data strategy</strong> and
-            <strong>Reinforcement Learning (RL) post-training</strong>.
-          </p>
-          <p>
-            He has architected end-to-end, autonomous <strong>data synthesis pipelines</strong> and rigorous
-            quality-assurance frameworks to consistently supply models with high-fidelity training data.
-            In the post-training domain, he has driven critical advancements in
-            <strong>value functions</strong> and <strong>step-level reward mechanisms</strong> to resolve complex
-            credit-assignment challenges in long-horizon reasoning tasks.
-          </p>
-          <p>
-            Beyond these core areas, his work extends to spearheading
-            <strong>multi-step planning engines for multimodal agentic systems</strong>.
-          </p>
-        </div>
-        <div class="founder-highlights">
-          <div class="fh"><b>Gemini Core Contributor</b>Data strategy &amp; RL post-training for the Gemini model family</div>
-          <div class="fh"><b>Data Synthesis at Scale</b>Autonomous pipelines with rigorous QA frameworks</div>
-          <div class="fh"><b>Long-Horizon Reasoning</b>Value functions &amp; step-level rewards for credit assignment</div>
-          <div class="fh"><b>Agentic Systems</b>Multi-step planning engines for multimodal agents</div>
-        </div>
-      </div>
+    <p class="kicker reveal">// Founders</p>
+    <h2 class="reveal">Built by the people who build frontier models</h2>
+    <p class="section-sub reveal">
+      Our founding team comes from the labs and companies defining this era of AI —
+      Google DeepMind, OpenAI, Anthropic, Stanford and TikTok.
+    </p>
+    <div class="founder-bio reveal">
+      <p>
+        The founding team includes core contributors to the <strong>Gemini</strong> model ecosystem at
+        <strong>Google DeepMind</strong>, with deep expertise in Large Language Models — particularly
+        <strong>data strategy</strong> and <strong>Reinforcement Learning (RL) post-training</strong> —
+        alongside founders with research and operating backgrounds spanning
+        <strong>OpenAI</strong>, <strong>Anthropic</strong>, <strong>Stanford</strong> and <strong>TikTok</strong>.
+      </p>
+      <p>
+        Together, the team has architected end-to-end, autonomous <strong>data synthesis pipelines</strong>
+        and rigorous quality-assurance frameworks to consistently supply models with high-fidelity
+        training data, and driven critical advancements in <strong>value functions</strong> and
+        <strong>step-level reward mechanisms</strong> to resolve complex credit-assignment challenges
+        in long-horizon reasoning tasks.
+      </p>
+      <p>
+        Beyond these core areas, their work extends to spearheading
+        <strong>multi-step planning engines for multimodal agentic systems</strong>.
+      </p>
+    </div>
+    <div class="founder-highlights">
+      <div class="fh reveal"><b>Gemini Core Contributors</b>Data strategy &amp; RL post-training for the Gemini model family</div>
+      <div class="fh reveal"><b>Data Synthesis at Scale</b>Autonomous pipelines with rigorous QA frameworks</div>
+      <div class="fh reveal"><b>Long-Horizon Reasoning</b>Value functions &amp; step-level rewards for credit assignment</div>
+      <div class="fh reveal"><b>Agentic Systems</b>Multi-step planning engines for multimodal agents</div>
     </div>
   </div>
 </section>
@@ -493,6 +525,16 @@
         <div class="org">DeepMind / Gemini</div>
         <h3>Frontier Research</h3>
         <p>Core contributors to the Gemini model ecosystem — LLM data strategy, RL post-training, and reward modeling.</p>
+      </div>
+      <div class="team-card reveal">
+        <div class="org">OpenAI</div>
+        <h3>Frontier Models</h3>
+        <p>Teammates who researched and shipped frontier model systems at OpenAI, across training and deployment.</p>
+      </div>
+      <div class="team-card reveal">
+        <div class="org">Stanford</div>
+        <h3>RL &amp; Inference Research</h3>
+        <p>Stanford postdoctoral researcher specializing in reinforcement learning and inference.</p>
       </div>
       <div class="team-card reveal">
         <div class="org">Microsoft</div>
@@ -528,18 +570,39 @@
     <div class="wm-band reveal">
       <div>
         <p class="kicker">// Partners</p>
-        <h2>Powering world model companies</h2>
+        <h2>Powering frontier &amp; world model companies</h2>
         <p>
           The next paradigm of AI is models that understand and simulate the world.
-          Index AI partners with leading world model companies to supply the data
+          Index AI partners with leading labs and stealth teams to supply the data
           layer this future is built on.
         </p>
+        <div class="partner-chips">
+          <span class="chip chip-hl">OpenAI</span>
+          <span class="chip">Stealth Company A</span>
+          <span class="chip">Stealth Company B</span>
+          <span class="chip">World Model · Stealth</span>
+          <span class="chip">Embodied Intelligence · Stealth</span>
+        </div>
       </div>
       <div class="wm-list">
         <div class="wm-item">High-fidelity multimodal training corpora</div>
+        <div class="wm-item">World model &amp; AI-for-Science data supply</div>
         <div class="wm-item">Synthetic environment &amp; trajectory data</div>
         <div class="wm-item">Step-level reward &amp; evaluation datasets</div>
         <div class="wm-item">Long-horizon agentic planning data</div>
+      </div>
+    </div>
+    <div class="domains reveal">
+      <p>Domains we serve</p>
+      <div class="partner-chips">
+        <span class="chip">Finance</span>
+        <span class="chip">Healthcare</span>
+        <span class="chip">Voice &amp; Speech</span>
+        <span class="chip">Foundation Models</span>
+        <span class="chip">Embodied Intelligence</span>
+        <span class="chip">Egocentric Vision</span>
+        <span class="chip">Teleoperation</span>
+        <span class="chip">AI for Science</span>
       </div>
     </div>
   </div>
@@ -554,8 +617,8 @@
       the data layer decides how far you go. Let's talk.
     </p>
     <div class="reveal">
-      <a class="btn" href="mailto:hello@indexai.world">Get in touch</a>
-      <span class="contact-email">hello@indexai.world · <a href="https://indexai.world">indexai.world</a></span>
+      <a class="btn" href="mailto:celine@indexai.world">Get in touch</a>
+      <span class="contact-email">celine@indexai.world · <a href="https://indexai.world">indexai.world</a></span>
     </div>
   </div>
 </section>

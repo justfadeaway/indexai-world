@@ -28,5 +28,4 @@ Import the repo, no build command needed, output directory = root. Then add `ind
 
 ## TODO
 
-- Replace `[Founder Name]` in `index.html` with the founder's real name (and swap the placeholder initials block for a photo if desired).
-- Update `hello@indexai.world` if a different contact email is used.
+- Re-add the `CNAME` file (content: `indexai.world`) and the custom domain in repo Settings → Pages once DNS is configured.
