@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Index AI — The Data Company Behind Frontier Intelligence</title>
+<meta name="description" content="Index AI is a data company founded by researchers and operators from Google DeepMind (Gemini), Microsoft, Airbnb, Y Combinator and Silicon Valley Bank. We build the data infrastructure that powers frontier and world models.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>◈</text></svg>">
+<style>
+  :root {
+    --bg: #07090f;
+    --bg-soft: #0d111c;
+    --bg-card: #111726;
+    --border: rgba(255,255,255,0.08);
+    --border-strong: rgba(255,255,255,0.16);
+    --text: #e8ecf4;
+    --text-dim: #9aa4b8;
+    --text-faint: #5f6a80;
+    --accent: #5b8cff;
+    --accent-2: #8f6bff;
+    --accent-glow: rgba(91,140,255,0.35);
+    --mono: "SF Mono", ui-monospace, Menlo, Consolas, monospace;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  a { color: inherit; text-decoration: none; }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+
+  /* ---------- Nav ---------- */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    background: rgba(7,9,15,0.72);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-inner {
+    display: flex; align-items: center; justify-content: space-between;
+    height: 64px;
+  }
+  .logo {
+    display: flex; align-items: center; gap: 10px;
+    font-weight: 700; font-size: 18px; letter-spacing: -0.02em;
+  }
+  .logo-mark {
+    width: 28px; height: 28px; border-radius: 8px;
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    display: grid; place-items: center;
+    font-size: 14px; color: #fff;
+    box-shadow: 0 0 18px var(--accent-glow);
+  }
+  .nav-links { display: flex; gap: 32px; align-items: center; }
+  .nav-links a {
+    font-size: 14px; color: var(--text-dim);
+    transition: color .2s;
+  }
+  .nav-links a:hover { color: var(--text); }
+  .btn {
+    display: inline-block;
+    padding: 10px 22px; border-radius: 10px;
+    font-size: 14px; font-weight: 600;
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    color: #fff !important;
+    box-shadow: 0 4px 24px var(--accent-glow);
+    transition: transform .2s, box-shadow .2s;
+  }
+  .btn:hover { transform: translateY(-1px); box-shadow: 0 6px 32px var(--accent-glow); }
+  .btn-ghost {
+    background: transparent;
+    border: 1px solid var(--border-strong);
+    box-shadow: none;
+    color: var(--text) !important;
+  }
+  .btn-ghost:hover { border-color: var(--accent); box-shadow: none; }
+
+  /* ---------- Hero ---------- */
+  header {
+    position: relative;
+    padding: 180px 0 120px;
+    text-align: center;
+    overflow: hidden;
+  }
+  .hero-glow {
+    position: absolute; inset: 0; pointer-events: none;
+    background:
+      radial-gradient(600px 400px at 50% -10%, rgba(91,140,255,0.18), transparent 70%),
+      radial-gradient(500px 350px at 80% 10%, rgba(143,107,255,0.10), transparent 70%);
+  }
+  .grid-bg {
+    position: absolute; inset: 0; pointer-events: none;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size: 56px 56px;
+    mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, #000 40%, transparent 100%);
+    -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, #000 40%, transparent 100%);
+  }
+  .badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 6px 16px; border-radius: 999px;
+    border: 1px solid var(--border-strong);
+    background: rgba(255,255,255,0.03);
+    font-size: 13px; color: var(--text-dim);
+    margin-bottom: 28px;
+    font-family: var(--mono);
+  }
+  .badge .dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: #4ade80;
+    box-shadow: 0 0 8px rgba(74,222,128,0.8);
+  }
+  h1 {
+    font-size: clamp(40px, 6.5vw, 72px);
+    line-height: 1.08;
+    letter-spacing: -0.03em;
+    font-weight: 800;
+    margin-bottom: 24px;
+  }
+  h1 .grad {
+    background: linear-gradient(100deg, var(--accent) 0%, var(--accent-2) 60%, #d38bff 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .hero-sub {
+    max-width: 680px; margin: 0 auto 40px;
+    font-size: clamp(16px, 2vw, 19px);
+    color: var(--text-dim);
+  }
+  .hero-cta { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+
+  /* ---------- Pedigree bar ---------- */
+  .pedigree {
+    padding: 40px 0 72px;
+    text-align: center;
+  }
+  .pedigree p {
+    font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--text-faint); margin-bottom: 24px;
+    font-family: var(--mono);
+  }
+  .pedigree-row {
+    display: flex; flex-wrap: wrap; justify-content: center;
+    gap: 16px 40px;
+  }
+  .pedigree-row span {
+    font-size: 17px; font-weight: 600;
+    color: var(--text-dim);
+    opacity: 0.85;
+    transition: opacity .2s, color .2s;
+  }
+  .pedigree-row span:hover { opacity: 1; color: var(--text); }
+
+  /* ---------- Sections ---------- */
+  section { padding: 96px 0; position: relative; }
+  .section-alt { background: var(--bg-soft); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .kicker {
+    font-family: var(--mono);
+    font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 14px;
+  }
+  h2 {
+    font-size: clamp(28px, 4vw, 40px);
+    letter-spacing: -0.02em; font-weight: 750;
+    margin-bottom: 18px;
+  }
+  .section-sub { max-width: 640px; color: var(--text-dim); font-size: 17px; margin-bottom: 56px; }
+
+  /* ---------- Stats ---------- */
+  .stats {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 1px; background: var(--border);
+    border: 1px solid var(--border); border-radius: 16px;
+    overflow: hidden; margin-top: 8px;
+  }
+  .stat { background: var(--bg-card); padding: 32px 28px; }
+  .stat b {
+    display: block; font-size: 34px; font-weight: 800;
+    letter-spacing: -0.02em; margin-bottom: 6px;
+    background: linear-gradient(120deg, var(--text), var(--text-dim));
+    -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .stat span { font-size: 14px; color: var(--text-faint); }
+
+  /* ---------- Cards ---------- */
+  .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 32px 28px;
+    transition: border-color .25s, transform .25s, box-shadow .25s;
+  }
+  .card:hover {
+    border-color: rgba(91,140,255,0.45);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 0 1px rgba(91,140,255,0.15);
+  }
+  .card .icon {
+    width: 44px; height: 44px; border-radius: 12px;
+    display: grid; place-items: center;
+    background: rgba(91,140,255,0.12);
+    border: 1px solid rgba(91,140,255,0.25);
+    font-size: 20px; margin-bottom: 20px;
+  }
+  .card h3 { font-size: 19px; margin-bottom: 10px; letter-spacing: -0.01em; }
+  .card p { font-size: 15px; color: var(--text-dim); }
+  .card .tag {
+    display: inline-block; margin-top: 18px;
+    font-family: var(--mono); font-size: 11.5px;
+    padding: 4px 10px; border-radius: 6px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border);
+    color: var(--text-faint);
+  }
+
+  /* ---------- Founder ---------- */
+  .founder {
+    display: grid; grid-template-columns: 340px 1fr; gap: 56px;
+    align-items: start;
+  }
+  .founder-photo {
+    aspect-ratio: 4/5;
+    border-radius: 20px;
+    background:
+      radial-gradient(300px 240px at 30% 20%, rgba(91,140,255,0.25), transparent),
+      radial-gradient(260px 220px at 80% 90%, rgba(143,107,255,0.2), transparent),
+      var(--bg-card);
+    border: 1px solid var(--border-strong);
+    display: grid; place-items: center;
+    position: sticky; top: 96px;
+  }
+  .founder-photo .initials {
+    font-size: 72px; font-weight: 800; letter-spacing: -0.03em;
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .founder-name { font-size: 26px; font-weight: 750; letter-spacing: -0.01em; }
+  .founder-role {
+    font-family: var(--mono); font-size: 13.5px; color: var(--accent);
+    margin: 6px 0 24px;
+  }
+  .founder-bio p { color: var(--text-dim); font-size: 16px; margin-bottom: 18px; }
+  .founder-bio strong { color: var(--text); font-weight: 600; }
+  .founder-highlights {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 14px;
+    margin-top: 28px;
+  }
+  .fh {
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: 12px; padding: 16px 18px;
+    font-size: 14px; color: var(--text-dim);
+  }
+  .fh b { display: block; color: var(--text); font-size: 14.5px; margin-bottom: 4px; }
+
+  /* ---------- Team pedigree grid ---------- */
+  .team-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .team-card {
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: 18px; padding: 28px;
+  }
+  .team-card .org {
+    font-family: var(--mono); font-size: 12px; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--accent); margin-bottom: 10px;
+  }
+  .team-card h3 { font-size: 18px; margin-bottom: 8px; }
+  .team-card p { font-size: 14.5px; color: var(--text-dim); }
+
+  /* ---------- World model band ---------- */
+  .wm-band {
+    border: 1px solid var(--border-strong);
+    border-radius: 24px;
+    padding: 64px 56px;
+    background:
+      radial-gradient(500px 300px at 10% 0%, rgba(91,140,255,0.14), transparent 70%),
+      radial-gradient(500px 300px at 95% 100%, rgba(143,107,255,0.12), transparent 70%),
+      var(--bg-card);
+    display: grid; grid-template-columns: 1.2fr 1fr; gap: 48px; align-items: center;
+  }
+  .wm-band h2 { margin-bottom: 14px; }
+  .wm-band p { color: var(--text-dim); font-size: 16px; }
+  .wm-list { display: grid; gap: 12px; }
+  .wm-item {
+    display: flex; gap: 12px; align-items: baseline;
+    padding: 14px 18px; border-radius: 12px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border);
+    font-size: 14.5px; color: var(--text-dim);
+  }
+  .wm-item::before { content: "◈"; color: var(--accent); font-size: 12px; }
+
+  /* ---------- Contact ---------- */
+  .contact { text-align: center; }
+  .contact h2 { margin-bottom: 14px; }
+  .contact p { color: var(--text-dim); max-width: 520px; margin: 0 auto 36px; }
+  .contact-email {
+    font-family: var(--mono); font-size: 15px; color: var(--text-dim);
+    margin-top: 24px; display: block;
+  }
+  .contact-email a { color: var(--accent); }
+
+  /* ---------- Footer ---------- */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 40px 0;
+  }
+  .footer-inner {
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 16px;
+    font-size: 13.5px; color: var(--text-faint);
+  }
+  .footer-inner .logo { font-size: 15px; }
+  .footer-inner .logo-mark { width: 22px; height: 22px; font-size: 11px; border-radius: 6px; }
+
+  /* ---------- Reveal animation ---------- */
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .7s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 900px) {
+    .cards, .team-grid { grid-template-columns: 1fr 1fr; }
+    .stats { grid-template-columns: 1fr 1fr; }
+    .founder { grid-template-columns: 1fr; }
+    .founder-photo { max-width: 300px; position: static; }
+    .wm-band { grid-template-columns: 1fr; padding: 44px 32px; }
+    .nav-links a:not(.btn) { display: none; }
+  }
+  @media (max-width: 560px) {
+    .cards, .team-grid, .stats, .founder-highlights { grid-template-columns: 1fr; }
+    header { padding: 140px 0 80px; }
+    section { padding: 64px 0; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap nav-inner">
+    <a class="logo" href="#top">
+      <span class="logo-mark">◈</span>
+      Index&nbsp;AI
+    </a>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#platform">Platform</a>
+      <a href="#founder">Founder</a>
+      <a href="#team">Team</a>
+      <a href="#partners">Partners</a>
+      <a class="btn btn-ghost" href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<header id="top">
+  <div class="grid-bg"></div>
+  <div class="hero-glow"></div>
+  <div class="wrap" style="position:relative">
+    <div class="badge"><span class="dot"></span>indexai.world — Silicon Valley, CA</div>
+    <h1>The data company behind<br><span class="grad">frontier intelligence</span></h1>
+    <p class="hero-sub">
+      Index AI builds the data infrastructure that trains the world's most capable models —
+      autonomous synthesis pipelines, rigorous quality frameworks, and RL post-training data
+      engineered by the people who built Gemini.
+    </p>
+    <div class="hero-cta">
+      <a class="btn" href="#contact">Work with us</a>
+      <a class="btn btn-ghost" href="#platform">Explore the platform</a>
+    </div>
+  </div>
+</header>
+
+<div class="pedigree wrap">
+  <p>Founded &amp; backed by alumni of</p>
+  <div class="pedigree-row">
+    <span>Google DeepMind</span>
+    <span>Gemini</span>
+    <span>Microsoft</span>
+    <span>Airbnb</span>
+    <span>Y Combinator</span>
+    <span>Silicon Valley Bank</span>
+  </div>
+</div>
+
+<section id="about">
+  <div class="wrap">
+    <p class="kicker reveal">// About</p>
+    <h2 class="reveal">A very solid company,<br>built on data.</h2>
+    <p class="section-sub reveal">
+      Frontier models are only as good as the data behind them. Index AI is a data company
+      in the deepest sense — we design, synthesize, verify and deliver the high-fidelity
+      training data that determines whether a model merely answers, or truly reasons.
+    </p>
+    <div class="stats reveal">
+      <div class="stat"><b>Frontier</b><span>Team from Gemini core model contributors</span></div>
+      <div class="stat"><b>End-to-end</b><span>Autonomous data synthesis pipelines</span></div>
+      <div class="stat"><b>RL-native</b><span>Post-training &amp; reward-model expertise</span></div>
+      <div class="stat"><b>World-scale</b><span>Partnering with world model companies</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="platform" class="section-alt">
+  <div class="wrap">
+    <p class="kicker reveal">// Business Units</p>
+    <h2 class="reveal">What we build</h2>
+    <p class="section-sub reveal">
+      Three business units, one mission: supply frontier and world models with the
+      highest-fidelity data on earth.
+    </p>
+    <div class="cards">
+      <div class="card reveal">
+        <div class="icon">🧬</div>
+        <h3>Data Synthesis &amp; QA</h3>
+        <p>End-to-end, autonomous data synthesis pipelines with rigorous quality-assurance
+          frameworks — consistently supplying models with high-fidelity training data at scale.</p>
+        <span class="tag">synthesis · verification · scale</span>
+      </div>
+      <div class="card reveal">
+        <div class="icon">🎯</div>
+        <h3>RL Post-Training</h3>
+        <p>Value functions, step-level reward mechanisms and credit-assignment solutions
+          for long-horizon reasoning — the post-training layer that turns base models into reasoners.</p>
+        <span class="tag">RLHF · reward models · reasoning</span>
+      </div>
+      <div class="card reveal">
+        <div class="icon">🌍</div>
+        <h3>Agentic &amp; World Models</h3>
+        <p>Multi-step planning engines and multimodal agentic data — purpose-built for the
+          world model companies defining the next paradigm of AI.</p>
+        <span class="tag">agents · planning · multimodal</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="founder">
+  <div class="wrap">
+    <p class="kicker reveal">// Founder</p>
+    <h2 class="reveal" style="margin-bottom:56px">Built by the people who build Gemini</h2>
+    <div class="founder">
+      <div class="founder-photo reveal"><span class="initials">IA</span></div>
+      <div class="reveal">
+        <div class="founder-name">[Founder Name]</div>
+        <div class="founder-role">Founder &amp; CEO · Research Scientist, Google DeepMind</div>
+        <div class="founder-bio">
+          <p>
+            As a Research Scientist at <strong>Google DeepMind</strong>, he is a core contributor to the
+            <strong>Gemini</strong> model ecosystem with deep expertise in Large Language Models,
+            particularly excelling in <strong>data strategy</strong> and
+            <strong>Reinforcement Learning (RL) post-training</strong>.
+          </p>
+          <p>
+            He has architected end-to-end, autonomous <strong>data synthesis pipelines</strong> and rigorous
+            quality-assurance frameworks to consistently supply models with high-fidelity training data.
+            In the post-training domain, he has driven critical advancements in
+            <strong>value functions</strong> and <strong>step-level reward mechanisms</strong> to resolve complex
+            credit-assignment challenges in long-horizon reasoning tasks.
+          </p>
+          <p>
+            Beyond these core areas, his work extends to spearheading
+            <strong>multi-step planning engines for multimodal agentic systems</strong>.
+          </p>
+        </div>
+        <div class="founder-highlights">
+          <div class="fh"><b>Gemini Core Contributor</b>Data strategy &amp; RL post-training for the Gemini model family</div>
+          <div class="fh"><b>Data Synthesis at Scale</b>Autonomous pipelines with rigorous QA frameworks</div>
+          <div class="fh"><b>Long-Horizon Reasoning</b>Value functions &amp; step-level rewards for credit assignment</div>
+          <div class="fh"><b>Agentic Systems</b>Multi-step planning engines for multimodal agents</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="team" class="section-alt">
+  <div class="wrap">
+    <p class="kicker reveal">// Team</p>
+    <h2 class="reveal">A team forged at the frontier</h2>
+    <p class="section-sub reveal">
+      Researchers, engineers and operators from the organizations that defined modern AI
+      and modern technology companies.
+    </p>
+    <div class="team-grid">
+      <div class="team-card reveal">
+        <div class="org">DeepMind / Gemini</div>
+        <h3>Frontier Research</h3>
+        <p>Core contributors to the Gemini model ecosystem — LLM data strategy, RL post-training, and reward modeling.</p>
+      </div>
+      <div class="team-card reveal">
+        <div class="org">Microsoft</div>
+        <h3>Enterprise Engineering</h3>
+        <p>Engineers who shipped planet-scale infrastructure and enterprise-grade platforms trusted by billions.</p>
+      </div>
+      <div class="team-card reveal">
+        <div class="org">Airbnb</div>
+        <h3>Product &amp; Growth</h3>
+        <p>Operators who built consumer products that scaled to hundreds of millions of users worldwide.</p>
+      </div>
+      <div class="team-card reveal">
+        <div class="org">Y Combinator</div>
+        <h3>Founders</h3>
+        <p>YC alumni with the pattern-recognition and velocity of Silicon Valley's most iconic accelerator.</p>
+      </div>
+      <div class="team-card reveal">
+        <div class="org">Silicon Valley Bank</div>
+        <h3>Finance &amp; Capital</h3>
+        <p>Financial leaders with deep expertise in venture capital, startup banking and capital strategy.</p>
+      </div>
+      <div class="team-card reveal">
+        <div class="org">Index AI</div>
+        <h3>One Team</h3>
+        <p>Research rigor, engineering excellence and operating discipline — under one roof, pointed at data.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="partners">
+  <div class="wrap">
+    <div class="wm-band reveal">
+      <div>
+        <p class="kicker">// Partners</p>
+        <h2>Powering world model companies</h2>
+        <p>
+          The next paradigm of AI is models that understand and simulate the world.
+          Index AI partners with leading world model companies to supply the data
+          layer this future is built on.
+        </p>
+      </div>
+      <div class="wm-list">
+        <div class="wm-item">High-fidelity multimodal training corpora</div>
+        <div class="wm-item">Synthetic environment &amp; trajectory data</div>
+        <div class="wm-item">Step-level reward &amp; evaluation datasets</div>
+        <div class="wm-item">Long-horizon agentic planning data</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="section-alt contact">
+  <div class="wrap">
+    <p class="kicker reveal">// Contact</p>
+    <h2 class="reveal">Build on solid data.</h2>
+    <p class="reveal">
+      Whether you're training a frontier model, a world model, or an agentic system —
+      the data layer decides how far you go. Let's talk.
+    </p>
+    <div class="reveal">
+      <a class="btn" href="mailto:hello@indexai.world">Get in touch</a>
+      <span class="contact-email">hello@indexai.world · <a href="https://indexai.world">indexai.world</a></span>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap footer-inner">
+    <a class="logo" href="#top"><span class="logo-mark">◈</span> Index AI</a>
+    <span>© 2026 Index AI · The data company behind frontier intelligence</span>
+  </div>
+</footer>
+
+<script>
+  const io = new IntersectionObserver((entries) => {
+    for (const e of entries) if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>
