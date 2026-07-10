@@ -4,167 +4,135 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Index AI — The Data Company Behind Frontier Intelligence</title>
-<meta name="description" content="Index AI is a data company founded by researchers and operators from Google DeepMind (Gemini), Microsoft, Airbnb, Y Combinator and Silicon Valley Bank. We build the data infrastructure that powers frontier and world models.">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>◈</text></svg>">
+<meta name="description" content="Index AI is a data company founded by researchers and operators from Google DeepMind (Gemini), OpenAI, Anthropic, Stanford and TikTok. We build the data infrastructure that powers frontier and world models.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='18' fill='%23191918'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='Georgia'>◈</text></svg>">
 <style>
   :root {
-    --bg: #07090f;
-    --bg-soft: #0d111c;
-    --bg-card: #111726;
-    --border: rgba(255,255,255,0.08);
-    --border-strong: rgba(255,255,255,0.16);
-    --text: #e8ecf4;
-    --text-dim: #9aa4b8;
-    --text-faint: #5f6a80;
-    --accent: #5b8cff;
-    --accent-2: #8f6bff;
-    --accent-glow: rgba(91,140,255,0.35);
-    --mono: "SF Mono", ui-monospace, Menlo, Consolas, monospace;
+    --bg: #ffffff;
+    --bg-soft: #fafaf8;
+    --text: #191918;
+    --text-2: #55544f;
+    --text-3: #94938e;
+    --border: #e9e8e3;
+    --border-strong: #d4d3ce;
+    --sans: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html { scroll-behavior: smooth; }
   body {
     background: var(--bg);
     color: var(--text);
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, sans-serif;
-    line-height: 1.6;
+    font-family: var(--sans);
+    line-height: 1.62;
     -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
   }
   a { color: inherit; text-decoration: none; }
-  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+  ::selection { background: #191918; color: #fff; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 28px; }
 
   /* ---------- Nav ---------- */
   nav {
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    background: rgba(7,9,15,0.72);
+    background: rgba(255,255,255,0.86);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--border);
   }
   .nav-inner {
     display: flex; align-items: center; justify-content: space-between;
-    height: 64px;
+    height: 60px;
   }
   .logo {
-    display: flex; align-items: center; gap: 10px;
-    font-weight: 700; font-size: 18px; letter-spacing: -0.02em;
+    display: flex; align-items: center; gap: 9px;
+    font-weight: 650; font-size: 16.5px; letter-spacing: -0.01em;
   }
   .logo-mark {
-    width: 28px; height: 28px; border-radius: 8px;
-    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    width: 24px; height: 24px; border-radius: 6px;
+    background: var(--text);
     display: grid; place-items: center;
-    font-size: 14px; color: #fff;
-    box-shadow: 0 0 18px var(--accent-glow);
+    font-size: 11px; color: #fff;
   }
-  .nav-links { display: flex; gap: 32px; align-items: center; }
+  .nav-links { display: flex; gap: 30px; align-items: center; }
   .nav-links a {
-    font-size: 14px; color: var(--text-dim);
-    transition: color .2s;
+    font-size: 14px; color: var(--text-2);
+    transition: color .15s;
   }
   .nav-links a:hover { color: var(--text); }
   .btn {
     display: inline-block;
-    padding: 10px 22px; border-radius: 10px;
-    font-size: 14px; font-weight: 600;
-    background: linear-gradient(135deg, var(--accent), var(--accent-2));
-    color: #fff !important;
-    box-shadow: 0 4px 24px var(--accent-glow);
-    transition: transform .2s, box-shadow .2s;
+    padding: 10px 20px; border-radius: 8px;
+    font-size: 14px; font-weight: 550;
+    background: var(--text); color: #fff !important;
+    border: 1px solid var(--text);
+    transition: opacity .15s;
+    cursor: pointer;
   }
-  .btn:hover { transform: translateY(-1px); box-shadow: 0 6px 32px var(--accent-glow); }
+  .btn:hover { opacity: 0.82; }
   .btn-ghost {
     background: transparent;
     border: 1px solid var(--border-strong);
-    box-shadow: none;
     color: var(--text) !important;
   }
-  .btn-ghost:hover { border-color: var(--accent); box-shadow: none; }
+  .btn-ghost:hover { opacity: 1; border-color: var(--text); }
+  .nav-links .btn { padding: 7px 16px; }
 
   /* ---------- Hero ---------- */
   header {
-    position: relative;
-    padding: 180px 0 120px;
+    padding: 168px 0 96px;
     text-align: center;
-    overflow: hidden;
-  }
-  .hero-glow {
-    position: absolute; inset: 0; pointer-events: none;
-    background:
-      radial-gradient(600px 400px at 50% -10%, rgba(91,140,255,0.18), transparent 70%),
-      radial-gradient(500px 350px at 80% 10%, rgba(143,107,255,0.10), transparent 70%);
-  }
-  .grid-bg {
-    position: absolute; inset: 0; pointer-events: none;
-    background-image:
-      linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
-    background-size: 56px 56px;
-    mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, #000 40%, transparent 100%);
-    -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, #000 40%, transparent 100%);
   }
   .badge {
-    display: inline-flex; align-items: center; gap: 8px;
-    padding: 6px 16px; border-radius: 999px;
-    border: 1px solid var(--border-strong);
-    background: rgba(255,255,255,0.03);
-    font-size: 13px; color: var(--text-dim);
-    margin-bottom: 28px;
-    font-family: var(--mono);
-  }
-  .badge .dot {
-    width: 7px; height: 7px; border-radius: 50%;
-    background: #4ade80;
-    box-shadow: 0 0 8px rgba(74,222,128,0.8);
+    display: inline-block;
+    padding: 5px 14px; border-radius: 999px;
+    border: 1px solid var(--border);
+    background: var(--bg-soft);
+    font-size: 12.5px; color: var(--text-3);
+    letter-spacing: 0.02em;
+    margin-bottom: 32px;
   }
   h1 {
-    font-size: clamp(40px, 6.5vw, 72px);
-    line-height: 1.08;
-    letter-spacing: -0.03em;
-    font-weight: 800;
-    margin-bottom: 24px;
-  }
-  h1 .grad {
-    background: linear-gradient(100deg, var(--accent) 0%, var(--accent-2) 60%, #d38bff 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
+    font-size: clamp(38px, 6vw, 66px);
+    line-height: 1.06;
+    letter-spacing: -0.035em;
+    font-weight: 650;
+    margin-bottom: 26px;
+    text-wrap: balance;
   }
   .hero-sub {
-    max-width: 680px; margin: 0 auto 40px;
-    font-size: clamp(16px, 2vw, 19px);
-    color: var(--text-dim);
+    max-width: 620px; margin: 0 auto 40px;
+    font-size: clamp(16px, 1.8vw, 18.5px);
+    color: var(--text-2);
+    text-wrap: balance;
   }
-  .hero-cta { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+  .hero-cta { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
 
-  /* ---------- Pedigree bar ---------- */
+  /* ---------- Pedigree marquee ---------- */
   .pedigree {
-    padding: 40px 0 72px;
+    padding: 28px 0 88px;
     text-align: center;
   }
   .pedigree p {
-    font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase;
-    color: var(--text-faint); margin-bottom: 24px;
-    font-family: var(--mono);
+    font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--text-3); margin-bottom: 26px; font-weight: 550;
   }
   .marquee {
     overflow: hidden;
-    mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
-    -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 15%, #000 85%, transparent);
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 15%, #000 85%, transparent);
   }
   .marquee-track {
     display: flex; width: max-content;
-    animation: marquee 30s linear infinite;
+    animation: marquee 34s linear infinite;
   }
   .marquee-track:hover { animation-play-state: paused; }
   .marquee-group {
-    display: flex; gap: 56px; padding-right: 56px;
+    display: flex; gap: 60px; padding-right: 60px;
     align-items: center;
   }
   .marquee-group span {
-    font-size: 17px; font-weight: 600;
-    color: var(--text-dim); white-space: nowrap;
-    opacity: 0.85;
+    font-size: 16px; font-weight: 550;
+    color: var(--text-3); white-space: nowrap;
   }
   @keyframes marquee { to { transform: translateX(-50%); } }
   @media (prefers-reduced-motion: reduce) {
@@ -175,172 +143,185 @@
   }
 
   /* ---------- Sections ---------- */
-  section { padding: 96px 0; position: relative; }
+  section { padding: 104px 0; }
   .section-alt { background: var(--bg-soft); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
   .kicker {
-    font-family: var(--mono);
-    font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase;
-    color: var(--accent); margin-bottom: 14px;
+    font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--text-3); margin-bottom: 16px; font-weight: 600;
   }
   h2 {
-    font-size: clamp(28px, 4vw, 40px);
-    letter-spacing: -0.02em; font-weight: 750;
-    margin-bottom: 18px;
+    font-size: clamp(27px, 3.6vw, 38px);
+    letter-spacing: -0.025em; font-weight: 650;
+    margin-bottom: 16px;
+    text-wrap: balance;
   }
-  .section-sub { max-width: 640px; color: var(--text-dim); font-size: 17px; margin-bottom: 56px; }
+  .section-sub { max-width: 620px; color: var(--text-2); font-size: 16.5px; margin-bottom: 56px; }
 
   /* ---------- Stats ---------- */
   .stats {
     display: grid; grid-template-columns: repeat(5, 1fr);
-    gap: 1px; background: var(--border);
-    border: 1px solid var(--border); border-radius: 16px;
-    overflow: hidden; margin-top: 8px;
+    border: 1px solid var(--border); border-radius: 12px;
+    overflow: hidden; background: var(--bg);
   }
-  .stat { background: var(--bg-card); padding: 32px 28px; }
+  .stat { padding: 28px 24px; border-left: 1px solid var(--border); }
+  .stat:first-child { border-left: none; }
   .stat b {
-    display: block; font-size: 34px; font-weight: 800;
+    display: block; font-size: 21px; font-weight: 650;
     letter-spacing: -0.02em; margin-bottom: 6px;
-    background: linear-gradient(120deg, var(--text), var(--text-dim));
-    -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
   }
-  .stat span { font-size: 14px; color: var(--text-faint); }
+  .stat span { font-size: 13.5px; color: var(--text-3); line-height: 1.5; display: block; }
 
   /* ---------- Cards ---------- */
-  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px; }
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 20px; }
   .card {
-    background: var(--bg-card);
+    background: var(--bg);
     border: 1px solid var(--border);
-    border-radius: 18px;
-    padding: 32px 28px;
-    transition: border-color .25s, transform .25s, box-shadow .25s;
+    border-radius: 12px;
+    padding: 30px 26px;
+    transition: border-color .2s;
   }
-  .card:hover {
-    border-color: rgba(91,140,255,0.45);
-    transform: translateY(-3px);
-    box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 0 1px rgba(91,140,255,0.15);
-  }
-  .card .icon {
-    width: 44px; height: 44px; border-radius: 12px;
-    display: grid; place-items: center;
-    background: rgba(91,140,255,0.12);
-    border: 1px solid rgba(91,140,255,0.25);
-    font-size: 20px; margin-bottom: 20px;
-  }
-  .card h3 { font-size: 19px; margin-bottom: 10px; letter-spacing: -0.01em; }
-  .card p { font-size: 15px; color: var(--text-dim); }
+  .card:hover { border-color: var(--border-strong); }
+  .card h3 { font-size: 17.5px; margin-bottom: 10px; letter-spacing: -0.015em; font-weight: 640; }
+  .card p { font-size: 14.5px; color: var(--text-2); }
   .card .tag {
-    display: inline-block; margin-top: 18px;
-    font-family: var(--mono); font-size: 11.5px;
-    padding: 4px 10px; border-radius: 6px;
-    background: rgba(255,255,255,0.04);
-    border: 1px solid var(--border);
-    color: var(--text-faint);
+    display: inline-block; margin-top: 20px;
+    font-size: 12px; color: var(--text-3);
+    letter-spacing: 0.02em;
   }
 
   /* ---------- Founders ---------- */
-  .founder-bio { max-width: 780px; }
-  .founder-bio p { color: var(--text-dim); font-size: 16px; margin-bottom: 18px; }
+  .founder-bio { max-width: 720px; }
+  .founder-bio p { color: var(--text-2); font-size: 16px; margin-bottom: 18px; }
   .founder-bio strong { color: var(--text); font-weight: 600; }
   .founder-highlights {
     display: grid; grid-template-columns: 1fr 1fr; gap: 14px;
-    margin-top: 28px; max-width: 780px;
+    margin-top: 36px; max-width: 720px;
   }
   .fh {
-    background: var(--bg-card); border: 1px solid var(--border);
-    border-radius: 12px; padding: 16px 18px;
-    font-size: 14px; color: var(--text-dim);
+    border: 1px solid var(--border); background: var(--bg);
+    border-radius: 10px; padding: 18px 20px;
+    font-size: 13.5px; color: var(--text-2);
   }
-  .fh b { display: block; color: var(--text); font-size: 14.5px; margin-bottom: 4px; }
+  .fh b { display: block; color: var(--text); font-size: 14.5px; margin-bottom: 4px; font-weight: 600; }
 
-  /* ---------- Team pedigree grid ---------- */
-  .team-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  /* ---------- Team ---------- */
+  .team-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
   .team-card {
-    background: var(--bg-card); border: 1px solid var(--border);
-    border-radius: 18px; padding: 28px;
+    background: var(--bg); border: 1px solid var(--border);
+    border-radius: 12px; padding: 26px;
   }
   .team-card .org {
-    font-family: var(--mono); font-size: 12px; letter-spacing: 0.1em;
-    text-transform: uppercase; color: var(--accent); margin-bottom: 10px;
+    font-size: 11.5px; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--text-3); margin-bottom: 10px; font-weight: 600;
   }
-  .team-card h3 { font-size: 18px; margin-bottom: 8px; }
-  .team-card p { font-size: 14.5px; color: var(--text-dim); }
+  .team-card h3 { font-size: 16.5px; margin-bottom: 8px; font-weight: 640; letter-spacing: -0.01em; }
+  .team-card p { font-size: 14px; color: var(--text-2); }
 
-  /* ---------- World model band ---------- */
+  /* ---------- Partners ---------- */
   .wm-band {
-    border: 1px solid var(--border-strong);
-    border-radius: 24px;
-    padding: 64px 56px;
-    background:
-      radial-gradient(500px 300px at 10% 0%, rgba(91,140,255,0.14), transparent 70%),
-      radial-gradient(500px 300px at 95% 100%, rgba(143,107,255,0.12), transparent 70%),
-      var(--bg-card);
-    display: grid; grid-template-columns: 1.2fr 1fr; gap: 48px; align-items: center;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 56px 52px;
+    background: var(--bg-soft);
+    display: grid; grid-template-columns: 1.15fr 1fr; gap: 48px; align-items: start;
   }
   .wm-band h2 { margin-bottom: 14px; }
-  .wm-band p { color: var(--text-dim); font-size: 16px; }
-  .wm-list { display: grid; gap: 12px; }
+  .wm-band > div > p { color: var(--text-2); font-size: 15.5px; }
+  .wm-list { display: grid; gap: 10px; }
   .wm-item {
     display: flex; gap: 12px; align-items: baseline;
-    padding: 14px 18px; border-radius: 12px;
-    background: rgba(255,255,255,0.03);
+    padding: 13px 18px; border-radius: 9px;
+    background: var(--bg);
     border: 1px solid var(--border);
-    font-size: 14.5px; color: var(--text-dim);
+    font-size: 14px; color: var(--text-2);
   }
-  .wm-item::before { content: "◈"; color: var(--accent); font-size: 12px; }
-  .partner-chips { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 26px; }
+  .wm-item::before { content: "—"; color: var(--text-3); }
+  .partner-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 26px; }
   .chip {
-    padding: 8px 16px; border-radius: 999px;
+    padding: 7px 15px; border-radius: 999px;
     border: 1px solid var(--border-strong);
-    background: rgba(255,255,255,0.04);
-    font-family: var(--mono); font-size: 13px;
-    color: var(--text-dim); white-space: nowrap;
+    background: var(--bg);
+    font-size: 13px; font-weight: 500;
+    color: var(--text-2); white-space: nowrap;
   }
-  .chip-hl { border-color: rgba(91,140,255,0.5); color: var(--text); }
-  .domains { margin-top: 40px; text-align: center; }
+  .chip-hl { border-color: var(--text); color: var(--text); }
+  .domains { margin-top: 36px; text-align: center; }
   .domains p {
-    font-family: var(--mono); font-size: 12px; letter-spacing: 0.18em;
-    text-transform: uppercase; color: var(--text-faint); margin-bottom: 20px;
+    font-size: 11.5px; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--text-3); margin-bottom: 18px; font-weight: 600;
   }
   .domains .partner-chips { justify-content: center; margin-top: 0; }
 
-  /* ---------- Contact ---------- */
-  .contact { text-align: center; }
-  .contact h2 { margin-bottom: 14px; }
-  .contact p { color: var(--text-dim); max-width: 520px; margin: 0 auto 36px; }
-  .contact-email {
-    font-family: var(--mono); font-size: 15px; color: var(--text-dim);
-    margin-top: 24px; display: block;
+  /* ---------- Contact & form ---------- */
+  .contact-grid {
+    display: grid; grid-template-columns: 1fr 1.2fr; gap: 64px;
+    align-items: start;
   }
-  .contact-email a { color: var(--accent); }
+  .contact-info p { color: var(--text-2); font-size: 16px; margin-bottom: 28px; max-width: 380px; }
+  .contact-email { font-size: 14.5px; color: var(--text-2); }
+  .contact-email a { color: var(--text); font-weight: 550; border-bottom: 1px solid var(--border-strong); }
+  .contact-email a:hover { border-color: var(--text); }
+  .inquiry {
+    border: 1px solid var(--border); border-radius: 14px;
+    background: var(--bg); padding: 36px;
+  }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .field { margin-bottom: 18px; }
+  .field label {
+    display: block; font-size: 13px; font-weight: 550;
+    color: var(--text-2); margin-bottom: 7px;
+  }
+  .field input, .field textarea {
+    width: 100%;
+    padding: 11px 14px;
+    border: 1px solid var(--border-strong);
+    border-radius: 8px;
+    font-family: var(--sans); font-size: 14.5px; color: var(--text);
+    background: var(--bg);
+    transition: border-color .15s, box-shadow .15s;
+  }
+  .field input:focus, .field textarea:focus {
+    outline: none; border-color: var(--text);
+    box-shadow: 0 0 0 3px rgba(25,25,24,0.08);
+  }
+  .field textarea { resize: vertical; min-height: 110px; }
+  .field input::placeholder, .field textarea::placeholder { color: var(--text-3); }
+  .form-note { font-size: 12.5px; color: var(--text-3); margin-top: 14px; }
 
   /* ---------- Footer ---------- */
-  footer {
-    border-top: 1px solid var(--border);
-    padding: 40px 0;
-  }
+  footer { border-top: 1px solid var(--border); padding: 36px 0; }
   .footer-inner {
     display: flex; justify-content: space-between; align-items: center;
-    flex-wrap: wrap; gap: 16px;
-    font-size: 13.5px; color: var(--text-faint);
+    flex-wrap: wrap; gap: 14px;
+    font-size: 13px; color: var(--text-3);
   }
-  .footer-inner .logo { font-size: 15px; }
-  .footer-inner .logo-mark { width: 22px; height: 22px; font-size: 11px; border-radius: 6px; }
+  .footer-inner .logo { font-size: 14.5px; }
+  .footer-inner .logo-mark { width: 20px; height: 20px; font-size: 9px; border-radius: 5px; }
 
-  /* ---------- Reveal animation ---------- */
-  .reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .7s ease; }
+  /* ---------- Reveal ---------- */
+  .reveal { opacity: 0; transform: translateY(14px); transition: opacity .55s ease, transform .55s ease; }
   .reveal.in { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } }
 
   /* ---------- Responsive ---------- */
   @media (max-width: 900px) {
-    .cards, .team-grid { grid-template-columns: 1fr 1fr; }
+    .team-grid { grid-template-columns: 1fr 1fr; }
     .stats { grid-template-columns: 1fr 1fr; }
-    .wm-band { grid-template-columns: 1fr; padding: 44px 32px; }
+    .stat { border-left: none; border-top: 1px solid var(--border); }
+    .stat:nth-child(-n+2) { border-top: none; }
+    .stat:nth-child(even) { border-left: 1px solid var(--border); }
+    .wm-band { grid-template-columns: 1fr; padding: 40px 30px; }
+    .contact-grid { grid-template-columns: 1fr; gap: 40px; }
     .nav-links a:not(.btn) { display: none; }
   }
   @media (max-width: 560px) {
-    .cards, .team-grid, .stats, .founder-highlights { grid-template-columns: 1fr; }
-    header { padding: 140px 0 80px; }
-    section { padding: 64px 0; }
+    .team-grid, .founder-highlights, .form-row { grid-template-columns: 1fr; }
+    .stats { grid-template-columns: 1fr; }
+    .stat { border-left: none !important; border-top: 1px solid var(--border); }
+    .stat:first-child { border-top: none; }
+    header { padding: 130px 0 72px; }
+    section { padding: 72px 0; }
+    .inquiry { padding: 26px 22px; }
   }
 </style>
 </head>
@@ -355,24 +336,22 @@
     <div class="nav-links">
       <a href="#about">About</a>
       <a href="#platform">Platform</a>
-      <a href="#founder">Founder</a>
+      <a href="#founder">Founders</a>
       <a href="#team">Team</a>
       <a href="#partners">Partners</a>
-      <a class="btn btn-ghost" href="#contact">Contact</a>
+      <a class="btn" href="#contact">Contact</a>
     </div>
   </div>
 </nav>
 
 <header id="top">
-  <div class="grid-bg"></div>
-  <div class="hero-glow"></div>
-  <div class="wrap" style="position:relative">
-    <div class="badge"><span class="dot"></span>indexai.world — Silicon Valley, CA</div>
-    <h1>The data company behind<br><span class="grad">frontier intelligence</span></h1>
+  <div class="wrap">
+    <div class="badge">indexai.world · Silicon Valley, CA</div>
+    <h1>The data company behind<br>frontier intelligence</h1>
     <p class="hero-sub">
       Index AI builds the data infrastructure that trains the world's most capable models —
       autonomous synthesis pipelines, rigorous quality frameworks, and RL post-training data
-      engineered by the people who built Gemini.
+      engineered by the people who build Gemini.
     </p>
     <div class="hero-cta">
       <a class="btn" href="#contact">Work with us</a>
@@ -417,7 +396,7 @@
 
 <section id="about">
   <div class="wrap">
-    <p class="kicker reveal">// About</p>
+    <p class="kicker reveal">About</p>
     <h2 class="reveal">A very solid company,<br>built on data.</h2>
     <p class="section-sub reveal">
       Frontier models are only as good as the data behind them. Index AI is a data company
@@ -436,7 +415,7 @@
 
 <section id="platform" class="section-alt">
   <div class="wrap">
-    <p class="kicker reveal">// Business Units</p>
+    <p class="kicker reveal">Business Units</p>
     <h2 class="reveal">What we build</h2>
     <p class="section-sub reveal">
       Four business units, one mission: supply frontier models, world models and
@@ -444,32 +423,28 @@
     </p>
     <div class="cards">
       <div class="card reveal">
-        <div class="icon">🧬</div>
         <h3>Data Synthesis &amp; QA</h3>
         <p>End-to-end, autonomous data synthesis pipelines with rigorous quality-assurance
           frameworks — consistently supplying models with high-fidelity training data at scale.</p>
-        <span class="tag">synthesis · verification · scale</span>
+        <span class="tag">Synthesis · Verification · Scale</span>
       </div>
       <div class="card reveal">
-        <div class="icon">🎯</div>
         <h3>RL Post-Training</h3>
         <p>Value functions, step-level reward mechanisms and credit-assignment solutions
           for long-horizon reasoning — the post-training layer that turns base models into reasoners.</p>
-        <span class="tag">RLHF · reward models · reasoning</span>
+        <span class="tag">RLHF · Reward Models · Reasoning</span>
       </div>
       <div class="card reveal">
-        <div class="icon">🌍</div>
         <h3>Agentic &amp; World Models</h3>
         <p>Multi-step planning engines and multimodal agentic data — purpose-built for the
           world model companies defining the next paradigm of AI.</p>
-        <span class="tag">agents · planning · multimodal</span>
+        <span class="tag">Agents · Planning · Multimodal</span>
       </div>
       <div class="card reveal">
-        <div class="icon">🔬</div>
         <h3>AI for Science</h3>
         <p>High-fidelity data for scientific foundation models — research corpora, simulation
           and experimental datasets that power AI-driven discovery across the sciences.</p>
-        <span class="tag">science · simulation · discovery</span>
+        <span class="tag">Science · Simulation · Discovery</span>
       </div>
     </div>
   </div>
@@ -477,7 +452,7 @@
 
 <section id="founder">
   <div class="wrap">
-    <p class="kicker reveal">// Founders</p>
+    <p class="kicker reveal">Founders</p>
     <h2 class="reveal">Built by the people who build frontier models</h2>
     <p class="section-sub reveal">
       Our founding team comes from the labs and companies defining this era of AI —
@@ -514,7 +489,7 @@
 
 <section id="team" class="section-alt">
   <div class="wrap">
-    <p class="kicker reveal">// Team</p>
+    <p class="kicker reveal">Team</p>
     <h2 class="reveal">A team forged at the frontier</h2>
     <p class="section-sub reveal">
       Researchers, engineers and operators from the organizations that defined modern AI
@@ -569,7 +544,7 @@
   <div class="wrap">
     <div class="wm-band reveal">
       <div>
-        <p class="kicker">// Partners</p>
+        <p class="kicker">Partners</p>
         <h2>Powering frontier &amp; world model companies</h2>
         <p>
           The next paradigm of AI is models that understand and simulate the world.
@@ -608,17 +583,43 @@
   </div>
 </section>
 
-<section id="contact" class="section-alt contact">
+<section id="contact" class="section-alt">
   <div class="wrap">
-    <p class="kicker reveal">// Contact</p>
-    <h2 class="reveal">Build on solid data.</h2>
-    <p class="reveal">
-      Whether you're training a frontier model, a world model, or an agentic system —
-      the data layer decides how far you go. Let's talk.
-    </p>
-    <div class="reveal">
-      <a class="btn" href="mailto:celine@indexai.world">Get in touch</a>
-      <span class="contact-email">celine@indexai.world · <a href="https://indexai.world">indexai.world</a></span>
+    <div class="contact-grid">
+      <div class="contact-info reveal">
+        <p class="kicker">Contact</p>
+        <h2>Build on solid data.</h2>
+        <p>
+          Whether you're training a frontier model, a world model, or an agentic system —
+          the data layer decides how far you go. Tell us what you're building.
+        </p>
+        <div class="contact-email">
+          celine@indexai.world<br>
+          <a href="https://indexai.world">indexai.world</a>
+        </div>
+      </div>
+      <form class="inquiry reveal" id="inquiry">
+        <div class="form-row">
+          <div class="field">
+            <label for="f-name">Name</label>
+            <input id="f-name" name="name" type="text" placeholder="Your name" required>
+          </div>
+          <div class="field">
+            <label for="f-email">Email</label>
+            <input id="f-email" name="email" type="email" placeholder="you@company.com" required>
+          </div>
+        </div>
+        <div class="field">
+          <label for="f-company">Company</label>
+          <input id="f-company" name="company" type="text" placeholder="Company or lab (optional)">
+        </div>
+        <div class="field">
+          <label for="f-message">Message</label>
+          <textarea id="f-message" name="message" placeholder="What are you building, and what data do you need?" required></textarea>
+        </div>
+        <button class="btn" type="submit">Send inquiry</button>
+        <p class="form-note">Submitting opens your email client with the message addressed to celine@indexai.world.</p>
+      </form>
     </div>
   </div>
 </section>
@@ -633,8 +634,17 @@
 <script>
   const io = new IntersectionObserver((entries) => {
     for (const e of entries) if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
-  }, { threshold: 0.12 });
+  }, { threshold: 0.1 });
   document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  document.getElementById('inquiry').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const f = new FormData(e.target);
+    const company = (f.get('company') || '').toString().trim();
+    const subject = `Inquiry — ${f.get('name')}${company ? ' · ' + company : ''}`;
+    const body = `Name: ${f.get('name')}\nEmail: ${f.get('email')}\nCompany: ${company || '-'}\n\n${f.get('message')}`;
+    window.location.href = `mailto:celine@indexai.world?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  });
 </script>
 
 </body>
