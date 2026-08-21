@@ -1320,11 +1320,14 @@ function go(p, quiet) {
   document.querySelectorAll('.pane').forEach(el => el.classList.toggle('on', el.id === 'pane-' + p));
   /* the tour drives its own scrolling to the highlighted element */
   if (quiet) return;
-  /* Only pull the console into view when its top is actually off screen. Scrolling on
-     every sidebar click re-centres the page under the reader, which reads as a glitch. */
+  /* Reading the console means scrolling into it, so its top edge is normally above the
+     viewport. Scrolling on that basis snapped the page back on every sidebar click.
+     Only reposition when the console is not meaningfully on screen at all — e.g. after
+     switching from a long pane to a short one leaves you below it. */
   const c = document.getElementById('console');
-  const top = c.getBoundingClientRect().top;
-  if (top < 0 || top > innerHeight - 140) c.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  const r = c.getBoundingClientRect();
+  const onScreen = r.bottom > 80 && r.top < innerHeight - 80;
+  if (!onScreen) c.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 document.querySelectorAll('.cnav button').forEach(b => b.onclick = () => go(b.dataset.pane));
 
