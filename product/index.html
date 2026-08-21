@@ -254,7 +254,9 @@
   .verdict .vt span { font-size: 12px; color: var(--text-2); }
 
   /* ---- comparison report (LLM / embodied) ---- */
-  .modelbar { display: grid; gap: 8px; margin-bottom: 10px; }
+  /* The column cells live inside .dblock/.rblock (14px padding + 1px border), so the
+     header bar needs the same 15px inset or the names sit off their own columns. */
+  .modelbar { display: grid; gap: 8px; margin-bottom: 10px; padding: 0 15px; }
   .mh { text-align: center; font-family: var(--mono); font-size: 11.5px; font-weight: 700; color: var(--accent); background: var(--accent-bg); border: 1px solid var(--accent-bd); padding: 4px; border-radius: 6px; }
   .ovcell { display: inline-block; min-width: 34px; color: #fff; font-weight: 750; border-radius: 6px; padding: 2px 9px; font-size: 13px; font-variant-numeric: tabular-nums; }
   .g4 { display: grid; gap: 8px; }
