@@ -1,0 +1,1500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agentic OS — Index AI</title>
+<meta name="description" content="Agentic OS by Index AI: one Judge Agent Kernel. Experts upload their judgment as reusable skills; the kernel verifies 100% of your data — LLM and embodied — and returns traceable, auditable quality reports.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='18' fill='%23191918'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='Georgia'>◈</text></svg>">
+<style>
+  :root {
+    --bg: #ffffff;
+    --bg-soft: #fafaf8;
+    --text: #191918;
+    --text-2: #55544f;
+    --text-3: #94938e;
+    --border: #e9e8e3;
+    --border-strong: #d4d3ce;
+    --sans: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+
+    --pos: #0f7b4f; --pos-bg: #e9f6ef; --pos-bd: #bfe3d1;
+    --neu: #6d6c66; --neu-bg: #f3f3f0; --neu-bd: #e2e1dc;
+    --neg: #c0392b; --neg-bg: #fdeceb; --neg-bd: #f4cdc9;
+    --warn: #a86a12; --warn-bg: #fdf4e5; --warn-bd: #f0dcb8;
+    --accent: #1d4ed8; --accent-bg: #eef2ff; --accent-bd: #c9d6fb;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg); color: var(--text);
+    font-family: var(--sans); line-height: 1.62;
+    -webkit-font-smoothing: antialiased; overflow-x: hidden;
+  }
+  a { color: inherit; text-decoration: none; }
+  ::selection { background: #191918; color: #fff; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 28px; }
+  .wrap-wide { max-width: 1320px; margin: 0 auto; padding: 0 28px; }
+
+  /* ---------- Nav ---------- */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+    background: rgba(255,255,255,0.86);
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 60px; }
+  .logo { display: flex; align-items: center; gap: 9px; font-weight: 650; font-size: 16.5px; letter-spacing: -0.01em; }
+  .logo-mark { width: 24px; height: 24px; border-radius: 6px; background: var(--text); display: grid; place-items: center; font-size: 11px; color: #fff; }
+  .nav-links { display: flex; gap: 30px; align-items: center; }
+  .nav-links a { font-size: 14px; color: var(--text-2); transition: color .15s; }
+  .nav-links a:hover { color: var(--text); }
+  .nav-links a.active { color: var(--text); font-weight: 560; }
+  .btn {
+    display: inline-block; padding: 10px 20px; border-radius: 8px;
+    font-size: 14px; font-weight: 550;
+    background: var(--text); color: #fff !important;
+    border: 1px solid var(--text); transition: opacity .15s; cursor: pointer;
+    font-family: var(--sans);
+  }
+  .btn:hover { opacity: 0.82; }
+  .btn-ghost { background: transparent; border: 1px solid var(--border-strong); color: var(--text) !important; }
+  .btn-ghost:hover { opacity: 1; border-color: var(--text); }
+  .nav-links .btn { padding: 7px 16px; }
+
+  /* ---------- Hero ---------- */
+  header { padding: 152px 0 72px; text-align: center; }
+  .badge {
+    display: inline-block; padding: 5px 14px; border-radius: 999px;
+    border: 1px solid var(--border); background: var(--bg-soft);
+    font-size: 12.5px; color: var(--text-3); letter-spacing: 0.02em; margin-bottom: 30px;
+  }
+  h1 {
+    font-size: clamp(36px, 5.6vw, 62px); line-height: 1.06;
+    letter-spacing: -0.035em; font-weight: 650; margin-bottom: 24px; text-wrap: balance;
+  }
+  .hero-sub { max-width: 660px; margin: 0 auto 36px; font-size: clamp(16px, 1.8vw, 18.5px); color: var(--text-2); text-wrap: balance; }
+  .hero-cta { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+  /* ---------- Sections ---------- */
+  section { padding: 92px 0; }
+  .section-alt { background: var(--bg-soft); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .kicker { font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-3); margin-bottom: 16px; font-weight: 600; }
+  h2 { font-size: clamp(26px, 3.4vw, 37px); letter-spacing: -0.025em; font-weight: 650; margin-bottom: 16px; text-wrap: balance; }
+  .section-sub { max-width: 640px; color: var(--text-2); font-size: 16.5px; margin-bottom: 52px; }
+  .center-head { text-align: center; }
+  .center-head .section-sub { margin-left: auto; margin-right: auto; }
+
+  /* ---------- Stat strip ---------- */
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; background: var(--bg); max-width: 900px; margin: 0 auto; }
+  .stat { padding: 26px 22px; border-left: 1px solid var(--border); text-align: left; }
+  .stat:first-child { border-left: none; }
+  .stat b { display: block; font-size: 26px; font-weight: 650; letter-spacing: -0.03em; margin-bottom: 4px; }
+  .stat span { font-size: 13px; color: var(--text-3); line-height: 1.5; display: block; }
+
+  /* ---------- Problem cards ---------- */
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
+  .card { background: var(--bg); border: 1px solid var(--border); border-radius: 12px; padding: 28px 26px; transition: border-color .2s; }
+  .card:hover { border-color: var(--border-strong); }
+  .card .num { font-family: var(--mono); font-size: 12px; color: var(--text-3); letter-spacing: .06em; }
+  .card h3 { font-size: 17px; margin: 10px 0 10px; letter-spacing: -0.015em; font-weight: 640; }
+  .card p { font-size: 14.5px; color: var(--text-2); }
+
+  /* ---------- Coverage viz ---------- */
+  .cov-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; margin-top: 8px; }
+  .cov { border: 1px solid var(--border); border-radius: 14px; padding: 24px; background: var(--bg); }
+  .cov h4 { font-size: 14.5px; font-weight: 620; margin-bottom: 3px; }
+  .cov .cs { font-size: 12.5px; color: var(--text-3); margin-bottom: 16px; display: block; }
+  .dots { display: grid; grid-template-columns: repeat(40, 1fr); gap: 3px; }
+  .dot { aspect-ratio: 1; border-radius: 1.5px; background: #eceae5; transition: background .5s ease; }
+  .dot.on { background: #191918; }
+  .dot.on-a { background: var(--pos); }
+  .cov-foot { margin-top: 16px; font-size: 12.5px; color: var(--text-2); font-family: var(--mono); }
+
+  /* ---------- Architecture SVG ---------- */
+  .arch { border: 1px solid var(--border); border-radius: 16px; background: var(--bg); padding: 32px 20px; overflow-x: auto; }
+  .arch svg { display: block; margin: 0 auto; min-width: 640px; }
+
+  /* ================= CONSOLE ================= */
+  .console-shell { max-width: 1320px; margin: 0 auto; padding: 0 20px; }
+  .console {
+    border: 1px solid var(--border-strong); border-radius: 14px; overflow: hidden;
+    background: var(--bg); box-shadow: 0 24px 60px -30px rgba(25,25,24,.35), 0 2px 6px rgba(25,25,24,.05);
+  }
+  .cbar { display: flex; align-items: center; gap: 12px; padding: 0 16px; height: 42px; background: #191918; color: #efeee9; }
+  .cdots { display: flex; gap: 6px; }
+  .cdots i { width: 10px; height: 10px; border-radius: 50%; background: #4a4945; display: block; }
+  .cbar .ct { font-family: var(--mono); font-size: 12px; color: #b7b5ae; }
+  .cbar .cenv { margin-left: auto; font-family: var(--mono); font-size: 11px; color: #8f8d86; border: 1px solid #3a3936; border-radius: 5px; padding: 2px 8px; }
+  .clive { display: inline-flex; align-items: center; gap: 6px; font-family: var(--mono); font-size: 11px; color: #6fd39b; }
+  .clive i { width: 6px; height: 6px; border-radius: 50%; background: #38b26b; display: block; animation: pulse 1.8s infinite; }
+  @keyframes pulse { 0%,100% { opacity: 1 } 50% { opacity: .25 } }
+
+  .cbody { display: grid; grid-template-columns: 216px 1fr; min-height: 640px; }
+  .cnav { border-right: 1px solid var(--border); background: var(--bg-soft); padding: 14px 10px; }
+  .cnav .grp { font-size: 10.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--text-3); font-weight: 650; padding: 12px 10px 6px; }
+  .cnav button {
+    display: flex; align-items: center; gap: 9px; width: 100%; text-align: left;
+    background: none; border: 0; border-radius: 7px; cursor: pointer;
+    padding: 8px 10px; font-family: var(--sans); font-size: 13.5px; color: var(--text-2);
+  }
+  .cnav button:hover { background: #efeee9; color: var(--text); }
+  .cnav button.on { background: #191918; color: #fff; font-weight: 550; }
+  .cnav button .ic { width: 15px; text-align: center; font-size: 12px; opacity: .85; }
+  .cnav .cnt { margin-left: auto; font-family: var(--mono); font-size: 10.5px; opacity: .6; }
+
+  .cmain { padding: 22px 24px 30px; min-width: 0; }
+  .pane { display: none; }
+  .pane.on { display: block; animation: fade .25s ease; }
+  @keyframes fade { from { opacity: 0; transform: translateY(5px) } to { opacity: 1; transform: none } }
+
+  .ph { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 18px; }
+  .ph h3 { font-size: 19px; font-weight: 650; letter-spacing: -.02em; }
+  .ph p { font-size: 13.5px; color: var(--text-3); margin-top: 2px; max-width: 620px; }
+  .ph-act { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+  /* .box clips to keep its rounded corners, so wide tables need their own scroller */
+  .scrollx { overflow-x: auto; }
+  .mini {
+    font-family: var(--sans); font-size: 12.5px; padding: 6px 12px; border-radius: 7px;
+    border: 1px solid var(--border-strong); background: var(--bg); color: var(--text-2); cursor: pointer;
+  }
+  .mini:hover { border-color: var(--text); color: var(--text); }
+  .mini.solid { background: #191918; color: #fff; border-color: #191918; }
+  .mini.solid:hover { opacity: .85; }
+
+  /* KPI tiles */
+  .kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 20px; }
+  .kpi { border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; background: var(--bg); }
+  .kpi .kl { font-size: 11.5px; color: var(--text-3); letter-spacing: .04em; text-transform: uppercase; font-weight: 600; }
+  .kpi .kv { font-size: 25px; font-weight: 650; letter-spacing: -.03em; margin: 4px 0 1px; font-variant-numeric: tabular-nums; }
+  .kpi .kd { font-size: 11.5px; font-family: var(--mono); }
+  .kd.up { color: var(--pos); } .kd.down { color: var(--neg); } .kd.flat { color: var(--text-3); }
+
+  .two { display: grid; grid-template-columns: 1.35fr 1fr; gap: 16px; }
+  .box { border: 1px solid var(--border); border-radius: 10px; background: var(--bg); overflow: hidden; }
+  .box-h { padding: 11px 15px; border-bottom: 1px solid var(--border); background: var(--bg-soft); display: flex; align-items: center; justify-content: space-between; }
+  .box-h b { font-size: 13px; font-weight: 620; }
+  .box-h span { font-size: 11.5px; color: var(--text-3); font-family: var(--mono); }
+  .box-c { padding: 14px 15px; }
+
+  /* stream */
+  .stream { font-family: var(--mono); font-size: 11.5px; max-height: 268px; overflow: hidden; }
+  .srow { display: grid; grid-template-columns: 62px 1fr 86px 54px; gap: 8px; padding: 6px 0; border-bottom: 1px dashed #eeece7; align-items: center; animation: slidein .35s ease; }
+  @keyframes slidein { from { opacity: 0; transform: translateY(-6px) } to { opacity: 1; transform: none } }
+  .srow .t { color: var(--text-3); }
+  .srow .id { color: var(--text-2); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .srow .sk { color: var(--accent); }
+  .srow .vd { text-align: right; font-weight: 700; }
+  .vd.pass { color: var(--pos); } .vd.flag { color: var(--neg); } .vd.warn { color: var(--warn); }
+
+  /* generic table */
+  table.t { border-collapse: collapse; width: 100%; font-size: 12.5px; }
+  table.t th, table.t td { padding: 9px 10px; border-bottom: 1px solid #f0efeb; text-align: left; }
+  table.t th { font-size: 11px; text-transform: uppercase; letter-spacing: .05em; color: var(--text-3); font-weight: 650; background: var(--bg-soft); white-space: nowrap; }
+  table.t td.num, table.t th.num { text-align: right; font-family: var(--mono); font-variant-numeric: tabular-nums; }
+  table.t tbody tr:hover { background: #fbfaf7; }
+  .sname { font-weight: 600; color: var(--text); }
+  .ssub { color: var(--text-3); font-size: 11.5px; }
+
+  .pill { display: inline-block; font-size: 11px; font-weight: 640; padding: 2px 9px; border-radius: 999px; border: 1px solid transparent; white-space: nowrap; }
+  .pill.live { background: var(--pos-bg); color: var(--pos); border-color: var(--pos-bd); }
+  .pill.cal { background: var(--accent-bg); color: var(--accent); border-color: var(--accent-bd); }
+  .pill.upd { background: var(--warn-bg); color: var(--warn); border-color: var(--warn-bd); }
+  .pill.neu { background: var(--neu-bg); color: var(--neu); border-color: var(--neu-bd); }
+
+  .bar { height: 5px; border-radius: 3px; background: #eeece7; overflow: hidden; min-width: 60px; }
+  .bar i { display: block; height: 100%; background: var(--pos); border-radius: 3px; transition: width .8s ease; }
+  .bar.mid i { background: var(--warn); } .bar.low i { background: var(--neg); }
+  .barwrap { display: flex; align-items: center; gap: 8px; }
+  .barwrap span { font-family: var(--mono); font-size: 11.5px; min-width: 42px; text-align: right; }
+
+  /* skill chip / traceability */
+  .trace {
+    font-family: var(--mono); font-size: 10.5px; padding: 1px 7px; border-radius: 5px;
+    background: var(--accent-bg); color: var(--accent); border: 1px solid var(--accent-bd);
+    cursor: pointer; white-space: nowrap;
+  }
+  .trace:hover { background: #dfe7fd; }
+  #skillpop {
+    position: fixed; right: 22px; bottom: 22px; width: 320px; z-index: 300;
+    background: var(--bg); border: 1px solid var(--border-strong); border-radius: 12px;
+    box-shadow: 0 18px 50px -18px rgba(25,25,24,.4); padding: 16px 18px; display: none;
+  }
+  #skillpop.on { display: block; animation: fade .2s ease; }
+  #skillpop .x { position: absolute; top: 10px; right: 12px; cursor: pointer; color: var(--text-3); font-size: 15px; background: none; border: 0; }
+  #skillpop .sp-k { font-family: var(--mono); font-size: 10.5px; color: var(--accent); letter-spacing: .05em; }
+  #skillpop h5 { font-size: 14.5px; font-weight: 640; margin: 4px 0 2px; }
+  #skillpop .sp-e { font-size: 12px; color: var(--text-3); margin-bottom: 12px; }
+  #skillpop dl { display: grid; grid-template-columns: auto 1fr; gap: 5px 12px; font-size: 12px; }
+  #skillpop dt { color: var(--text-3); }
+  #skillpop dd { text-align: right; font-family: var(--mono); font-variant-numeric: tabular-nums; }
+  #skillpop .sp-f { margin-top: 12px; padding-top: 11px; border-top: 1px solid var(--border); font-size: 11.5px; color: var(--text-2); }
+
+  /* calibration */
+  .calib { border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+  .calib-h { padding: 14px 16px; background: var(--bg-soft); border-bottom: 1px solid var(--border); }
+  .steps { display: flex; gap: 0; padding: 16px; flex-wrap: wrap; }
+  .step { flex: 1; min-width: 120px; position: relative; padding-right: 14px; }
+  .step .sc { width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid var(--border-strong); display: grid; place-items: center; font-size: 10.5px; font-family: var(--mono); color: var(--text-3); background: var(--bg); margin-bottom: 8px; }
+  .step.done .sc { background: var(--pos); border-color: var(--pos); color: #fff; }
+  .step.act .sc { background: #191918; border-color: #191918; color: #fff; }
+  .step .st { font-size: 12.5px; font-weight: 600; color: var(--text-3); }
+  .step.done .st, .step.act .st { color: var(--text); }
+  .step .sd { font-size: 11.5px; color: var(--text-3); }
+  .calib-body { padding: 0 16px 18px; }
+  .prog { height: 6px; background: #eeece7; border-radius: 3px; overflow: hidden; margin-bottom: 8px; }
+  .prog i { display: block; height: 100%; width: 0; background: #191918; transition: width .3s linear; }
+  .plog { font-family: var(--mono); font-size: 11.5px; color: var(--text-2); min-height: 20px; }
+  .calres { display: none; margin-top: 16px; }
+  .calres.on { display: block; animation: fade .3s ease; }
+  .verdict { display: flex; align-items: center; gap: 14px; padding: 14px 16px; border-radius: 9px; background: var(--pos-bg); border: 1px solid var(--pos-bd); margin-bottom: 14px; }
+  .verdict .vv { font-size: 27px; font-weight: 700; color: var(--pos); letter-spacing: -.03em; font-variant-numeric: tabular-nums; }
+  .verdict .vt b { font-size: 13.5px; display: block; }
+  .verdict .vt span { font-size: 12px; color: var(--text-2); }
+
+  /* ---- comparison report (LLM / embodied) ---- */
+  .modelbar { display: grid; gap: 8px; margin-bottom: 10px; }
+  .mh { text-align: center; font-family: var(--mono); font-size: 11.5px; font-weight: 700; color: var(--accent); background: var(--accent-bg); border: 1px solid var(--accent-bd); padding: 4px; border-radius: 6px; }
+  .ovcell { display: inline-block; min-width: 34px; color: #fff; font-weight: 750; border-radius: 6px; padding: 2px 9px; font-size: 13px; font-variant-numeric: tabular-nums; }
+  .g4 { display: grid; gap: 8px; }
+
+  .rblock { border: 1px solid var(--border); border-radius: 10px; margin-bottom: 12px; overflow: hidden; }
+  .rbtop { padding: 10px 14px; background: var(--bg-soft); border-bottom: 1px solid var(--border); }
+  .rbtitle { font-size: 13px; font-weight: 650; }
+  .rbtag { font-family: var(--mono); font-size: 10.5px; color: var(--text-3); margin-left: 8px; }
+  details.pp summary { cursor: pointer; font-size: 11.5px; color: var(--accent); list-style: none; margin-top: 5px; }
+  details.pp summary::-webkit-details-marker { display: none; }
+  details.pp summary::before { content: "▸ "; }
+  details.pp[open] summary::before { content: "▾ "; }
+  details.pp .ptext { display: block; margin-top: 8px; padding: 11px 13px; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; font-size: 12px; color: var(--text-2); white-space: pre-wrap; font-family: var(--mono); line-height: 1.6; max-height: 260px; overflow: auto; }
+  .rbcells { display: grid; gap: 8px; padding: 12px 14px; }
+  .rcell { border: 1px solid var(--border); border-radius: 8px; padding: 10px 11px; background: var(--bg-soft); font-size: 12px; }
+  .rcell .ch { display: flex; align-items: center; gap: 7px; margin-bottom: 6px; }
+  .rchip { flex: none; display: inline-flex; align-items: center; justify-content: center; min-width: 28px; height: 20px; padding: 0 7px; border-radius: 5px; color: #fff; font-weight: 700; font-size: 11px; font-family: var(--mono); }
+  .rsum { color: var(--text-2); }
+  .rshort { color: #8a5a12; margin-top: 6px; font-size: 11.5px; }
+  .rshort::before { content: "Gap · "; color: #c07a1a; font-weight: 600; }
+  .rfix { margin-top: 8px; padding: 7px 10px; border-left: 3px solid #e0a63c; background: var(--bg); border-radius: 0 6px 6px 0; font-size: 11.5px; color: var(--text-2); }
+  .rfix .fl { font-size: 10px; font-weight: 700; color: #a86a12; font-family: var(--mono); display: block; margin-bottom: 2px; }
+
+  .dblock { border: 1px solid var(--border); border-radius: 10px; margin-bottom: 10px; padding: 13px 14px; }
+  .dname { font-size: 13px; font-weight: 620; margin-bottom: 4px; display: flex; gap: 8px; align-items: baseline; flex-wrap: wrap; }
+  .ddesc { font-size: 12px; color: var(--text-3); margin-bottom: 10px; }
+  .dscale { font-size: 11.5px; color: var(--text-2); background: var(--bg-soft); border: 1px solid var(--border); border-radius: 7px; padding: 9px 11px; margin-bottom: 10px; }
+  .dscale div { margin-bottom: 2px; }
+  .dscale code { font-family: var(--mono); font-weight: 700; }
+  .marks { display: grid; gap: 8px; margin-bottom: 8px; }
+  .mark { text-align: center; border-radius: 7px; padding: 6px; font-family: var(--mono); font-weight: 700; font-size: 13px; border: 1px solid; }
+  .mark.p { background: var(--pos-bg); color: var(--pos); border-color: var(--pos-bd); }
+  .mark.n { background: var(--neu-bg); color: var(--neu); border-color: var(--neu-bd); }
+  .mark.m { background: var(--neg-bg); color: var(--neg); border-color: var(--neg-bd); }
+  .why { display: grid; gap: 8px; }
+  .why .w { border: 1px solid var(--border); border-radius: 8px; padding: 9px 10px; font-size: 11.5px; color: var(--text-2); background: var(--bg-soft); }
+
+  .verd-cards { display: grid; gap: 10px; margin-bottom: 6px; }
+  .vcard { border: 1px solid var(--border); border-radius: 10px; padding: 13px 14px; background: var(--bg); }
+  .vcard .vh { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+  .vcard .vb { font-size: 11.8px; color: var(--text-2); }
+
+  /* embodied extras */
+  .ep-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+  .ep { border: 1px solid var(--border); border-radius: 9px; overflow: hidden; background: var(--bg); }
+  .ep .thumb { height: 96px; position: relative; background: linear-gradient(160deg, #3a3f4a, #1e2229); }
+  .ep .thumb.blur { filter: blur(1.4px) brightness(.8); }
+  .ep .thumb.dark { background: linear-gradient(160deg, #1b1d21, #0e1012); }
+  .ep .thumb.over { background: linear-gradient(160deg, #cfd3d8, #9aa0a8); }
+  .ep .thumb .ov { position: absolute; inset: 0; }
+  .ep .thumb .box2 { position: absolute; border: 1.5px solid #6fd39b; border-radius: 2px; }
+  .ep .thumb .box2.bad { border-color: #f0776a; border-style: dashed; }
+  .ep .thumb .tag { position: absolute; left: 6px; top: 6px; font-family: var(--mono); font-size: 9.5px; color: #e9e8e3; background: rgba(0,0,0,.45); padding: 1px 5px; border-radius: 3px; }
+  .ep .em { padding: 9px 10px; font-size: 11.5px; }
+  .ep .em b { display: block; font-family: var(--mono); font-size: 11px; margin-bottom: 3px; }
+  .ep .em span { color: var(--text-3); }
+
+  .sync { padding: 4px 0; }
+  .track { display: grid; grid-template-columns: 82px 1fr; gap: 10px; align-items: center; margin-bottom: 7px; }
+  .track .tl { font-family: var(--mono); font-size: 11px; color: var(--text-2); }
+  .track .tb { height: 16px; border-radius: 4px; background: #f2f1ed; position: relative; overflow: hidden; }
+  .track .tb i { position: absolute; top: 3px; height: 10px; width: 3px; border-radius: 1px; background: #6b7280; }
+  .track .tb i.off { background: var(--neg); }
+  .synclegend { font-size: 11.5px; color: var(--text-2); margin-top: 8px; }
+
+  /* flywheel */
+  .fw { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  .fwc { border: 1px solid var(--border); border-radius: 10px; padding: 15px 16px; background: var(--bg); position: relative; }
+  .fwc .fn { font-family: var(--mono); font-size: 10.5px; color: var(--text-3); }
+  .fwc h4 { font-size: 14px; font-weight: 640; margin: 5px 0 6px; }
+  .fwc p { font-size: 12px; color: var(--text-2); }
+  .fwc .met { margin-top: 10px; font-family: var(--mono); font-size: 11px; color: var(--pos); }
+
+  /* comparison table section */
+  .vs { border: 1px solid var(--border); border-radius: 14px; overflow: hidden; background: var(--bg); }
+  .vs table { border-collapse: collapse; width: 100%; font-size: 14px; }
+  .vs th, .vs td { padding: 15px 18px; border-bottom: 1px solid var(--border); text-align: left; }
+  .vs th { font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--text-3); font-weight: 650; background: var(--bg-soft); }
+  .vs th.us, .vs td.us { background: #f7f6f2; }
+  .vs td.us { font-weight: 550; }
+  .vs tr:last-child td { border-bottom: 0; }
+  .vs .rl { color: var(--text-2); font-weight: 550; }
+
+  /* footer */
+  footer { border-top: 1px solid var(--border); padding: 36px 0; }
+  .footer-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px; font-size: 13px; color: var(--text-3); }
+  .footer-inner .logo { font-size: 14.5px; }
+  .footer-inner .logo-mark { width: 20px; height: 20px; font-size: 9px; border-radius: 5px; }
+
+  .reveal { opacity: 0; transform: translateY(14px); transition: opacity .55s ease, transform .55s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } }
+
+  .demo-note {
+    display: flex; gap: 10px; align-items: baseline; justify-content: center;
+    font-size: 12.5px; color: var(--text-3); margin-top: 16px; text-align: center; flex-wrap: wrap;
+  }
+  .demo-note code { font-family: var(--mono); background: var(--bg-soft); border: 1px solid var(--border); border-radius: 5px; padding: 1px 6px; }
+
+  /* The 4-way comparison grids stop being readable much below this; scroll them
+     sideways inside the pane rather than crushing four columns into a phone width. */
+  @media (max-width: 860px) {
+    .rep, .erep { overflow-x: auto; padding-bottom: 4px; }
+    .rep > *, .erep > * { min-width: 720px; }
+    .rep > .ssub, .erep > .ssub { min-width: 0; }
+  }
+  @media (max-width: 1100px) {
+    .cbody { grid-template-columns: 1fr; }
+    .cnav { border-right: 0; border-bottom: 1px solid var(--border); display: flex; gap: 6px; overflow-x: auto; padding: 10px; }
+    .cnav .grp { display: none; }
+    .cnav button { width: auto; white-space: nowrap; }
+    .cnav .cnt { display: none; }
+    .kpis { grid-template-columns: repeat(2, 1fr); }
+    .two { grid-template-columns: 1fr; }
+    .fw, .ep-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 900px) {
+    .cov-grid { grid-template-columns: 1fr; }
+    .stats { grid-template-columns: 1fr 1fr; }
+    .stat { border-left: none; border-top: 1px solid var(--border); }
+    .stat:nth-child(-n+2) { border-top: none; }
+    .stat:nth-child(even) { border-left: 1px solid var(--border); }
+    .nav-links a:not(.btn) { display: none; }
+    .vs { overflow-x: auto; }
+  }
+  @media (max-width: 620px) {
+    header { padding: 120px 0 56px; }
+    section { padding: 66px 0; }
+    .kpis { grid-template-columns: 1fr; }
+    .fw, .ep-grid { grid-template-columns: 1fr; }
+    .dots { grid-template-columns: repeat(24, 1fr); }
+    #skillpop { left: 14px; right: 14px; width: auto; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap-wide nav-inner">
+    <a class="logo" href="/"><span class="logo-mark">◈</span> Index&nbsp;AI</a>
+    <div class="nav-links">
+      <a href="/product" class="active">Product</a>
+      <a href="/#platform">Platform</a>
+      <a href="/#team">Team</a>
+      <a href="/#partners">Partners</a>
+      <a class="btn" href="/#contact">Book a demo</a>
+    </div>
+  </div>
+</nav>
+
+<header id="top">
+  <div class="wrap">
+    <div class="badge">Agentic&nbsp;OS · Judge Agent Kernel</div>
+    <h1>Verify every sample.<br>Not a 2% slice.</h1>
+    <p class="hero-sub">
+      Data buyers can only spot-check what they purchase. Agentic OS lets researchers package their
+      judgment into reusable <b>skills</b>, then runs those skills across <b>100% of the data</b> —
+      language and embodied — and returns a report where every verdict traces back to the expert who authored it.
+    </p>
+    <div class="hero-cta">
+      <a class="btn" href="#console">Open the live console</a>
+      <a class="btn btn-ghost" href="/#contact">Talk to us</a>
+    </div>
+    <div class="demo-note">
+      <span>Interactive demo · synthetic data · no account required</span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap" style="padding-bottom:20px">
+  <div class="stats reveal">
+    <div class="stat"><b>100%</b><span>of delivered samples verified, not sampled</span></div>
+    <div class="stat"><b>340×</b><span>expert leverage vs. manual review</span></div>
+    <div class="stat"><b>94.1%</b><span>judge–expert agreement on held-out sets</span></div>
+    <div class="stat"><b>$0.004</b><span>marginal cost per sample reviewed</span></div>
+  </div>
+</div>
+
+<!-- ============ PROBLEM ============ -->
+<section id="why" class="section-alt">
+  <div class="wrap">
+    <div class="center-head">
+      <p class="kicker reveal">The gap</p>
+      <h2 class="reveal">Collection is solved. Verification isn't.</h2>
+      <p class="section-sub reveal">
+        A lab buying a trillion tokens can realistically inspect a fraction of a percent of it.
+        Everything else ships on trust — and when it turns out to be wrong, nobody is accountable.
+      </p>
+    </div>
+    <div class="cards">
+      <div class="card reveal">
+        <span class="num">01</span>
+        <h3>Buyers audit ~2%</h3>
+        <p>Acceptance is a spot-check. The remaining 98% is accepted on the vendor's word, and quality
+          failures only surface after a training run has already burned the compute.</p>
+      </div>
+      <div class="card reveal">
+        <span class="num">02</span>
+        <h3>Expert capacity doesn't scale</h3>
+        <p>There aren't enough domain experts to read every trajectory, and in frontier fields —
+          novel materials, long-horizon agentic tasks — the experts themselves need tooling to decide.</p>
+      </div>
+      <div class="card reveal">
+        <span class="num">03</span>
+        <h3>Scores without reasons</h3>
+        <p>A black-box quality number can't be argued with, appealed, or improved. If you can't see
+          which standard produced a verdict, you can't tell a real defect from a mis-calibrated judge.</p>
+      </div>
+    </div>
+
+    <div style="margin-top:44px">
+      <div class="cov-grid">
+        <div class="cov reveal">
+          <h4>Industry standard — sampled QA</h4>
+          <span class="cs">2% of a 40,000-sample delivery inspected</span>
+          <div class="dots" id="dots-a"></div>
+          <div class="cov-foot">800 reviewed · 39,200 unverified</div>
+        </div>
+        <div class="cov reveal">
+          <h4>Agentic OS — full-population verification</h4>
+          <span class="cs">100% inspected, every verdict attributable</span>
+          <div class="dots" id="dots-b"></div>
+          <div class="cov-foot">40,000 reviewed · 1,184 flagged · 0 unverified</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ARCHITECTURE ============ -->
+<section id="architecture">
+  <div class="wrap">
+    <div class="center-head">
+      <p class="kicker reveal">Architecture</p>
+      <h2 class="reveal">One kernel, three boards</h2>
+      <p class="section-sub reveal">
+        The Skill Board <em>produces</em> review capability. The language and embodied boards
+        <em>consume</em> it. Skills aren't a third vertical — they're the horizontal that plugs
+        into both review pipelines.
+      </p>
+    </div>
+    <div class="arch reveal">
+      <svg viewBox="0 0 900 430" role="img" aria-label="Agentic OS architecture: Skill Board feeds the Judge Agent Kernel, which serves the LLM review board and the embodied review board.">
+        <defs>
+          <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M0 0 L10 5 L0 10 z" fill="#94938e"/>
+          </marker>
+          <style>
+            .bx { fill:#fafaf8; stroke:#d4d3ce; stroke-width:1.2; }
+            .bxk { fill:#191918; stroke:#191918; }
+            .tt { font: 600 15px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill:#191918; }
+            .ttw { font: 600 15px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill:#ffffff; }
+            .sb { font: 400 11.5px ui-monospace, SFMono-Regular, Menlo, monospace; fill:#94938e; }
+            .sbw { font: 400 11.5px ui-monospace, SFMono-Regular, Menlo, monospace; fill:#b7b5ae; }
+            .ln { stroke:#94938e; stroke-width:1.2; fill:none; }
+            .lbl { font: 400 11px ui-monospace, SFMono-Regular, Menlo, monospace; fill:#94938e; }
+          </style>
+        </defs>
+
+        <rect class="bx" x="250" y="14" width="400" height="86" rx="12"/>
+        <text class="tt" x="450" y="46" text-anchor="middle">Skill Board</text>
+        <text class="sb" x="450" y="70" text-anchor="middle">upload → calibrate → publish → apply → drift-track</text>
+        <text class="sb" x="450" y="88" text-anchor="middle">researchers &amp; domain experts</text>
+
+        <path class="ln" d="M450 100 L450 148" marker-end="url(#ar)"/>
+        <text class="lbl" x="462" y="128">skill = executable judgment unit</text>
+
+        <rect class="bx bxk" x="250" y="150" width="400" height="86" rx="12"/>
+        <text class="ttw" x="450" y="182" text-anchor="middle">Judge Agent Kernel</text>
+        <text class="sbw" x="450" y="206" text-anchor="middle">shared review engine · report generation</text>
+        <text class="sbw" x="450" y="224" text-anchor="middle">routing · multi-skill arbitration · source_skill trace</text>
+
+        <path class="ln" d="M340 236 L340 274 L210 274 L210 306" marker-end="url(#ar)"/>
+        <path class="ln" d="M560 236 L560 274 L690 274 L690 306" marker-end="url(#ar)"/>
+
+        <rect class="bx" x="40" y="308" width="340" height="98" rx="12"/>
+        <text class="tt" x="210" y="340" text-anchor="middle">Language Review Board</text>
+        <text class="sb" x="210" y="364" text-anchor="middle">text · code · multi-turn agent traces</text>
+        <text class="sb" x="210" y="384" text-anchor="middle">7 fixed dims + task dims + 8 behavior patterns</text>
+
+        <rect class="bx" x="520" y="308" width="340" height="98" rx="12"/>
+        <text class="tt" x="690" y="340" text-anchor="middle">Embodied Review Board</text>
+        <text class="sb" x="690" y="364" text-anchor="middle">trajectories · sensors · vision episodes</text>
+        <text class="sb" x="690" y="384" text-anchor="middle">2 fixed dims + 3 coverage dims + 8 characteristics</text>
+
+        <path class="ln" d="M40 357 L18 357 L18 60 L250 60" marker-end="url(#ar)" stroke-dasharray="4 4"/>
+        <path class="ln" d="M860 357 L882 357 L882 60 L650 60" marker-end="url(#ar)" stroke-dasharray="4 4"/>
+        <text class="lbl" x="30" y="200" transform="rotate(-90 30 200)" text-anchor="middle">trace → strategy</text>
+        <text class="lbl" x="872" y="200" transform="rotate(90 872 200)" text-anchor="middle">trace → strategy</text>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONSOLE ============ -->
+<section id="console" class="section-alt" style="padding-bottom:76px">
+  <div class="console-shell">
+    <div class="center-head" style="margin-bottom:36px">
+      <p class="kicker reveal">Live demo</p>
+      <h2 class="reveal">The Agentic OS console</h2>
+      <p class="section-sub reveal">
+        Everything below is clickable. Calibrate a skill, open a four-model comparison report,
+        expand any verdict to its rationale, and click a <span class="trace" data-skill="SK-021">SK-021</span> badge
+        to see exactly whose standard produced it.
+      </p>
+    </div>
+
+    <div class="console reveal">
+      <div class="cbar">
+        <div class="cdots"><i></i><i></i><i></i></div>
+        <span class="ct">agentic-os / workspace: index-ai-demo</span>
+        <span class="clive"><i></i> kernel online</span>
+        <span class="cenv">v0.9.2-demo</span>
+      </div>
+      <div class="cbody">
+        <aside class="cnav">
+          <div class="grp">Kernel</div>
+          <button data-pane="overview" class="on"><span class="ic">◎</span> Overview</button>
+          <button data-pane="skills"><span class="ic">◈</span> Skill Board <span class="cnt">6</span></button>
+          <div class="grp">Review boards</div>
+          <button data-pane="llm"><span class="ic">▤</span> Language <span class="cnt">12</span></button>
+          <button data-pane="embodied"><span class="ic">◱</span> Embodied <span class="cnt">4</span></button>
+          <div class="grp">Loop</div>
+          <button data-pane="flywheel"><span class="ic">↻</span> Data flywheel</button>
+        </aside>
+
+        <main class="cmain">
+
+          <!-- ---------- OVERVIEW ---------- -->
+          <div class="pane on" id="pane-overview">
+            <div class="ph">
+              <div>
+                <h3>Workspace overview</h3>
+                <p>Everything the kernel has verified in the last 30 days, across both review boards.</p>
+              </div>
+              <div class="ph-act">
+                <button class="mini" id="btn-stream-toggle">Pause stream</button>
+                <button class="mini solid" onclick="go('llm')">Open latest report</button>
+              </div>
+            </div>
+
+            <div class="kpis">
+              <div class="kpi"><div class="kl">Samples verified</div><div class="kv" data-count="4218460">0</div><div class="kd up">▲ 18.2% vs. prior 30d</div></div>
+              <div class="kpi"><div class="kl">Coverage</div><div class="kv">100<span style="font-size:16px">%</span></div><div class="kd flat">full population, 0 sampled</div></div>
+              <div class="kpi"><div class="kl">Judge–expert agreement</div><div class="kv">94.1<span style="font-size:16px">%</span></div><div class="kd up">▲ 1.6 pt after SK-021 v3</div></div>
+              <div class="kpi"><div class="kl">Expert leverage</div><div class="kv">340<span style="font-size:16px">×</span></div><div class="kd up">≈ 1,940 expert-hours saved</div></div>
+            </div>
+
+            <div class="two">
+              <div class="box">
+                <div class="box-h"><b>Live review stream</b><span id="stream-rate">~14 samples/s</span></div>
+                <div class="box-c"><div class="stream" id="stream"></div></div>
+              </div>
+              <div class="box">
+                <div class="box-h"><b>Flag breakdown</b><span>last 30d</span></div>
+                <div class="box-c" id="flagbox"></div>
+              </div>
+            </div>
+
+            <div class="box" style="margin-top:16px">
+              <div class="box-h"><b>Recent reports</b><span>click a row to open</span></div>
+              <div class="scrollx"><table class="t" id="reports"></table></div>
+            </div>
+          </div>
+
+          <!-- ---------- SKILLS ---------- -->
+          <div class="pane" id="pane-skills">
+            <div class="ph">
+              <div>
+                <h3>Skill Board</h3>
+                <p>An expert's judgment, packaged: rubric + worked examples + a scope declaration.
+                   Nothing goes live until it passes calibration against a held-out set — that constraint is not optional.</p>
+              </div>
+              <div class="ph-act"><button class="mini">+ Upload skill</button></div>
+            </div>
+
+            <div class="box" style="margin-bottom:18px">
+              <div class="box-h"><b>Skill library</b><span>6 skills · 2 boards</span></div>
+              <div class="scrollx"><table class="t" id="skilltable"></table></div>
+            </div>
+
+            <div class="calib">
+              <div class="calib-h">
+                <b style="font-size:13.5px">Calibration run — SK-041 · Sim-vs-Real Action Authenticity</b>
+                <div style="font-size:12px;color:var(--text-3);margin-top:2px">
+                  Author: L. Moreau, Embodied Perception · draft v2 · held-out set: 500 episodes labeled by the author
+                </div>
+              </div>
+              <div class="steps" id="calsteps">
+                <div class="step done"><div class="sc">✓</div><div class="st">Upload</div><div class="sd">rubric + 60 examples</div></div>
+                <div class="step act"><div class="sc">2</div><div class="st">Calibrate</div><div class="sd">agreement on held-out set</div></div>
+                <div class="step"><div class="sc">3</div><div class="st">Publish</div><div class="sd">routed by scope</div></div>
+                <div class="step"><div class="sc">4</div><div class="st">Apply</div><div class="sd">multi-skill review</div></div>
+                <div class="step"><div class="sc">5</div><div class="st">Track</div><div class="sd">drift monitoring</div></div>
+              </div>
+              <div class="calib-body">
+                <div class="prog"><i id="progbar"></i></div>
+                <div class="plog" id="plog">Ready. Run calibration to score the draft against the author's own held-out labels.</div>
+                <div style="margin-top:12px"><button class="mini solid" id="btn-cal">Run calibration</button></div>
+
+                <div class="calres" id="calres">
+                  <div class="verdict">
+                    <div class="vv">87.4%</div>
+                    <div class="vt">
+                      <b>Below publish threshold (90.0%)</b>
+                      <span>437 / 500 episodes agree with the author. Draft stays in calibration — iterate the rubric and re-run.</span>
+                    </div>
+                  </div>
+                  <div class="two">
+                    <div class="box">
+                      <div class="box-h"><b>Disagreement types</b><span>63 episodes</span></div>
+                      <div class="scrollx"><table class="t" id="distable"></table></div>
+                    </div>
+                    <div class="box">
+                      <div class="box-h"><b>Suggested rubric edits</b><span>mined from traces</span></div>
+                      <div class="box-c" style="font-size:12.5px;color:var(--text-2)">
+                        <div style="margin-bottom:9px">— Add an explicit clause for <b>motion-blur under 60&nbsp;fps capture</b>: 31 of 63 disagreements are the judge reading blur as a simulation artifact.</div>
+                        <div style="margin-bottom:9px">— Split <b>"contact jitter"</b> into gripper-contact vs. free-space jitter; the author scores them differently but the rubric treats them as one.</div>
+                        <div>— Scope declaration currently claims all embodied data; author's examples are 94% tabletop manipulation. Narrow the scope and agreement rises to <b>92.8%</b> in simulation.</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="box" style="margin-top:18px">
+              <div class="box-h"><b>Leverage dashboard — Prof. H. Tanaka</b><span>SK-033 · Sensor Sync &amp; Calibration</span></div>
+              <div class="box-c">
+                <div class="kpis" style="margin-bottom:0">
+                  <div class="kpi"><div class="kl">Episodes judged by your skill</div><div class="kv">4.1<span style="font-size:16px">M</span></div><div class="kd up">▲ 620K this month</div></div>
+                  <div class="kpi"><div class="kl">Agreement (rolling)</div><div class="kv">89.4<span style="font-size:16px">%</span></div><div class="kd down">▼ 0.9 pt — drift check due</div></div>
+                  <div class="kpi"><div class="kl">Equivalent expert-hours</div><div class="kv">11,400</div><div class="kd flat">at 22 s/episode manual</div></div>
+                  <div class="kpi"><div class="kl">Batches gated</div><div class="kv">37</div><div class="kd up">9 rejected before delivery</div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ---------- LLM ---------- -->
+          <div class="pane" id="pane-llm">
+            <div class="ph">
+              <div>
+                <h3>Language review — 4-model comparison</h3>
+                <p>Task: <b>lazygit-style terminal Git client (Go + Bubble Tea)</b>. Same 10-round base spec,
+                   four anonymized models, aligned side by side. Fix rounds are counted against the model, not hidden.</p>
+              </div>
+              <div class="ph-act">
+                <button class="mini rt on" data-rep="stats">Statistics</button>
+                <button class="mini rt" data-rep="verdict">Verdicts</button>
+                <button class="mini rt" data-rep="rounds">Round&nbsp;by&nbsp;round</button>
+                <button class="mini rt" data-rep="dims">Dimensions</button>
+                <button class="mini rt" data-rep="behav">Behavior</button>
+              </div>
+            </div>
+            <div id="rep-stats" class="rep"></div>
+            <div id="rep-verdict" class="rep" style="display:none"></div>
+            <div id="rep-rounds" class="rep" style="display:none"></div>
+            <div id="rep-dims" class="rep" style="display:none"></div>
+            <div id="rep-behav" class="rep" style="display:none"></div>
+          </div>
+
+          <!-- ---------- EMBODIED ---------- -->
+          <div class="pane" id="pane-embodied">
+            <div class="ph">
+              <div>
+                <h3>Embodied review — 4-batch comparison</h3>
+                <p>Same report skeleton as the language board, different rubric load-out.
+                   Compare targets are data batches instead of models; rounds become scene categories.</p>
+              </div>
+              <div class="ph-act">
+                <button class="mini et on" data-erep="estats">Statistics</button>
+                <button class="mini et" data-erep="edims">Dimensions</button>
+                <button class="mini et" data-erep="echar">Characteristics</button>
+                <button class="mini et" data-erep="einspect">Episode inspector</button>
+              </div>
+            </div>
+            <div id="rep-estats" class="erep"></div>
+            <div id="rep-edims" class="erep" style="display:none"></div>
+            <div id="rep-echar" class="erep" style="display:none"></div>
+            <div id="rep-einspect" class="erep" style="display:none"></div>
+          </div>
+
+          <!-- ---------- FLYWHEEL ---------- -->
+          <div class="pane" id="pane-flywheel">
+            <div class="ph">
+              <div>
+                <h3>Data flywheel</h3>
+                <p>Review traces are mined into strategies. In the MVP only one outlet is wired end to end —
+                   feeding standards back into the skill library — because it's the shortest closed loop we can measure.</p>
+              </div>
+            </div>
+            <div class="fw">
+              <div class="fwc">
+                <div class="fn">01 · capture</div>
+                <h4>Review traces</h4>
+                <p>Every verdict keeps its evidence: which rubric clause fired, which span of the sample triggered it, which skill owned the call.</p>
+                <div class="met">4.2M traces / 30d</div>
+              </div>
+              <div class="fwc">
+                <div class="fn">02 · mine</div>
+                <h4>Strategy extraction</h4>
+                <p>Recurring failure shapes are clustered into named strategies — "claims completion without running the UI path", "patch context under-anchored".</p>
+                <div class="met">218 strategies live</div>
+              </div>
+              <div class="fwc">
+                <div class="fn">03 · feed back</div>
+                <h4>Skill library update</h4>
+                <p>Strategies surface as suggested rubric edits in the author's calibration view. The expert approves; the skill version bumps.</p>
+                <div class="met">+1.6 pt agreement</div>
+              </div>
+              <div class="fwc">
+                <div class="fn">04 · queued</div>
+                <h4>Collection priority</h4>
+                <p>Long-tail gaps found during review become collection targets. Wired after the skill-library loop proves out.</p>
+                <div class="met" style="color:var(--text-3)">post-MVP</div>
+              </div>
+            </div>
+
+            <div class="box" style="margin-top:16px">
+              <div class="box-h"><b>Top strategies mined this cycle</b><span>trace → strategy → skill</span></div>
+              <div class="scrollx"><table class="t" id="strattable"></table></div>
+            </div>
+          </div>
+
+        </main>
+      </div>
+    </div>
+
+    <div class="demo-note">
+      <span>Front-end demo. All figures, skills, models and batches are synthetic.</span>
+      <code>report_schema v1 · source_skill enabled</code>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DIFFERENTIATION ============ -->
+<section id="different">
+  <div class="wrap">
+    <div class="center-head">
+      <p class="kicker reveal">Positioning</p>
+      <h2 class="reveal">Where this sits</h2>
+      <p class="section-sub reveal">
+        Vendors compete on how much data they can collect. We compete on whether anyone can prove it's good.
+      </p>
+    </div>
+    <div class="vs reveal">
+      <table>
+        <thead>
+          <tr>
+            <th style="width:26%"></th>
+            <th>Data vendors<br><span style="font-weight:400;text-transform:none;letter-spacing:0">(collection-first)</span></th>
+            <th>In-house eval<br><span style="font-weight:400;text-transform:none;letter-spacing:0">(scripts + spreadsheets)</span></th>
+            <th class="us">Agentic OS</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="rl">Coverage</td><td>1–3% spot-check</td><td>Whatever the team has time for</td><td class="us">100% of the population</td></tr>
+          <tr><td class="rl">Who sets the standard</td><td>Vendor's internal QA</td><td>Whoever wrote the script</td><td class="us">Named experts, versioned skills</td></tr>
+          <tr><td class="rl">Explainability</td><td>A pass/fail number</td><td>Ad-hoc notes</td><td class="us">Every verdict traces to a rubric clause</td></tr>
+          <tr><td class="rl">Expert time</td><td>Consumed per delivery</td><td>Consumed per delivery</td><td class="us">Spent once, applied forever</td></tr>
+          <tr><td class="rl">Modality</td><td>Usually one</td><td>Usually one</td><td class="us">Language + embodied on one kernel</td></tr>
+          <tr><td class="rl">Drift</td><td>Unmonitored</td><td>Unmonitored</td><td class="us">Enforced re-calibration, not opt-in</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA ============ -->
+<section class="section-alt">
+  <div class="wrap center-head">
+    <h2 class="reveal">Bring us your hardest delivery.</h2>
+    <p class="section-sub reveal">
+      Send a batch you've already accepted. We'll run it through the kernel at full coverage and
+      show you what your spot-check missed — with the rationale attached to every flag.
+    </p>
+    <div class="hero-cta reveal">
+      <a class="btn" href="/#contact">Book a demo</a>
+      <a class="btn btn-ghost" href="mailto:celine@indexai.world">celine@indexai.world</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap-wide footer-inner">
+    <a class="logo" href="/"><span class="logo-mark">◈</span> Index AI</a>
+    <span>© 2026 Index AI · Agentic OS is a product demo · figures are illustrative</span>
+  </div>
+</footer>
+
+<div id="skillpop">
+  <button class="x" onclick="document.getElementById('skillpop').classList.remove('on')">✕</button>
+  <div class="sp-k" id="sp-k"></div>
+  <h5 id="sp-n"></h5>
+  <div class="sp-e" id="sp-e"></div>
+  <dl id="sp-d"></dl>
+  <div class="sp-f" id="sp-f"></div>
+</div>
+
+<script>
+/* ===================== reveal ===================== */
+/* Sweep on scroll rather than observing thresholds: an anchor jump or a fast
+   scroll skips an element's intersection entirely and would strand it at opacity 0. */
+let onVisible;
+(function () {
+  let pending = [...document.querySelectorAll('.reveal')].map(el => [el, e => e.classList.add('in')]);
+  let queued = false;
+  function sweep() {
+    queued = false;
+    const limit = window.innerHeight * 0.94;
+    pending = pending.filter(([el, fn]) => {
+      if (el.getBoundingClientRect().top > limit) return true;
+      fn(el);
+      return false;
+    });
+  }
+  function onScroll() { if (!queued) { queued = true; setTimeout(sweep, 0); } }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll, { passive: true });
+  window.addEventListener('pageshow', onScroll);
+  onVisible = (el, fn) => { pending.push([el, fn]); onScroll(); };
+  sweep();
+})();
+
+/* ===================== coverage dots ===================== */
+(function () {
+  const a = document.getElementById('dots-a'), b = document.getElementById('dots-b');
+  const N = 400;
+  for (let i = 0; i < N; i++) { a.appendChild(document.createElement('div')).className = 'dot'; }
+  for (let i = 0; i < N; i++) { b.appendChild(document.createElement('div')).className = 'dot'; }
+  onVisible(a, el => {
+    const kids = [...el.children];
+    const picks = new Set(); while (picks.size < 8) picks.add(Math.floor(Math.random() * N));
+    [...picks].forEach((k, i) => setTimeout(() => kids[k].classList.add('on'), 60 * i));
+  });
+  onVisible(b, el => {
+    [...el.children].forEach((d, i) => setTimeout(() => d.classList.add(Math.random() < 0.03 ? 'on' : 'on-a'), i * 3.2));
+  });
+})();
+
+/* ===================== console nav ===================== */
+function go(p) {
+  document.querySelectorAll('.cnav button').forEach(b => b.classList.toggle('on', b.dataset.pane === p));
+  document.querySelectorAll('.pane').forEach(el => el.classList.toggle('on', el.id === 'pane-' + p));
+  document.getElementById('console').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+document.querySelectorAll('.cnav button').forEach(b => b.onclick = () => go(b.dataset.pane));
+
+/* ===================== skills data + traceability ===================== */
+const SKILLS = {
+  'SK-007': { name: 'Git Semantics & Command Safety', expert: 'J. Lindqvist · Developer Tools', scope: 'Language · code', status: 'live',
+    agree: '96.1%', applied: '880K', ver: 'v4', note: 'Flags destructive command construction (reset --hard where --mixed is meant), argument omissions, and parser fragility on non-ASCII paths.' },
+  'SK-021': { name: 'Terminal TUI Interaction Quality', expert: 'M. Okafor · Human–Computer Interaction', scope: 'Language · code · TUI', status: 'live',
+    agree: '91.8%', applied: '340K', ver: 'v3', note: 'Judges focus handling, resize behavior, redraw correctness and whether interactive state actually tracks the underlying data.' },
+  'SK-014': { name: 'Long-horizon Credit Assignment', expert: 'Dr. E. Vasquez · RL Post-training', scope: 'Language · multi-turn agents', status: 'live',
+    agree: '94.2%', applied: '1.2M', ver: 'v6', note: 'Separates "the final artifact works" from "the model got there on its own" — the distinction most rubrics collapse.' },
+  'SK-018': { name: 'Completion-claim Truthfulness', expert: 'Dr. E. Vasquez · RL Post-training', scope: 'Language · agent traces', status: 'live',
+    agree: '93.0%', applied: '760K', ver: 'v2', note: 'Cross-checks every "done" statement against the diff and the test output actually produced in that round.' },
+  'SK-033': { name: 'Sensor Sync & Calibration', expert: 'Prof. H. Tanaka · Robotics Perception', scope: 'Embodied · multi-sensor', status: 'live',
+    agree: '89.4%', applied: '4.1M', ver: 'v5', note: 'Detects inter-stream timestamp drift, extrinsic calibration error and dropped frames across RGB / depth / joint-state.' },
+  'SK-041': { name: 'Sim-vs-Real Action Authenticity', expert: 'L. Moreau · Embodied Perception', scope: 'Embodied · manipulation', status: 'calibrating',
+    agree: '87.4%', applied: '—', ver: 'draft v2', note: 'Below the 90% publish threshold. Blur-vs-artifact confusion accounts for half the disagreements.' },
+  'SK-045': { name: 'Materials Synthesis Plausibility', expert: 'Dr. A. Rahimi · Computational Materials', scope: 'Science · chemistry', status: 'needs update',
+    agree: '84.0%', applied: '210K', ver: 'v3', note: 'Drift detector fired: −5.2 pt over 14 days after the source corpus shifted toward inorganic synthesis routes.' }
+};
+function skillpop(id) {
+  const s = SKILLS[id]; if (!s) return;
+  document.getElementById('sp-k').textContent = id + ' · ' + s.ver;
+  document.getElementById('sp-n').textContent = s.name;
+  document.getElementById('sp-e').textContent = s.expert;
+  document.getElementById('sp-d').innerHTML =
+    '<dt>Scope</dt><dd>' + s.scope + '</dd>' +
+    '<dt>Status</dt><dd>' + s.status + '</dd>' +
+    '<dt>Agreement</dt><dd>' + s.agree + '</dd>' +
+    '<dt>Samples applied</dt><dd>' + s.applied + '</dd>';
+  document.getElementById('sp-f').textContent = s.note;
+  document.getElementById('skillpop').classList.add('on');
+}
+/* One handler for both open and dismiss: two listeners on `document` would fire on the
+   same click, so the badge would open the popover and the dismiss pass would close it. */
+document.addEventListener('click', e => {
+  const pop = document.getElementById('skillpop');
+  const t = e.target.closest('.trace');
+  if (t) { skillpop(t.dataset.skill); return; }
+  if (pop.classList.contains('on') && !pop.contains(e.target)) pop.classList.remove('on');
+});
+function tr(id) { return '<span class="trace" data-skill="' + id + '">' + id + '</span>'; }
+
+/* ===================== overview ===================== */
+(function () {
+  document.querySelectorAll('.kv[data-count]').forEach(el => {
+    const target = +el.dataset.count;
+    el.textContent = '0.00M';
+    onVisible(el, () => {
+      let cur = 0;
+      const step = target / 46;
+      const t = setInterval(() => {
+        cur += step;
+        if (cur >= target) { cur = target; clearInterval(t); }
+        el.textContent = (cur / 1e6).toFixed(2) + 'M';
+      }, 22);
+    });
+  });
+
+  const SK = ['SK-021', 'SK-007', 'SK-014', 'SK-033', 'SK-018', 'SK-045'];
+  const PRE = ['llm/lazygit-r', 'llm/qa-pair-', 'emb/warehouse-ep', 'emb/kitchen-ep', 'llm/agent-trace-', 'emb/teleop-ep'];
+  const V = [['PASS', 'pass'], ['PASS', 'pass'], ['PASS', 'pass'], ['PASS', 'pass'], ['FLAG', 'flag'], ['WARN', 'warn']];
+  const box = document.getElementById('stream');
+  let running = true;
+  function tick() {
+    if (!running) return;
+    const d = new Date();
+    const t = String(d.getHours()).padStart(2, '0') + ':' + String(d.getMinutes()).padStart(2, '0') + ':' + String(d.getSeconds()).padStart(2, '0');
+    const v = V[Math.floor(Math.random() * V.length)];
+    const row = document.createElement('div');
+    row.className = 'srow';
+    row.innerHTML = '<span class="t">' + t + '</span>' +
+      '<span class="id">' + PRE[Math.floor(Math.random() * PRE.length)] + Math.floor(Math.random() * 90000 + 10000) + '</span>' +
+      '<span class="sk">' + SK[Math.floor(Math.random() * SK.length)] + '</span>' +
+      '<span class="vd ' + v[1] + '">' + v[0] + '</span>';
+    box.prepend(row);
+    while (box.children.length > 9) box.lastChild.remove();
+  }
+  for (let i = 0; i < 9; i++) tick();
+  setInterval(tick, 1100);
+  document.getElementById('btn-stream-toggle').onclick = function () {
+    running = !running;
+    this.textContent = running ? 'Pause stream' : 'Resume stream';
+    document.getElementById('stream-rate').textContent = running ? '~14 samples/s' : 'paused';
+  };
+
+  const FLAGS = [
+    ['Q&A consistency failure', 412, 'low'],
+    ['Long-horizon state break', 297, 'low'],
+    ['Cleanliness / leakage', 188, 'mid'],
+    ['Sensor desync > 40ms', 154, 'mid'],
+    ['Diversity collapse', 88, ''],
+    ['Simulation artifact', 45, '']
+  ];
+  const max = 412;
+  document.getElementById('flagbox').innerHTML = FLAGS.map(f =>
+    '<div style="margin-bottom:11px">' +
+      '<div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px">' +
+        '<span>' + f[0] + '</span><span style="font-family:var(--mono);color:var(--text-3)">' + f[1] + '</span>' +
+      '</div>' +
+      '<div class="bar ' + f[2] + '"><i style="width:' + (f[1] / max * 100) + '%"></i></div>' +
+    '</div>').join('');
+
+  const REPORTS = [
+    ['RPT-2291', 'lazygit-style Git client · 4-model comparison', 'Language', '4 models · 66 rounds', '2 days ago', 'llm'],
+    ['RPT-2287', 'Warehouse manipulation · 4-batch QA', 'Embodied', '4 batches · 1.24M frames', '3 days ago', 'embodied'],
+    ['RPT-2280', 'Multi-turn tool-use traces · vendor acceptance', 'Language', '1 vendor · 220K traces', '6 days ago', 'llm'],
+    ['RPT-2274', 'Teleop fleet weekly · drift check', 'Embodied', '1 fleet · 880K frames', '9 days ago', 'embodied']
+  ];
+  document.getElementById('reports').innerHTML =
+    '<thead><tr><th>ID</th><th>Report</th><th>Board</th><th>Scope</th><th class="num">Generated</th></tr></thead><tbody>' +
+    REPORTS.map(r => '<tr style="cursor:pointer" onclick="go(\'' + r[5] + '\')">' +
+      '<td style="font-family:var(--mono);font-size:11.5px;color:var(--accent)">' + r[0] + '</td>' +
+      '<td class="sname">' + r[1] + '</td>' +
+      '<td><span class="pill neu">' + r[2] + '</span></td>' +
+      '<td class="ssub">' + r[3] + '</td>' +
+      '<td class="num ssub">' + r[4] + '</td></tr>').join('') + '</tbody>';
+})();
+
+/* ===================== skill board ===================== */
+(function () {
+  const order = ['SK-014', 'SK-021', 'SK-007', 'SK-018', 'SK-033', 'SK-041', 'SK-045'];
+  const cls = { 'live': 'live', 'calibrating': 'cal', 'needs update': 'upd' };
+  document.getElementById('skilltable').innerHTML =
+    '<thead><tr><th>Skill</th><th>Author</th><th>Scope</th><th>Status</th><th>Agreement</th><th class="num">Applied</th></tr></thead><tbody>' +
+    order.map(id => {
+      const s = SKILLS[id];
+      const pct = parseFloat(s.agree);
+      const bc = pct >= 92 ? '' : (pct >= 88 ? 'mid' : 'low');
+      return '<tr>' +
+        '<td><span class="sname">' + s.name + '</span><div class="ssub">' + id + ' · ' + s.ver + '</div></td>' +
+        '<td class="ssub">' + s.expert + '</td>' +
+        '<td class="ssub">' + s.scope + '</td>' +
+        '<td><span class="pill ' + cls[s.status] + '">' + s.status + '</span></td>' +
+        '<td><div class="barwrap"><div class="bar ' + bc + '"><i style="width:' + pct + '%"></i></div><span>' + s.agree + '</span></div></td>' +
+        '<td class="num">' + s.applied + '</td></tr>';
+    }).join('') + '</tbody>';
+
+  document.getElementById('distable').innerHTML =
+    '<thead><tr><th>Disagreement type</th><th class="num">Episodes</th><th class="num">Share</th></tr></thead><tbody>' +
+    [['Judge stricter — blur read as sim artifact', 31, '49%'],
+     ['Judge lenient — contact jitter accepted', 17, '27%'],
+     ['Scope mismatch — mobile-base episodes', 9, '14%'],
+     ['Author label ambiguous on re-review', 6, '10%']]
+      .map(r => '<tr><td>' + r[0] + '</td><td class="num">' + r[1] + '</td><td class="num ssub">' + r[2] + '</td></tr>').join('') + '</tbody>';
+
+  const LOG = [
+    'loading skill SK-041 draft v2 …',
+    'held-out set: 500 episodes (author-labeled, never seen by draft)',
+    'routing check — scope declaration: embodied/* …',
+    'judging 100 / 500 …',
+    'judging 240 / 500 …',
+    'judging 380 / 500 …',
+    'judging 500 / 500 — computing agreement …',
+    'clustering 63 disagreements into types …',
+    'mining rubric edits from trace …',
+    'calibration complete — agreement 87.4% (threshold 90.0%)'
+  ];
+  document.getElementById('btn-cal').onclick = function () {
+    const btn = this; btn.disabled = true; btn.textContent = 'Running…'; btn.style.opacity = .6;
+    document.getElementById('calres').classList.remove('on');
+    const bar = document.getElementById('progbar'), log = document.getElementById('plog');
+    let i = 0;
+    const t = setInterval(() => {
+      log.textContent = LOG[i];
+      bar.style.width = ((i + 1) / LOG.length * 100) + '%';
+      i++;
+      if (i >= LOG.length) {
+        clearInterval(t);
+        document.getElementById('calres').classList.add('on');
+        btn.disabled = false; btn.textContent = 'Re-run calibration'; btn.style.opacity = 1;
+      }
+    }, 480);
+  };
+})();
+
+/* ===================== LLM report ===================== */
+const M = ['ga086k', '6za5i4', '6v1kb0', '8bpzjc'];
+function grid(n) { return 'display:grid;grid-template-columns:repeat(' + n + ',1fr);gap:8px'; }
+function scoreColor(s) { return s >= 4 ? '#0f7b4f' : (s === 3 ? '#b07d18' : '#c0392b'); }
+function chipColor(v) { return v > 0 ? '#0f7b4f' : (v === 0 ? '#8a8983' : (v === -1 ? '#d4663f' : '#c0392b')); }
+function sgn(v) { return v > 0 ? '+' + v : String(v); }
+function markCls(v) { return v > 0 ? 'p' : (v === 0 ? 'n' : 'm'); }
+
+(function () {
+  /* --- statistics --- */
+  const ROWS = [
+    ['Overall score', ['3/5', '4/5', '2/5', '4/5'], true],
+    ['Completed', ['yes', 'yes', 'yes', 'yes']],
+    ['Total rounds', ['18', '11', '25', '12']],
+    ['base / fix rounds', ['10 / 8', '10 / 1', '10 / 15', '10 / 2']],
+    ['Negative rounds', ['8', '1', '15', '2']],
+    ['base-round mean', ['−0.40', '−0.10', '−1.30', '−0.20']],
+    ['all-round mean', ['−0.56', '−0.09', '−0.88', '−0.17']],
+    ['Σ fixed dimensions', ['−1 / 4', '+3 / 4', '−1 / 4', '+1 / 4']],
+    ['Σ task dimensions', ['0 / 4', '+3 / 4', '0 / 4', '+1 / 4']],
+    ['Σ rubric total', ['−1 / 8', '+6 / 8', '−1 / 8', '+2 / 8']],
+    ['Sub-item pass rate', ['66/90 = 73%', '54/55 = 98%', '73/125 = 58%', '54/60 = 90%']]
+  ];
+  const scores = [3, 4, 2, 4];
+  document.getElementById('rep-stats').innerHTML =
+    '<div class="box"><div class="box-h"><b>Overall statistics</b><span>4 models · aligned columns</span></div>' +
+    '<div class="scrollx"><table class="t"><thead><tr><th>Metric</th>' +
+    M.map(m => '<th class="num" style="font-family:var(--mono);color:var(--accent)">' + m + '</th>').join('') +
+    '</tr></thead><tbody>' +
+    ROWS.map(r => '<tr><td class="sname">' + r[0] + '</td>' +
+      r[1].map((v, i) => '<td class="num">' + (r[2]
+        ? '<span class="ovcell" style="background:' + scoreColor(scores[i]) + '">' + v + '</span>'
+        : v) + '</td>').join('') + '</tr>').join('') +
+    '</tbody></table></div></div>' +
+    '<div class="box" style="margin-top:14px"><div class="box-h"><b>Skills applied to this report</b><span>routed by scope declaration</span></div>' +
+    '<div class="box-c" style="font-size:12.5px;color:var(--text-2);display:flex;gap:8px;flex-wrap:wrap;align-items:center">' +
+    ['SK-014', 'SK-021', 'SK-007', 'SK-018'].map(tr).join('') +
+    '<span style="color:var(--text-3)">— four skills cross-reviewed every round; conflicting calls are shown side by side, never silently arbitrated.</span>' +
+    '</div></div>';
+
+  /* --- verdicts --- */
+  const VERD = [
+    { m: 'ga086k', s: 3, body: 'Genuinely capable: built the client from scratch — multi-panel shell, staging, colored diff, commit, branch, reset, stash, remotes — with clean layering and an async remote layer that worked first try. But the process was weak: 8 of 10 base rounds went negative and nearly every hard feature needed rework. Two recurring problems. It repeatedly ignored the mandated component library, hand-rolling a spinner, an input dialog and the commit editor instead of using the specified widgets — the dependency isn\'t even in go.mod. And it thrashed on hard problems: the hunk-selection marker took one base plus four fix rounds, with R8 fixing the wrong thing and R10/R11 trading one break for another. Deliverable is fine; the model\'s own execution needed a lot of human correction.' },
+    { m: '6za5i4', s: 4, body: 'A very controlled submission: 10 of 11 rounds landed on the first attempt, one fix round total, no crash, no data loss, no regression of previously working features. It reuses aggressively — the prompt input and confirm dialog built early get picked up later by reset, stash and branch instead of being rebuilt. The hard parts landed first try: diff coloring with scrolling and hunk folding, line-level staging with correctly reconstructed patch context and recomputed @@ counts, and fully async remote operations. Tests are thorough at unit, integration and E2E level. Deductions: the hunk marker didn\'t follow selection state and needed one fix round, and two explicit instructions were quietly missed (toolchain version, commit keybinding).' },
+    { m: '6v1kb0', s: 2, body: 'It got there — every feature in the spec exists, the stack never drifted, scope never inflated. But the path was bad: 25 rounds, 7 at −2 and 6 at −1. It opened with an import cycle that wouldn\'t compile and took three rounds to reach a usable skeleton. Two habits repeat. It fixes two of three reported problems and leaves the hard one. And it breaks working code while fixing something else — the closing stretch regressed a functioning stage path into a hard error for four consecutive rounds. Completion claims are unreliable: it reported a fix that measurably had not happened, twice. Final artifact is usable; the acceptance burden to get there was severe.' },
+    { m: '8bpzjc', s: 4, body: 'Delivered all ten rounds to a daily-usable standard with clean separation between the git layer and the TUI layer, and unusually solid command wrapping — nearly every parser has both a unit test and an integration test against a temp repository. Execution was controlled: exactly one first-pass failure (line-level staging), cleanly repaired in a single fix round, and no regressions anywhere in twelve rounds; it even collapsed three remote operations into one shared entry point. Shortfalls are cosmetic and constraint-level: no arrow-key or numeric tab alternatives, no directory indentation in the file tree, wrong toolchain version, wrong commit keybinding, and a few status-bar hints that overlap or never clear.' }
+  ];
+  document.getElementById('rep-verdict').innerHTML =
+    '<div class="verd-cards" style="' + grid(2) + '">' +
+    VERD.map(v => '<div class="vcard"><div class="vh">' +
+      '<span class="mh" style="display:inline-block;padding:2px 9px">' + v.m + '</span>' +
+      '<span class="ovcell" style="background:' + scoreColor(v.s) + '">' + v.s + '/5</span></div>' +
+      '<div class="vb">' + v.body + '</div></div>').join('') + '</div>';
+
+  /* --- rounds --- */
+  const ROUNDS = [
+    {
+      n: 1, title: 'Multi-panel TUI skeleton', tag: 'base 1',
+      prompt: '## Round 1: Multi-panel TUI skeleton\n\nGoal: build the panel shell — status/files, branches, commit history, stash, command log.\n\n1. Layout\n   - left panel (50% width): working-tree file status\n   - top-right (50% w, 50% h): branches + commit history, Tab-switchable\n   - bottom-right (50% w, 50% h): stash list + command log, Tab-switchable\n   - bottom row reserved for a status bar\n2. Focus\n   - Tab cycles focus between panels\n   - arrow keys move the selection inside the focused panel\n   - focused panel border highlighted\n3. Responsive\n   - handle WindowSizeMsg; recompute panel sizes on resize with no overlap\n   - panels scroll via the viewport component\n4. Seed each panel with placeholder data — no real git calls yet.\n\nDeliverables: source, go.mod/go.sum, Makefile (help/build/run/test/fmt/clean/deps), a placeholder test so `make test` passes.',
+      cells: [
+        { s: -1, sum: 'The shell itself is there — all four panes, Tab focus, arrow movement, resize reflow and viewport scrolling work.', short: 'Never switched the module proxy to a reachable mirror; hard-wired a `replace` in go.mod instead, so dependencies cannot resolve and the binary will not run in the sandbox.', fixes: [{ s: 0, t: 'Pointed the proxy and checksum DB at the mirror and dropped the stray replace. Build and tests pass, dependency graph clean. A plain fix of the reported problem, nothing more.' }] },
+        { s: 0, sum: 'Skeleton landed first try: four panes plus status bar, Tab cycling, per-panel arrow movement, focused border highlight, resize handled through WindowSizeMsg with no overlap, viewport scrolling, placeholder data seeded. Makefile targets all present; build, test and vet pass.', short: 'Built against the container default toolchain rather than the version named in the prompt — no functional impact.' },
+        { s: -2, sum: 'Panel division and focus logic are conceptually right, but the package structure is fundamentally wrong: the tui package and its panels subpackage import each other, producing an import cycle. The build fails outright — it never reaches "runs at all".', short: 'Import cycle between tui and tui/panels; `make build` fails.', fixes: [{ s: -2, t: 'Broke the cycle and it compiles, but only one of four outstanding problems was addressed: panels still overlap, overflow is truncated instead of scrolled, tests are empty stubs, and the abandoned package directory is still there.' }, { s: -1, t: 'Layout squared away, viewport scrolling added, some real tests. Sub-tab switching only wired to the top-right panel; the bottom-right group does not respond to the same keys.' }, { s: 0, t: 'Sub-tab handling routed through the focused panel so both groups switch in either direction. Skeleton finally stable — three fix rounds to pay off round one.' }] },
+        { s: -1, sum: 'Tidy three-panel shell: Tab focus, arrow movement, border highlight, resize adaptation, placeholder data and Makefile all delivered, with clean layering.', short: 'Two off-by-one layout bugs and an unconstrained width in the too-small view left 3 tests failing; one of the failing tests is itself written wrong.', fixes: [{ s: 0, t: 'Fixed both layout bugs and corrected the mis-written test. `make test` passes in one go. Round-one debt cleared in a single round.' }] }
+      ]
+    },
+    {
+      n: 2, title: 'Working tree status & staging', tag: 'base 2',
+      prompt: '## Round 2: Working tree status and staging\n\nGoal: show modified / untracked / staged files as a tree; space toggles staging.\n\n1. Data source: parse `git status --porcelain`; handle M, A, D, ??, AM, MM.\n2. Rendering: group into a directory tree with indentation. Colors: untracked grey/red, modified-unstaged yellow, staged green. Each row shows status marker + path.\n3. Staging: space on the selection stages an unstaged file and unstages a staged one; refresh the list afterwards; report the action in the status bar.\n4. Refresh: `R` refreshes manually; focus switching and resize keep working.\n\nDeliverables: file status panel, staging/unstaging, a unit test over the porcelain parser, regression note confirming round 1 still works.',
+      cells: [
+        { s: 0, sum: 'Complete: porcelain parsing correct, files rendered as a directory tree, three-way color coding right, space toggles staging, `R` refreshes, parser unit test present.', short: 'Style definitions live in the git package rather than the UI layer — not asked for, but the layering is muddied.' },
+        { s: 0, sum: 'Complete: every status code classified correctly, colors per spec, space toggling between add and unstage with auto-refresh, manual refresh on R, parser covered by tests.', short: 'File list is still flat — no nested indentation by directory. Does not block staging; picked up in a later polish round.' },
+        { s: -1, sum: 'Status tree, per-code coloring and space-to-stage all built against porcelain output and fine in an ordinary repository.', short: 'Unstaging in a repository with no commits yet raises an ambiguous-argument error — the empty-HEAD boundary was never explored.', fixes: [{ s: 0, t: 'Checks for a HEAD first and falls back to removing from the index when there is none. Correct, but only after the failure was pointed out.' }] },
+        { s: 0, sum: 'Parsing, coloring, staging toggle and refresh all correct first try, with the parser covered by a unit test and an integration test against a temp repository.', short: 'File tree renders flat rather than indented by directory.' }
+      ]
+    },
+    {
+      n: 3, title: 'Colored diff view', tag: 'base 3',
+      prompt: '## Round 3: Diff view\n\nGoal: a scrollable, colored diff panel with hunk folding.\n\n1. Source: `git diff` for unstaged, `git diff --staged` for staged; parse into metadata / hunk header / added / removed / context lines.\n2. Coloring: distinct styles per line class; long lines scroll horizontally rather than wrapping.\n3. Navigation: up/down moves the cursor inside the diff; folding collapses and expands a hunk; Esc returns focus to the file panel.\n4. The diff must not obscure the other panels or trap focus.\n\nDeliverables: diff panel, parser unit test, regression note for rounds 1–2.',
+      cells: [
+        { s: -1, sum: 'Diff renders and the coloring is correct.', short: 'The cursor cannot move up or down inside the diff and folding is unusable — the two navigation requirements of the round.', fixes: [{ s: -1, t: 'Movement works now, but the diff view covers the top-right tab strip and there is no way back out.' }, { s: 0, t: 'Esc exits the diff and the tab strip is visible again. Three rounds for one feature.' }] },
+        { s: 0, sum: 'Landed first try: four-class coloring, vertical scrolling plus horizontal scrolling for long lines, hunk folding, Esc returning focus. Parser has its own unit test.' },
+        { s: -1, sum: 'Delivered a separate diff tab.', short: 'Three things were asked for — parser coverage, separate tab, movement plus folding — and only the easy one was done; movement and folding were left untouched.', fixes: [{ s: -1, t: 'Folding added but the parser still recognizes only four metadata line types, so real-world diffs fall through to unstyled output.' }, { s: 0, t: 'Parser widened, movement and folding both usable. Two fix rounds.' }] },
+        { s: 0, sum: 'Coloring, vertical and horizontal scrolling and hunk folding all present and working on the first pass.', short: 'Horizontal scrolling miscounts wide characters, so CJK paths shift by a column.' }
+      ]
+    },
+    {
+      n: 4, title: 'Line-level & hunk staging', tag: 'base 4 · hardest',
+      prompt: '## Round 4: Line-level and hunk staging\n\nGoal: stage and unstage at hunk and line granularity.\n\n1. Hunk mode: move between hunks, mark a hunk, stage or unstage it.\n2. Line mode: `v` enters line selection inside the current hunk; selected lines are staged individually.\n3. Patch construction: build a patch from the selection and apply it to the index. Unstaging applies the same patch in reverse. Non-selected removed lines must be converted back to context lines; the @@ counts must be recomputed from the lines actually emitted, not copied from the source hunk.\n4. Selection state must be visible: the marker on a hunk reflects whether it is currently selected.\n\nDeliverables: hunk and line staging, a patch-construction unit test, an integration test that actually applies the generated patch, regression note for rounds 1–3.',
+      cells: [
+        { s: -2, sum: 'Structures and the apply path exist, but the selection marker never changes state — the interface reports something different from what the code is doing.', short: 'Marker does not follow selection; the round\'s explicit visibility requirement is unmet.', fixes: [{ s: -2, t: 'Misread the report as an icon problem and swapped the symbol; the state bug is untouched.' }, { s: -1, t: 'Marker tracks state now, but folding and scroll position reset on every keystroke.' }, { s: -1, t: 'Scroll preserved, marker broken again in the reverse direction.' }, { s: 0, t: 'Both directions correct. One interaction, five rounds.' }] },
+        { s: -1, sum: 'The hard part is right first time: forward and reverse patches handled separately, context lines preserved as anchors, @@ counts recomputed from emitted lines, and the generated patch verified by an integration test that actually applies it.', short: 'The hunk marker does not follow selection state, so the interface and the operation disagree.', fixes: [{ s: 0, t: 'Fixed at the rendering level by threading selection through the redraw rather than patching the symptom — folding and scroll position both survive. One clean root-cause repair.' }] },
+        { s: -2, sum: 'Line mode exists and the reverse-apply path is defined.', short: 'Generated patches fail to apply: context is under-anchored and the counts are copied rather than recomputed.', fixes: [{ s: -2, t: 'Rewrote part of the builder and broke the previously working whole-hunk staging as well.' }, { s: -2, t: 'Reported the apply error as fixed; it still errors identically on the same input.' }, { s: -1, t: 'Root cause finally located — non-selected removed lines were being dropped instead of converted to context.' }, { s: 0, t: 'Both paths apply cleanly. Four fix rounds, one regression introduced along the way.' }] },
+        { s: -1, sum: 'Structures defined up front and the interaction model is right.', short: 'First patch fails to apply — the context assembly was not explored before writing.', fixes: [{ s: 0, t: 'Converted non-selected removed lines into context lines and the patch applies. Single clean fix round, nothing else disturbed.' }] }
+      ]
+    }
+  ];
+  document.getElementById('rep-rounds').innerHTML =
+    '<div class="modelbar" style="' + grid(4) + '">' + M.map(m => '<div class="mh">' + m + '</div>').join('') + '</div>' +
+    ROUNDS.map(r => '<div class="rblock">' +
+      '<div class="rbtop"><span class="rbtitle">Round ' + r.n + ' — ' + r.title + '</span><span class="rbtag">' + r.tag + '</span>' +
+      '<details class="pp"><summary>Show the full prompt for this round</summary><span class="ptext">' +
+      r.prompt.replace(/&/g, '&amp;').replace(/</g, '&lt;') + '</span></details></div>' +
+      '<div class="rbcells" style="' + grid(4) + '">' +
+      r.cells.map(c => '<div class="rcell">' +
+        '<div class="ch"><span class="rchip" style="background:' + chipColor(c.s) + '">' + sgn(c.s) + '</span></div>' +
+        '<div class="rsum">' + c.sum + '</div>' +
+        (c.short ? '<div class="rshort">' + c.short + '</div>' : '') +
+        (c.fixes || []).map(f => '<div class="rfix"><span class="fl">FIX ROUND · ' + sgn(f.s) + '</span>' + f.t + '</div>').join('') +
+        '</div>').join('') +
+      '</div></div>').join('') +
+    '<div class="ssub" style="text-align:center;padding:6px">Rounds 5–10 collapsed in this demo · full report contains all 12 base rounds and every fix round.</div>';
+
+  /* --- dimensions --- */
+  const DIMS = [
+    { kind: 'Fixed', name: 'Requirement understanding & goal retention', desc: 'Does the model read the requirement correctly and hold the goal and context steady across many turns?',
+      skill: 'SK-014',
+      scale: ['<code>+1</code> understands precisely, catches implicit constraints, goal stable across turns',
+              '<code>&nbsp;0</code> broadly correct, occasional omissions that do not derail the task',
+              '<code>−1</code> clear misreads, lost context, or repeated user correction of direction'],
+      marks: [0, 1, 0, 0],
+      why: ['Stayed on the same client for ten rounds and never drifted off the mandated stack, but misread the marker report as an icon problem in R8 and skipped the help-overlay requirement in the closing round.',
+            'Eleven rounds on target, stack never changed, and later prompts referencing earlier artifacts were picked up correctly every time. No misread, no redirection needed.',
+            'Understood each round and each defect report correctly; failures are execution and self-checking, not comprehension. Detail omissions only — short of the −1 bar.',
+            'On target throughout; a handful of small omissions — no alternate keys for tab switching, no directory indentation in the tree.'] },
+    { kind: 'Fixed', name: 'Task planning & execution control', desc: 'Does it decompose sensibly, control its steps, and adjust effectively when something goes wrong?',
+      skill: 'SK-014',
+      scale: ['<code>+1</code> clear plan, sensible ordering, adapts to feedback and errors',
+              '<code>&nbsp;0</code> broadly controlled but coarse planning and occasional inefficient attempts',
+              '<code>−1</code> no plan, random edits, repeated trial and error, or scope loss'],
+      marks: [0, 1, -1, 1],
+      why: ['Simple features decompose fine and the layering is clean, but hard features are unstable — one interaction consumed five rounds with a wrong-direction fix in the middle.',
+            'Ten of eleven rounds first-pass, one fix round, no thrashing, no scope inflation, and the hardest patch logic written correctly the first time.',
+            'Seven rounds at −2 and six at −1. Opening import cycle took three rounds; the closing staging bug took four. Fixes two of three reported problems and breaks working code while repairing.',
+            'One first-pass failure in twelve rounds, cleanly repaired in a single fix round, no regressions anywhere.'] },
+    { kind: 'Fixed', name: 'Instruction compliance & constraint adherence', desc: 'Does it honor explicit instructions — stack, components, code style, blast radius?',
+      skill: 'SK-007',
+      scale: ['<code>+1</code> honors every key constraint and avoids out-of-scope edits',
+              '<code>&nbsp;0</code> honors the main requirements with minor harmless deviations',
+              '<code>−1</code> violates a key requirement: swapped framework, changed interfaces, widened scope, deleted unrelated code'],
+      marks: [-1, 0, 0, 0],
+      why: ['The framework is right and nothing unrelated was deleted, but the mandated component library was bypassed repeatedly — hand-rolled spinner, hand-rolled input dialog, no text area for the commit editor, and the dependency is absent from go.mod entirely.',
+            'Framework, interfaces and blast radius all respected; explicitly deferred features were left alone. Two harmless deviations: toolchain version and the commit keybinding.',
+            'Stack, interfaces and scope all correct throughout; fixes tracked the reported defects. Minor debris left behind — an abandoned package directory and a comment-only file.',
+            'Stack correct, nothing unrelated touched. Two explicit deviations: toolchain version, and a different commit keybinding with a stated (if unverified) justification.'] },
+    { kind: 'Fixed', name: 'Final delivery & user experience', desc: 'Is the result complete, runnable, verifiable — and was the process low-burden and trustworthy?',
+      skill: 'SK-018',
+      scale: ['<code>+1</code> complete and usable, clearly documented and verified; the user can take it over directly',
+              '<code>&nbsp;0</code> task done, but documentation, verification or usability has minor gaps',
+              '<code>−1</code> incomplete, not runnable, missing key documentation, or heavy extra work required'],
+      marks: [0, 1, 0, 0],
+      why: ['Builds, tests pass, documentation is complete and every feature is present — but there are rough edges throughout and getting here took repeated correction.',
+            'Complete and directly hand-off-able: build and tests pass, unit/integration/E2E all present, thorough documentation, and a clear completion summary each round. One fix round total.',
+            'Final artifact is complete and runnable, but the acceptance cost was severe and test coverage is thin — the core parsers lack boundary cases.',
+            'All ten features present, builds and tests pass, documentation includes the key map. A few unresolved hint-layer issues keep it short of "take it over directly".'] },
+    { kind: 'Task', name: 'Git command wrapping & correctness', desc: 'Are the git invocations correctly wrapped, with accurate arguments and parsers that survive real output?',
+      skill: 'SK-007',
+      scale: ['<code>+1</code> every command wrapped correctly with complete arguments; parsers handle empty output, error output, filenames with spaces, multi-line messages; no cross-round conflicts',
+              '<code>&nbsp;0</code> main commands correct, some arguments omitted or parsers fragile on unusual formats, core use unaffected',
+              '<code>−1</code> key arguments wrong or missing, causing data loss or unusable behaviour; parsers fail on ordinary output'],
+      marks: [0, 1, 0, 1],
+      why: ['Arguments are correct across the board and the dangerous reset variant was correctly avoided, with parser unit tests present. But the task never reached the advanced arguments, so there is nothing here that exceeds a solid pass.',
+            'The full command surface is correct including patch application in both directions, and the line-level patch rebuilds context and recomputes counts. Dangerous reset modes were never exposed. Stable from the first round to the last.',
+            'Final wrapping is correct, including the empty-HEAD fallback for unstaging — but much of it arrived through fix rounds rather than first-pass design.',
+            'The strongest area of this submission: every command correct, git operations isolated in their own package, and every parser covered by both a unit test and an integration test against a temp repository.'] },
+    { kind: 'Task', name: 'TUI interaction & responsive quality', desc: 'Focus switching, keyboard handling, resize adaptation, and diff scrolling / coloring / folding.',
+      skill: 'SK-021',
+      scale: ['<code>+1</code> focus and navigation fluid, resize fully recomputed with no overlap, diff coloring accurate, scrolling and folding smooth, feedback immediate',
+              '<code>&nbsp;0</code> panels and focus usable, minor resize misalignment, occasional scroll or fold inaccuracy, feedback slightly delayed or missing',
+              '<code>−1</code> focus unswitchable or layout collapses on resize; diff cannot scroll, colors wrong, or folding unusable'],
+      marks: [0, 1, 0, 0],
+      why: ['Focus, highlight and resize were stable from round one and diff coloring is correct — but exactly the two navigation requirements, diff scrolling and hunk folding, were reached only through repeated rework.',
+            'Solid on the first pass: focus and resize handling, four-class diff coloring, vertical and horizontal scrolling, hunk folding, plus timely status and progress feedback. No rework in this area.',
+            'Everything is usable in the end, but the road was long: a non-compiling opening, overlapping panels, sub-tab switching taking four rounds to unify, and folding dragging two more.',
+            'All of it works, but the first pass had defects — layout off-by-one, unconstrained width, no wide-character handling in horizontal scroll — and several hints overlap or never clear.'] },
+    { kind: 'Task', name: 'Hard-feature implementation (line-level staging)', desc: 'Is the highest-difficulty feature correct — patch construction, context anchoring, reverse application?',
+      skill: 'SK-021',
+      scale: ['<code>+1</code> hunk and line staging fully usable, patch context correct, applies cleanly, clear errors on failure',
+              '<code>&nbsp;0</code> hunk staging usable, patch occasionally fails on thin context, line staging has boundary problems',
+              '<code>−1</code> hunk staging broken, patches frequently fail to apply, feature unusable'],
+      marks: [0, 0, 0, 0],
+      why: ['Ends up working, with a patch test and an apply-level integration test — but one interaction consumed five rounds to get there.',
+            'Patch logic itself was correct first try; the visible selection state was not, and needed a fix round. Correct but not a first-pass win.',
+            'Reaches a working state only after four fix rounds, one of which regressed the previously working whole-hunk path.',
+            'Correct interaction model and clean single-round repair, but the first pass did not apply — the context assembly was not explored before writing.'] },
+    { kind: 'Task', name: 'Test coverage & regression discipline', desc: 'Are tests real, placed on the failure-prone paths, and is prior work re-verified each round?',
+      skill: 'SK-018',
+      scale: ['<code>+1</code> unit + integration + E2E present, tests sit on the risky paths, regressions checked every round',
+              '<code>&nbsp;0</code> tests exist and pass but sit mostly on easy paths, regression checks informal',
+              '<code>−1</code> tests are stubs or absent, failures reach the user first, prior rounds silently broken'],
+      marks: [0, 1, -1, 0],
+      why: ['Plenty of unit tests, but they cluster on parsers; the interaction bugs that actually shipped would have been caught by running the interface once.',
+            'Tests at all three levels every round, sitting on exactly the error-prone paths, including an integration test that applies a generated patch for real.',
+            'Weakest area: a non-compiling first submission, a keybinding that never fired, and a staging path still erroring when it was reported fixed. Boundary cases absent from the core parsers.',
+            'Genuinely tested — parsers, staging, commit, branch and stash all have unit plus temp-repo integration tests — but the two first-pass failures were both things a self-run would have surfaced.'] }
+  ];
+  document.getElementById('rep-dims').innerHTML =
+    '<div class="modelbar" style="' + grid(4) + '">' + M.map(m => '<div class="mh">' + m + '</div>').join('') + '</div>' +
+    DIMS.map(d => '<div class="dblock">' +
+      '<div class="dname"><span class="pill neu">' + d.kind + '</span>' + d.name + tr(d.skill) + '</div>' +
+      '<div class="ddesc">' + d.desc + '</div>' +
+      '<details class="pp"><summary>Scoring bands</summary><span class="ptext" style="font-family:var(--sans);white-space:normal">' +
+      d.scale.map(s => '<div style="margin-bottom:3px">' + s + '</div>').join('') + '</span></details>' +
+      '<div class="marks" style="' + grid(4) + ';margin-top:10px">' +
+      d.marks.map(v => '<div class="mark ' + markCls(v) + '">' + sgn(v) + '</div>').join('') + '</div>' +
+      '<details class="pp"><summary>Rationale per model</summary>' +
+      '<div class="why" style="' + grid(4) + ';margin-top:8px">' +
+      d.why.map(w => '<div class="w">' + w + '</div>').join('') + '</div></details>' +
+      '</div>').join('');
+
+  /* --- behavior --- */
+  const BEH = [
+    { name: 'Planning & decomposition', cat: 'Does it think before it writes; are complex features reasoned through first?', skill: 'SK-014',
+      marks: ['good', 'good', 'poor', 'good'],
+      why: ['Overall structure is clear and simple features decompose in one pass, but tightly coupled interaction work is consistently under-planned and recovered through rework.',
+            'Data structures and message types are defined before the implementation each round, so even the hardest feature lands whole rather than being groped toward.',
+            'Simple rounds are fine; anything complex is written before it is understood — the opening import cycle, the folding work and the closing staging bug all trace to structures that were never thought through.',
+            'Clean layering, incremental extension on the existing structure, and data structures defined up front even for the hardest round.'] },
+    { name: 'Exploration sufficiency', cat: 'Does it read the existing code and confirm interfaces and conventions before changing them?', skill: 'SK-021',
+      marks: ['poor', 'good', 'poor', 'poor'],
+      why: ['Reads its own code fine, but never checked the environment conventions or the mandated component interfaces before writing — both cost a round.',
+            'Reads before writing and follows existing conventions: dialogs built early are reused later rather than rebuilt, and the command log is wired into the panel reserved for it in round one.',
+            'Extends its own structure competently but never probes boundaries — the empty-HEAD case and the narrow metadata parser are both unexplored-edge failures.',
+            'Follows existing interfaces and never breaks neighbours, but did not probe how patch context must be assembled before writing the round-four patch builder.'] },
+    { name: 'Self-verification', cat: 'Does it actually run its tests, and are they on the paths that matter?', skill: 'SK-018',
+      marks: ['poor', 'good', 'poor', 'good'],
+      why: ['Many unit tests, almost all on parsers. Every interaction defect that shipped — cursor unable to move, marker never toggling, tab strip obscured — would have surfaced from one manual pass over the interface.',
+            'Tests accompany nearly every round and sit on the failure-prone paths, including a temp-repo integration test that applies a generated patch. One interface state escaped in eleven rounds.',
+            'The weakest link: a first submission that did not compile, a keybinding that never fired, a stash action with no response, and a staging error still present when it was reported fixed.',
+            'Real tests at unit and integration level across every subsystem; both escapes were caught in a single fix round each.'] },
+    { name: 'Completion-claim truthfulness', cat: 'When it says "done", is it done — and does it report what it left behind?', skill: 'SK-018',
+      marks: ['poor', 'good', 'poor', 'good'],
+      why: ['Truthful on easy rounds; on hard ones "done" repeatedly did not match the artifact — a marker that never moved, a fix that only changed a symbol, a polish round that skipped the requested addition.',
+            'Claims match the artifact on re-verification, with one exception that was repaired in a single round. Round summaries are detailed and consistent with the actual diff.',
+            'Reported a completed optimization round in which neither the tests nor the outstanding bug were touched, and explicitly reported a staging error as fixed when it reproduced identically.',
+            'No dead code dressed up as completion; a single round shipped with a known apply error, and residual issues are otherwise reported accurately.'] },
+    { name: 'Root-cause vs. trial and error', cat: 'When debugging, does it locate the cause or shuffle code until symptoms move?', skill: 'SK-021',
+      marks: ['poor', 'good', 'poor', 'good'],
+      why: ['Simple bugs are located directly; hard ones become guesswork — the marker bug was misdiagnosed as an icon problem, then traded back and forth for several rounds before the state-sync cause was found.',
+            'The single required repair was made at the rendering level rather than at the symptom, preserving folding and scroll position in the process. One pass, no shuffling.',
+            'Repairs target the reported symptom rather than the cause, so the same defect returns for four consecutive rounds and one repair regresses a working path.',
+            'Both failures were traced to their actual cause and fixed in one round each, with no repeat visits.'] },
+    { name: 'Error recovery', cat: 'After a defect is reported, does it recover cleanly without regressing anything else?', skill: 'SK-014',
+      marks: ['good', 'good', 'poor', 'good'],
+      why: ['Across rounds the recovery is clean — no previously accepted feature was ever broken by later work. The thrashing is contained inside a single feature.',
+            'The one reported defect was repaired in a single round without disturbing neighbouring behaviour, and eleven rounds produced no regression at all.',
+            'Repairs routinely need re-reporting and introduce new defects; the closing stretch broke a working staging path while addressing an unrelated hint.',
+            'Both failures repaired in one round each with nothing else disturbed. No regressions in twelve rounds.'] },
+    { name: 'Knowledge-gap handling', cat: 'For unfamiliar mechanisms, does it verify — or guess and iterate?', skill: 'SK-007',
+      marks: ['poor', 'good', 'good', 'good'],
+      why: ['Tends to push through rather than check: worked around the dependency environment instead of configuring it, and never internalized how interface state is meant to track data, which drove the repeated marker failures.',
+            'Comfortable with everything it used — async command dispatch, the widget set, patch application semantics — and worked out the environment configuration unprompted.',
+            'Correct API usage throughout, including the conditional unstage path; the problem is that verifying a mechanism did not translate into implementing it correctly first time.',
+            'Correct on the widget set, patch construction and async dispatch, and configured the environment correctly without being told.'] },
+    { name: 'Constraint & scope adherence', cat: 'Does it stay inside the stack, the interfaces and the blast radius it was given?', skill: 'SK-007',
+      marks: ['poor', 'good', 'good', 'good'],
+      why: ['Framework and scope are respected, but the mandated component set was bypassed in several places in favour of hand-rolled equivalents, and some keybindings were substituted at will.',
+            'Stack, interfaces and style held constant, and explicitly deferred features were never touched opportunistically.',
+            'Never swapped the stack, never widened scope, and fixes stayed on the reported defects; only leftover debris to note.',
+            'Stack and blast radius respected throughout, with two documented deviations on version and keybinding.'] }
+  ];
+  const bmark = v => v === 'good' ? '<div class="mark p">good</div>' : '<div class="mark m">poor</div>';
+  document.getElementById('rep-behav').innerHTML =
+    '<div class="modelbar" style="' + grid(4) + '">' + M.map(m => '<div class="mh">' + m + '</div>').join('') + '</div>' +
+    BEH.map(b => '<div class="dblock">' +
+      '<div class="dname">' + b.name + tr(b.skill) + '</div>' +
+      '<div class="ddesc">' + b.cat + '</div>' +
+      '<div class="marks" style="' + grid(4) + '">' + b.marks.map(bmark).join('') + '</div>' +
+      '<details class="pp"><summary>Analysis per model</summary>' +
+      '<div class="why" style="' + grid(4) + ';margin-top:8px">' + b.why.map(w => '<div class="w">' + w + '</div>').join('') + '</div></details>' +
+      '</div>').join('') +
+    '<div class="ssub" style="padding:8px 2px">Every judgment above carries a <code style="font-family:var(--mono)">source_skill</code> field. Click any badge to see the expert, the version and the calibrated agreement rate behind that call.</div>';
+
+  document.querySelectorAll('.rt').forEach(b => b.onclick = () => {
+    document.querySelectorAll('.rt').forEach(x => x.classList.toggle('on', x === b));
+    document.querySelectorAll('.rep').forEach(r => r.style.display = (r.id === 'rep-' + b.dataset.rep) ? '' : 'none');
+  });
+})();
+
+/* ===================== Embodied report ===================== */
+(function () {
+  const B = ['bx-warehouse-01', 'bx-kitchen-07', 'sim-blend-03', 'teleop-fleet-12'];
+  const g4 = grid(4);
+  const scores = [4, 3, 2, 4];
+
+  const EROWS = [
+    ['Batch score', ['4/5', '3/5', '2/5', '4/5'], true],
+    ['Episodes', ['48,200', '31,540', '96,800', '22,110']],
+    ['Frames', ['1.24M', '0.82M', '3.10M', '0.61M']],
+    ['Devices / viewpoints', ['6 / 18', '3 / 7', '2 / 4', '11 / 33']],
+    ['Scene categories', ['9', '4', '3', '14']],
+    ['Episodes flagged', ['1,406 (2.9%)', '3,910 (12.4%)', '28,150 (29.1%)', '540 (2.4%)']],
+    ['Σ quality dims', ['+2 / 2', '0 / 2', '−1 / 2', '+2 / 2']],
+    ['Σ coverage dims', ['+2 / 3', '−1 / 3', '−2 / 3', '+3 / 3']],
+    ['Sub-item pass rate', ['71/76 = 93%', '58/76 = 76%', '41/76 = 54%', '73/76 = 96%']]
+  ];
+  document.getElementById('rep-estats').innerHTML =
+    '<div class="box"><div class="box-h"><b>Batch statistics</b><span>4 batches · aligned columns</span></div>' +
+    '<div class="scrollx"><table class="t"><thead><tr><th>Metric</th>' + B.map(b => '<th class="num" style="font-family:var(--mono);color:var(--accent)">' + b + '</th>').join('') + '</tr></thead><tbody>' +
+    EROWS.map(r => '<tr><td class="sname">' + r[0] + '</td>' + r[1].map((v, i) =>
+      '<td class="num">' + (r[2] ? '<span class="ovcell" style="background:' + scoreColor(scores[i]) + '">' + v + '</span>' : v) + '</td>').join('') + '</tr>').join('') +
+    '</tbody></table></div></div>' +
+    '<div class="verd-cards" style="' + grid(2) + ';margin-top:14px">' +
+    [['bx-warehouse-01', 4, 'Clean multi-device batch. Sensor streams stay within a 12 ms envelope, extrinsics re-verified per session, and long-tail coverage is genuine — 9 scene categories with no single category above 22% of episodes. Flags concentrate in one low-light aisle where the depth stream degrades; that subset is quarantined rather than rejected.'],
+     ['bx-kitchen-07', 3, 'Usable but narrow. Image quality and annotation completeness are fine; the problem is coverage. Three devices, seven viewpoints and four scene categories, with 61% of episodes captured on one arm in one lighting condition. Accepting this batch at face value would bake a capture signature into the model.'],
+     ['sim-blend-03', 2, 'Rejected for delivery. Roughly 29% of episodes carry simulation signatures — contact impulses that resolve in a single frame, and joint trajectories with no measurement noise floor at all. The batch is not labeled as blended, which is the actual defect: a mixed batch presented as field capture.'],
+     ['teleop-fleet-12', 4, 'The strongest batch in the comparison on coverage: 11 devices, 33 viewpoints, 14 scene categories, and the flattest category distribution in the set. Smallest batch by volume, so the flag rate is stable but the tail is thin — three categories have fewer than 200 episodes each.']]
+      .map(v => '<div class="vcard"><div class="vh"><span class="mh" style="display:inline-block;padding:2px 9px">' + v[0] + '</span>' +
+        '<span class="ovcell" style="background:' + scoreColor(v[1]) + '">' + v[1] + '/5</span></div><div class="vb">' + v[2] + '</div></div>').join('') + '</div>';
+
+  const EDIMS = [
+    { kind: 'Quality', name: 'Noise level', desc: 'Sensor noise, motion blur, action jitter, inter-stream desynchronization.', skill: 'SK-033', marks: [1, 0, -1, 1],
+      why: ['Streams inside a 12 ms envelope; residual noise consistent with the declared hardware.',
+            'Acceptable overall, with intermittent jitter on the wrist camera mount during fast reaches.',
+            'Joint trajectories carry no measurement noise floor — the signature of synthetic generation, not clean capture.',
+            'Lowest noise in the set; the fleet runs hardware timestamping end to end.'] },
+    { kind: 'Quality', name: 'Clarity', desc: 'Resolution, occlusion ratio, illumination sufficiency, identifiability of the manipulated object.', skill: 'SK-033', marks: [1, 0, 0, 1],
+      why: ['Target object identifiable in 97.1% of frames; failures cluster in one low-light aisle.',
+            'Adequate, but 14% of episodes have the gripper occluding the target at the contact moment.',
+            'Rendered frames are clear by construction — clarity passes but tells you nothing about capture quality.',
+            'Consistently identifiable across all 33 viewpoints, including the two overhead rigs.'] },
+    { kind: 'Coverage', name: 'Device diversity', desc: 'Breadth of capture hardware — arm models, camera specs, sensor suites.', skill: 'SK-033', marks: [1, -1, -1, 1],
+      why: ['6 arm models across 18 viewpoint configurations.',
+            '3 devices, and 61% of episodes come from a single arm.',
+            '2 simulated platforms; hardware diversity is not a meaningful concept for this batch.',
+            '11 devices, 33 viewpoints — the broadest in the comparison.'] },
+    { kind: 'Coverage', name: 'Scene diversity', desc: 'Breadth of capture environments — indoor/outdoor, lighting, background complexity, task mix.', skill: 'SK-041', marks: [1, -1, -1, 1],
+      why: ['9 scene categories, no category above 22% of episodes.',
+            '4 categories, one lighting condition, one background family.',
+            '3 procedurally varied scenes that repeat with high structural similarity.',
+            '14 categories with the flattest distribution in the set.'] },
+    { kind: 'Coverage', name: 'Overall diversity', desc: 'Object classes, action types, and whether capture has collapsed into a repeating pattern.', skill: 'SK-041', marks: [0, 1, 0, 1],
+      why: ['Broad but object-class-heavy on boxes and totes; the manipulation vocabulary is narrower than the scene count suggests.',
+            'Despite narrow devices and scenes, the object and action mix inside the kitchen domain is genuinely varied.',
+            'Structural repetition detected across 41% of episodes — the generator reuses layouts with small perturbations.',
+            'Widest joint distribution over object class and action type of the four batches.'] }
+  ];
+  document.getElementById('rep-edims').innerHTML =
+    '<div class="modelbar" style="' + g4 + '">' + B.map(b => '<div class="mh">' + b + '</div>').join('') + '</div>' +
+    EDIMS.map(d => '<div class="dblock">' +
+      '<div class="dname"><span class="pill neu">' + d.kind + '</span>' + d.name + tr(d.skill) + '</div>' +
+      '<div class="ddesc">' + d.desc + '</div>' +
+      '<div class="marks" style="' + g4 + '">' + d.marks.map(v => '<div class="mark ' + markCls(v) + '">' + sgn(v) + '</div>').join('') + '</div>' +
+      '<details class="pp"><summary>Rationale per batch</summary><div class="why" style="' + g4 + ';margin-top:8px">' +
+      d.why.map(w => '<div class="w">' + w + '</div>').join('') + '</div></details></div>').join('');
+
+  const ECHAR = [
+    ['Noise acceptability', 'SK-033', ['good', 'good', 'poor', 'good'], 'Whether residual sensor noise stays within the envelope declared for the hardware.'],
+    ['Clarity compliance', 'SK-033', ['good', 'good', 'good', 'good'], 'Whether resolution, occlusion and illumination meet the batch specification.'],
+    ['Lighting consistency', 'SK-033', ['good', 'poor', 'good', 'good'], 'Whether illumination is stable within an episode and varied across the batch.'],
+    ['Calibration accuracy', 'SK-033', ['good', 'good', 'poor', 'good'], 'Whether extrinsics hold across the session; reprojection error inside tolerance.'],
+    ['Scene annotation completeness', 'SK-033', ['good', 'good', 'poor', 'good'], 'Whether every episode carries the scene, task and object metadata the schema requires.'],
+    ['Multi-sensor synchronization', 'SK-033', ['good', 'poor', 'good', 'good'], 'Whether RGB, depth and joint-state streams share a common clock within tolerance.'],
+    ['Action authenticity', 'SK-041', ['good', 'good', 'poor', 'good'], 'Whether the trajectory is real capture or carries simulation signatures.'],
+    ['Long-tail coverage', 'SK-041', ['good', 'poor', 'poor', 'good'], 'Whether rare configurations appear at a rate that supports learning them.']
+  ];
+  const EWHY = {
+    'Noise acceptability': ['Within envelope across all six devices.', 'Wrist-mount jitter on fast reaches, still inside tolerance.', 'No measurement noise floor at all on joint state — synthetic origin.', 'Hardware-timestamped end to end; cleanest in the set.'],
+    'Clarity compliance': ['97.1% target identifiability.', 'Gripper occlusion at contact in 14% of episodes, above target but passing.', 'Rendered clarity passes trivially — non-informative for this batch.', 'Clear across all 33 viewpoints.'],
+    'Lighting consistency': ['Varied across the batch, stable within episodes.', 'One lighting condition for 88% of episodes — no meaningful variation.', 'Procedural lighting varies as configured.', 'Fleet spans day, night and mixed indoor conditions.'],
+    'Calibration accuracy': ['Extrinsics re-verified per session; reprojection error inside tolerance.', 'Stable across the batch.', 'Not applicable in the intended sense — declared as field capture, which is the defect.', 'Per-session calibration logged with every episode.'],
+    'Scene annotation completeness': ['All required metadata present.', 'Complete.', '11% of episodes missing task-type metadata entirely.', 'Complete, including operator ID and session context.'],
+    'Multi-sensor synchronization': ['Streams inside a 12 ms envelope.', 'Depth lags RGB by 40–70 ms in 9% of episodes — see the inspector.', 'Perfectly synchronized by construction.', 'Hardware timestamping; sub-5 ms across streams.'],
+    'Action authenticity': ['Consistent with real capture: contact impulses decay over several frames.', 'Real capture throughout.', 'Contact impulses resolve in a single frame; 29% of episodes carry simulation signatures while the batch is labeled as field capture.', 'Real capture, operator-attributed.'],
+    'Long-tail coverage': ['9 categories with a reasonable tail, though object classes concentrate on boxes and totes.', 'Four categories; the tail is effectively absent.', 'Structural repetition across 41% of episodes — apparent variety, little real coverage.', 'Broadest coverage in the set, though three categories hold fewer than 200 episodes.']
+  };
+  document.getElementById('rep-echar').innerHTML =
+    '<div class="modelbar" style="' + g4 + '">' + B.map(b => '<div class="mh">' + b + '</div>').join('') + '</div>' +
+    ECHAR.map(c => '<div class="dblock">' +
+      '<div class="dname">' + c[0] + tr(c[1]) + '</div>' +
+      '<div class="ddesc">' + c[3] + '</div>' +
+      '<div class="marks" style="' + g4 + '">' + c[2].map(m => m === 'good' ? '<div class="mark p">good</div>' : '<div class="mark m">poor</div>').join('') + '</div>' +
+      '<details class="pp"><summary>Analysis per batch</summary><div class="why" style="' + g4 + ';margin-top:8px">' +
+      EWHY[c[0]].map(w => '<div class="w">' + w + '</div>').join('') + '</div></details></div>').join('');
+
+  /* episode inspector */
+  const EPS = [
+    { id: 'ep-114820', b: 'bx-warehouse-01', cls: '', tag: 'RGB · 30fps', v: 'PASS', note: 'target identifiable, sync 8 ms', boxes: [[18, 34, 40, 38]] },
+    { id: 'ep-114931', b: 'bx-warehouse-01', cls: 'dark', tag: 'low-light aisle', v: 'WARN', note: 'depth degraded, quarantined', boxes: [[30, 40, 34, 32]] },
+    { id: 'ep-072210', b: 'bx-kitchen-07', cls: 'blur', tag: 'motion blur', v: 'FLAG', note: 'depth lags RGB by 62 ms', boxes: [[24, 30, 44, 40], [12, 12, 20, 18]] },
+    { id: 'ep-338104', b: 'sim-blend-03', cls: 'over', tag: 'rendered', v: 'FLAG', note: 'single-frame contact impulse', boxes: [[26, 28, 42, 44]] }
+  ];
+  document.getElementById('rep-einspect').innerHTML =
+    '<div class="box" style="margin-bottom:14px"><div class="box-h"><b>Flagged episodes</b><span>4 of 34,006 shown</span></div><div class="box-c">' +
+    '<div class="ep-grid">' + EPS.map(e => '<div class="ep">' +
+      '<div class="thumb ' + e.cls + '"><span class="tag">' + e.tag + '</span>' +
+      e.boxes.map(b => '<span class="box2' + (e.v === 'FLAG' ? ' bad' : '') + '" style="left:' + b[0] + '%;top:' + b[1] + '%;width:' + b[2] + '%;height:' + b[3] + '%"></span>').join('') +
+      '</div><div class="em"><b>' + e.id + '</b>' +
+      '<span class="vd ' + (e.v === 'PASS' ? 'pass' : e.v === 'WARN' ? 'warn' : 'flag') + '" style="font-family:var(--mono);font-weight:700">' + e.v + '</span> · ' +
+      '<span>' + e.note + '</span></div></div>').join('') + '</div></div></div>' +
+    '<div class="box"><div class="box-h"><b>Stream alignment — ep-072210</b><span>tolerance 40 ms</span></div>' +
+    '<div class="box-c"><div class="sync">' +
+    [['rgb', 0], ['depth', 62], ['joint_state', 4], ['gripper', 6]].map(t =>
+      '<div class="track"><span class="tl">' + t[0] + '</span><div class="tb">' +
+      Array.from({ length: 30 }, (_, i) => '<i class="' + (t[1] > 40 ? 'off' : '') + '" style="left:' + (i * 3.32 + t[1] / 22) + '%"></i>').join('') +
+      '</div></div>').join('') +
+    '</div><div class="synclegend">Depth frames arrive <b>62 ms</b> after their RGB counterparts, beyond the 40 ms tolerance declared for this batch. ' +
+    'Every contact-phase label in this episode is therefore attached to the wrong depth frame. Flagged by ' +
+    '<span class="trace" data-skill="SK-033">SK-033</span> — Prof. H. Tanaka, calibrated at 89.4% agreement.</div></div></div>';
+
+  document.querySelectorAll('.et').forEach(b => b.onclick = () => {
+    document.querySelectorAll('.et').forEach(x => x.classList.toggle('on', x === b));
+    document.querySelectorAll('.erep').forEach(r => r.style.display = (r.id === 'rep-' + b.dataset.erep) ? '' : 'none');
+  });
+})();
+
+/* ===================== flywheel table ===================== */
+document.getElementById('strattable').innerHTML =
+  '<thead><tr><th>Strategy</th><th>Origin board</th><th class="num">Traces</th><th>Fed into</th><th>Effect</th></tr></thead><tbody>' +
+  [['Claims completion without exercising the interactive path', 'Language', '4,120', 'SK-018', '+2.1 pt agreement'],
+   ['Patch context under-anchored on partial selections', 'Language', '2,880', 'SK-021', '+1.4 pt agreement'],
+   ['Fixes two of three reported defects, defers the hardest', 'Language', '1,940', 'SK-014', 'new rubric clause'],
+   ['Motion blur misread as a simulation artifact', 'Embodied', '1,610', 'SK-041', 'blocking — draft below threshold'],
+   ['Depth stream lag beyond declared tolerance', 'Embodied', '9,340', 'SK-033', 'batch gate added'],
+   ['Structural repetition inflating apparent diversity', 'Embodied', '6,105', 'SK-041', 'collection priority (queued)']]
+    .map(r => '<tr><td class="sname">' + r[0] + '</td><td><span class="pill neu">' + r[1] + '</span></td>' +
+      '<td class="num">' + r[2] + '</td><td>' + tr(r[3]) + '</td><td class="ssub">' + r[4] + '</td></tr>').join('') + '</tbody>';
+
+</script>
+
+</body>
+</html>
