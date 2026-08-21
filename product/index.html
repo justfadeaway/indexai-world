@@ -354,6 +354,129 @@
   }
   .demo-note code { font-family: var(--mono); background: var(--bg-soft); border: 1px solid var(--border); border-radius: 5px; padding: 1px 6px; }
 
+
+  /* ---------- segmented mode switch ---------- */
+  .seg { display: inline-flex; border: 1px solid var(--border-strong); border-radius: 8px; overflow: hidden; }
+  .seg button {
+    font-family: var(--sans); font-size: 12.5px; padding: 6px 14px; border: 0;
+    background: var(--bg); color: var(--text-2); cursor: pointer; border-right: 1px solid var(--border);
+  }
+  .seg button:last-child { border-right: 0; }
+  .seg button.on { background: #191918; color: #fff; font-weight: 560; }
+  .seg button:not(.on):hover { background: #f2f1ed; color: var(--text); }
+
+  /* ---------- semantic search ---------- */
+  .srch { position: relative; margin-bottom: 12px; }
+  .srch input {
+    width: 100%; padding: 9px 13px 9px 32px; font-family: var(--sans); font-size: 13px;
+    border: 1px solid var(--border-strong); border-radius: 8px; background: var(--bg); color: var(--text);
+  }
+  .srch input:focus { outline: none; border-color: var(--text); box-shadow: 0 0 0 3px rgba(25,25,24,.07); }
+  .srch .si { position: absolute; left: 11px; top: 50%; transform: translateY(-50%); color: var(--text-3); font-size: 12px; }
+  .srch .sh { font-size: 11.5px; color: var(--text-3); margin-top: 6px; font-family: var(--mono); }
+  tr.dim { opacity: .32; }
+  .simscore { font-family: var(--mono); font-size: 11px; color: var(--accent); }
+
+  /* ---------- similar-skill compare ---------- */
+  .simgrid { display: grid; grid-template-columns: 1fr auto 1fr; gap: 14px; align-items: stretch; }
+  .simcol { border: 1px solid var(--border); border-radius: 9px; padding: 12px 13px; background: var(--bg-soft); }
+  .simcol .sk-id { font-family: var(--mono); font-size: 10.5px; color: var(--accent); }
+  .simcol h5 { font-size: 13px; font-weight: 640; margin: 3px 0 2px; }
+  .simcol .who { font-size: 11.5px; color: var(--text-3); margin-bottom: 9px; }
+  .simcol ul { list-style: none; font-size: 11.5px; color: var(--text-2); }
+  .simcol li { padding: 3px 0 3px 12px; position: relative; }
+  .simcol li::before { content: "—"; position: absolute; left: 0; color: var(--text-3); }
+  .simvs { display: grid; place-items: center; font-family: var(--mono); font-size: 11px; color: var(--text-3); }
+  .simvs span { writing-mode: vertical-rl; letter-spacing: .12em; }
+
+  /* ---------- pairwise ---------- */
+  .pw-wrap { border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+  .pw-head { padding: 11px 15px; background: var(--bg-soft); border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .pw-head b { font-size: 13px; }
+  .pw-head .pwc { font-family: var(--mono); font-size: 11.5px; color: var(--text-3); }
+  .pw-body { padding: 14px 15px; }
+  .pw-q { font-size: 12.5px; color: var(--text-2); background: var(--bg-soft); border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; margin-bottom: 12px; }
+  .pw-q b { color: var(--text); }
+  .pw-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .pw-card { border: 1.5px solid var(--border); border-radius: 9px; padding: 12px 13px; background: var(--bg); cursor: pointer; transition: border-color .15s, background .15s; }
+  .pw-card:hover { border-color: var(--text); background: #fbfaf7; }
+  .pw-card.picked { border-color: var(--pos); background: var(--pos-bg); }
+  .pw-card .pl { font-family: var(--mono); font-size: 10.5px; color: var(--text-3); letter-spacing: .08em; margin-bottom: 6px; }
+  .pw-card .pt { font-family: var(--mono); font-size: 11.5px; color: var(--text-2); white-space: pre-wrap; line-height: 1.55; }
+  .pw-act { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; align-items: center; }
+  .pw-res { margin-top: 12px; display: none; }
+  .pw-res.on { display: block; animation: fade .25s ease; }
+  .pw-agree { font-size: 12px; color: var(--text-2); }
+  .pw-agree b { color: var(--pos); }
+  .pw-done { padding: 13px 15px; border-radius: 9px; background: var(--pos-bg); border: 1px solid var(--pos-bd); font-size: 12.5px; color: var(--text-2); }
+  .pw-done b { color: var(--pos); }
+
+  /* ---------- task-skill matching ---------- */
+  .mrow { border: 1px solid var(--border); border-radius: 10px; margin-bottom: 12px; overflow: hidden; }
+  .mrow-h { padding: 11px 14px; background: var(--bg-soft); border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .mrow-h b { font-family: var(--mono); font-size: 12.5px; }
+  .mrow-h .meta { font-size: 11.5px; color: var(--text-3); }
+  .mrow-h .right { margin-left: auto; display: flex; gap: 8px; align-items: center; }
+  .mrow-b { padding: 12px 14px; display: grid; gap: 9px; }
+  .mcand { display: grid; grid-template-columns: 190px 92px 1fr; gap: 12px; align-items: center; font-size: 12px; }
+  .mcand .mname { font-weight: 600; }
+  .mcand .mwhy { color: var(--text-2); font-size: 11.5px; }
+  .conf { display: flex; align-items: center; gap: 7px; }
+  .conf .cb { flex: 1; height: 5px; border-radius: 3px; background: #eeece7; overflow: hidden; }
+  .conf .cb i { display: block; height: 100%; background: var(--pos); }
+  .conf.mid .cb i { background: var(--warn); } .conf.low .cb i { background: var(--neg); }
+  .conf span { font-family: var(--mono); font-size: 11px; color: var(--text-2); }
+  .nocover { padding: 13px 14px; background: var(--warn-bg); border: 1px solid var(--warn-bd); border-radius: 9px; font-size: 12.5px; color: #7a4d0c; }
+  .nocover b { display: block; margin-bottom: 4px; color: #8a5a12; }
+
+  /* ---------- failure modes / routing ---------- */
+  .route { display: flex; gap: 6px; flex-wrap: wrap; }
+  .rbtn {
+    font-family: var(--sans); font-size: 11.5px; padding: 4px 10px; border-radius: 6px; cursor: pointer;
+    border: 1px solid var(--border-strong); background: var(--bg); color: var(--text-2); white-space: nowrap;
+  }
+  .rbtn:hover { border-color: var(--text); color: var(--text); }
+  .rbtn.done { background: var(--pos-bg); border-color: var(--pos-bd); color: var(--pos); cursor: default; font-weight: 600; }
+  #toast {
+    position: fixed; left: 50%; bottom: 26px; transform: translate(-50%, 14px); z-index: 320;
+    background: #191918; color: #fff; font-size: 12.5px; padding: 10px 18px; border-radius: 9px;
+    box-shadow: 0 14px 34px -14px rgba(25,25,24,.5); opacity: 0; pointer-events: none; transition: opacity .2s, transform .2s;
+    max-width: min(520px, calc(100vw - 32px)); text-align: center;
+  }
+  #toast.on { opacity: 1; transform: translate(-50%, 0); }
+
+  /* ---------- coverage blind spots ---------- */
+  .emb-map { border: 1px solid var(--border); border-radius: 9px; background: var(--bg-soft); padding: 10px; }
+  .emb-map svg { display: block; width: 100%; height: auto; }
+  .emb-legend { display: flex; gap: 16px; flex-wrap: wrap; font-size: 11.5px; color: var(--text-2); margin-top: 10px; }
+  .emb-legend i { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 6px; vertical-align: middle; }
+  .clus { cursor: pointer; }
+  .clus:hover circle { stroke: #191918; stroke-width: 1.4; }
+
+  /* ---------- guided tour ---------- */
+  #tourveil { position: fixed; inset: 0; z-index: 400; display: none; pointer-events: none; }
+  #tourveil.on { display: block; }
+  #spot {
+    position: absolute; border-radius: 10px; pointer-events: none;
+    box-shadow: 0 0 0 3px rgba(25,25,24,.85), 0 0 0 9999px rgba(25,25,24,.52);
+    transition: top .28s ease, left .28s ease, width .28s ease, height .28s ease;
+  }
+  #callout {
+    position: absolute; width: min(340px, calc(100vw - 28px)); pointer-events: auto;
+    background: var(--bg); border: 1px solid var(--border-strong); border-radius: 12px;
+    box-shadow: 0 22px 54px -20px rgba(25,25,24,.5); padding: 16px 18px;
+    transition: top .28s ease, left .28s ease;
+  }
+  #callout .tstep { font-family: var(--mono); font-size: 10.5px; color: var(--accent); letter-spacing: .06em; }
+  #callout h5 { font-size: 15px; font-weight: 640; margin: 5px 0 6px; letter-spacing: -.015em; }
+  #callout p { font-size: 12.8px; color: var(--text-2); }
+  #callout .tnav { display: flex; gap: 8px; align-items: center; margin-top: 14px; }
+  #callout .tnav .sp { margin-left: auto; }
+  #callout .tdots { display: flex; gap: 4px; margin-top: 12px; }
+  #callout .tdots i { width: 5px; height: 5px; border-radius: 50%; background: var(--border-strong); display: block; }
+  #callout .tdots i.on { background: #191918; }
+  body.touring { overflow: hidden; }
+
   /* The 4-way comparison grids stop being readable much below this; scroll them
      sideways inside the pane rather than crushing four columns into a phone width. */
   @media (max-width: 860px) {
@@ -370,6 +493,16 @@
     .kpis { grid-template-columns: repeat(2, 1fr); }
     .two { grid-template-columns: 1fr; }
     .fw, .ep-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  /* below this the three new side-by-side layouts stop being legible
+     (64px explanation columns, 121px pairwise cards) — stack them instead */
+  @media (max-width: 760px) {
+    .mcand { grid-template-columns: 1fr; gap: 5px; }
+    .mcand .conf { max-width: 200px; }
+    .simgrid { grid-template-columns: 1fr; }
+    .simvs { padding: 2px 0; }
+    .simvs span { writing-mode: horizontal-tb; }
+    .pw-pair { grid-template-columns: 1fr; }
   }
   @media (max-width: 900px) {
     .cov-grid { grid-template-columns: 1fr; }
@@ -415,8 +548,8 @@
       language and embodied — and returns a report where every verdict traces back to the expert who authored it.
     </p>
     <div class="hero-cta">
-      <a class="btn" href="#console">Open the live console</a>
-      <a class="btn btn-ghost" href="/#contact">Talk to us</a>
+      <button class="btn" onclick="startTour()">Take the guided tour</button>
+      <a class="btn btn-ghost" href="#console">Explore the console yourself</a>
     </div>
     <div class="demo-note">
       <span>Interactive demo · synthetic data · no account required</span>
@@ -497,53 +630,89 @@
       </p>
     </div>
     <div class="arch reveal">
-      <svg viewBox="0 0 900 430" role="img" aria-label="Agentic OS architecture: Skill Board feeds the Judge Agent Kernel, which serves the LLM review board and the embodied review board.">
+      <svg viewBox="0 0 900 520" role="img" aria-label="Agentic OS architecture: the Skill Board distils expert judgment, a matching layer routes data to the skills that cover it, the Judge Agent Kernel runs the review, and failure modes plus coverage gaps feed back into the library.">
         <defs>
           <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
             <path d="M0 0 L10 5 L0 10 z" fill="#94938e"/>
           </marker>
+          <marker id="arb" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M0 0 L10 5 L0 10 z" fill="#1d4ed8"/>
+          </marker>
           <style>
             .bx { fill:#fafaf8; stroke:#d4d3ce; stroke-width:1.2; }
             .bxk { fill:#191918; stroke:#191918; }
+            .bxn { fill:#eef2ff; stroke:#c9d6fb; stroke-width:1.2; }
             .tt { font: 600 15px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill:#191918; }
             .ttw { font: 600 15px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill:#ffffff; }
+            .ttb { font: 600 14px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill:#1d4ed8; }
             .sb { font: 400 11.5px ui-monospace, SFMono-Regular, Menlo, monospace; fill:#94938e; }
             .sbw { font: 400 11.5px ui-monospace, SFMono-Regular, Menlo, monospace; fill:#b7b5ae; }
+            .sbb { font: 400 11px ui-monospace, SFMono-Regular, Menlo, monospace; fill:#5b7ce0; }
             .ln { stroke:#94938e; stroke-width:1.2; fill:none; }
+            .lnb { stroke:#1d4ed8; stroke-width:1.2; fill:none; }
             .lbl { font: 400 11px ui-monospace, SFMono-Regular, Menlo, monospace; fill:#94938e; }
+            .lblb { font: 400 11px ui-monospace, SFMono-Regular, Menlo, monospace; fill:#5b7ce0; }
+            .cap { font: 600 10.5px ui-monospace, SFMono-Regular, Menlo, monospace; fill:#94938e; letter-spacing:.1em; }
           </style>
         </defs>
 
-        <rect class="bx" x="250" y="14" width="400" height="86" rx="12"/>
-        <text class="tt" x="450" y="46" text-anchor="middle">Skill Board</text>
-        <text class="sb" x="450" y="70" text-anchor="middle">upload → calibrate → publish → apply → drift-track</text>
-        <text class="sb" x="450" y="88" text-anchor="middle">researchers &amp; domain experts</text>
+        <text class="cap" x="26" y="24">RESEARCHER DISTILL</text>
+        <rect class="bx" x="20" y="34" width="390" height="92" rx="12"/>
+        <text class="tt" x="215" y="64" text-anchor="middle">Skill library</text>
+        <text class="sb" x="215" y="86" text-anchor="middle">distil → calibrate → publish → track drift</text>
+        <text class="sb" x="215" y="104" text-anchor="middle">semantic search · near-duplicate compare</text>
 
-        <path class="ln" d="M450 100 L450 148" marker-end="url(#ar)"/>
-        <text class="lbl" x="462" y="128">skill = executable judgment unit</text>
+        <rect class="bxn" x="20" y="146" width="390" height="76" rx="12"/>
+        <text class="ttb" x="215" y="174" text-anchor="middle">Task–skill matching</text>
+        <text class="sbb" x="215" y="194" text-anchor="middle">scope match + explainable confidence</text>
+        <text class="sbb" x="215" y="211" text-anchor="middle">no match → hold batch, open skill request</text>
 
-        <rect class="bx bxk" x="250" y="150" width="400" height="86" rx="12"/>
-        <text class="ttw" x="450" y="182" text-anchor="middle">Judge Agent Kernel</text>
-        <text class="sbw" x="450" y="206" text-anchor="middle">shared review engine · report generation</text>
-        <text class="sbw" x="450" y="224" text-anchor="middle">routing · multi-skill arbitration · source_skill trace</text>
+        <path class="ln" d="M215 126 L215 144" marker-end="url(#ar)"/>
+        <path class="ln" d="M410 184 L470 184" marker-end="url(#ar)"/>
+        <text class="lbl" x="440" y="176" text-anchor="middle">routes</text>
 
-        <path class="ln" d="M340 236 L340 274 L210 274 L210 306" marker-end="url(#ar)"/>
-        <path class="ln" d="M560 236 L560 274 L690 274 L690 306" marker-end="url(#ar)"/>
+        <text class="cap" x="480" y="24">REVIEW / AUDIT</text>
+        <rect class="bx bxk" x="472" y="34" width="408" height="188" rx="12"/>
+        <text class="ttw" x="676" y="66" text-anchor="middle">Judge Agent Kernel</text>
+        <text class="sbw" x="676" y="90" text-anchor="middle">one review engine · two review modes</text>
+        <rect x="496" y="108" width="176" height="46" rx="8" fill="#2a2926" stroke="#3d3c38"/>
+        <text class="sbw" x="584" y="128" text-anchor="middle" style="fill:#efeee9">Pairwise</text>
+        <text class="sbw" x="584" y="144" text-anchor="middle">baseline · low variance</text>
+        <rect x="682" y="108" width="176" height="46" rx="8" fill="#2a2926" stroke="#3d3c38"/>
+        <text class="sbw" x="770" y="128" text-anchor="middle" style="fill:#efeee9">Rubric</text>
+        <text class="sbw" x="770" y="144" text-anchor="middle">explainable · per-dimension</text>
+        <text class="sbw" x="676" y="182" text-anchor="middle">source_skill on every judgment</text>
+        <text class="sbw" x="676" y="200" text-anchor="middle">multi-skill cross-review, conflicts shown side by side</text>
 
-        <rect class="bx" x="40" y="308" width="340" height="98" rx="12"/>
-        <text class="tt" x="210" y="340" text-anchor="middle">Language Review Board</text>
-        <text class="sb" x="210" y="364" text-anchor="middle">text · code · multi-turn agent traces</text>
-        <text class="sb" x="210" y="384" text-anchor="middle">7 fixed dims + task dims + 8 behavior patterns</text>
+        <path class="ln" d="M580 222 L580 258 L215 258 L215 292" marker-end="url(#ar)"/>
+        <path class="ln" d="M770 222 L770 258 L690 258 L690 292" marker-end="url(#ar)"/>
 
-        <rect class="bx" x="520" y="308" width="340" height="98" rx="12"/>
-        <text class="tt" x="690" y="340" text-anchor="middle">Embodied Review Board</text>
-        <text class="sb" x="690" y="364" text-anchor="middle">trajectories · sensors · vision episodes</text>
-        <text class="sb" x="690" y="384" text-anchor="middle">2 fixed dims + 3 coverage dims + 8 characteristics</text>
+        <rect class="bx" x="20" y="294" width="390" height="94" rx="12"/>
+        <text class="tt" x="215" y="324" text-anchor="middle">Language board</text>
+        <text class="sb" x="215" y="346" text-anchor="middle">text · code · multi-turn agent traces</text>
+        <text class="sb" x="215" y="365" text-anchor="middle">7 fixed dims + task dims + 8 behaviour patterns</text>
 
-        <path class="ln" d="M40 357 L18 357 L18 60 L250 60" marker-end="url(#ar)" stroke-dasharray="4 4"/>
-        <path class="ln" d="M860 357 L882 357 L882 60 L650 60" marker-end="url(#ar)" stroke-dasharray="4 4"/>
-        <text class="lbl" x="30" y="200" transform="rotate(-90 30 200)" text-anchor="middle">trace → strategy</text>
-        <text class="lbl" x="872" y="200" transform="rotate(90 872 200)" text-anchor="middle">trace → strategy</text>
+        <rect class="bx" x="490" y="294" width="390" height="94" rx="12"/>
+        <text class="tt" x="685" y="324" text-anchor="middle">Embodied board</text>
+        <text class="sb" x="685" y="346" text-anchor="middle">trajectories · sensors · vision episodes</text>
+        <text class="sb" x="685" y="365" text-anchor="middle">2 quality + 3 coverage dims + 8 characteristics</text>
+
+        <path class="lnb" d="M215 388 L215 424" marker-end="url(#arb)"/>
+        <path class="lnb" d="M685 388 L685 424" marker-end="url(#arb)"/>
+
+        <rect class="bxn" x="20" y="426" width="390" height="72" rx="12"/>
+        <text class="ttb" x="215" y="454" text-anchor="middle">Failure modes</text>
+        <text class="sbb" x="215" y="474" text-anchor="middle">auto-labelled, not just scored</text>
+        <text class="sbb" x="215" y="490" text-anchor="middle">one-click route → skill / collection</text>
+
+        <rect class="bxn" x="490" y="426" width="390" height="72" rx="12"/>
+        <text class="ttb" x="685" y="454" text-anchor="middle">Coverage gaps</text>
+        <text class="sbb" x="685" y="474" text-anchor="middle">embedding clusters below the confidence gate</text>
+        <text class="sbb" x="685" y="490" text-anchor="middle">drives expert recruitment, not spot-checks</text>
+
+        <path class="lnb" d="M20 462 L8 462 L8 80 L18 80" marker-end="url(#arb)" stroke-dasharray="4 4"/>
+        <path class="lnb" d="M880 462 L892 462 L892 80 L412 80" marker-end="url(#arb)" stroke-dasharray="4 4"/>
+        <text class="lblb" x="34" y="270" transform="rotate(-90 34 270)" text-anchor="middle">feeds the library back</text>
       </svg>
     </div>
   </div>
@@ -556,10 +725,12 @@
       <p class="kicker reveal">Live demo</p>
       <h2 class="reveal">The Agentic OS console</h2>
       <p class="section-sub reveal">
-        Everything below is clickable. Calibrate a skill, open a four-model comparison report,
-        expand any verdict to its rationale, and click a <span class="trace" data-skill="SK-021">SK-021</span> badge
-        to see exactly whose standard produced it.
+        Everything below is clickable. Judge a pairwise calibration set, search the skill library by meaning,
+        watch a batch get held because nothing covers it, route a failure mode back into the standard that
+        owns it — and click any <span class="trace" data-skill="SK-021">SK-021</span> badge to see whose
+        judgment produced a verdict.
       </p>
+      <div class="hero-cta" style="margin-top:8px"><button class="btn" onclick="startTour()">Take the 11-step guided tour</button></div>
     </div>
 
     <div class="console reveal">
@@ -573,10 +744,15 @@
         <aside class="cnav">
           <div class="grp">Kernel</div>
           <button data-pane="overview" class="on"><span class="ic">◎</span> Overview</button>
-          <button data-pane="skills"><span class="ic">◈</span> Skill Board <span class="cnt">6</span></button>
-          <div class="grp">Review boards</div>
+          <div class="grp">Researcher Distill</div>
+          <button data-pane="skills"><span class="ic">◈</span> Skill library <span class="cnt">7</span></button>
+          <button data-pane="calibration"><span class="ic">⚖</span> Calibration</button>
+          <button data-pane="matching"><span class="ic">⇄</span> Task–skill match <span class="cnt">4</span></button>
+          <div class="grp">Review / Audit</div>
           <button data-pane="llm"><span class="ic">▤</span> Language <span class="cnt">12</span></button>
           <button data-pane="embodied"><span class="ic">◱</span> Embodied <span class="cnt">4</span></button>
+          <button data-pane="failures"><span class="ic">⚑</span> Failure modes <span class="cnt">6</span></button>
+          <button data-pane="blindspots"><span class="ic">◌</span> Coverage gaps <span class="cnt">3</span></button>
           <div class="grp">Loop</div>
           <button data-pane="flywheel"><span class="ic">↻</span> Data flywheel</button>
         </aside>
@@ -624,64 +800,67 @@
           <div class="pane" id="pane-skills">
             <div class="ph">
               <div>
-                <h3>Skill Board</h3>
+                <h3>Skill library</h3>
                 <p>An expert's judgment, packaged: rubric + worked examples + a scope declaration.
-                   Nothing goes live until it passes calibration against a held-out set — that constraint is not optional.</p>
+                   Search is semantic, not keyword — before an expert builds anything, the library shows
+                   what already reasons the same way.</p>
               </div>
-              <div class="ph-act"><button class="mini">+ Upload skill</button></div>
+              <div class="ph-act"><button class="mini solid">+ Distill a skill</button></div>
+            </div>
+
+            <div class="srch" id="skillsearch">
+              <span class="si">⌕</span>
+              <input type="text" id="q" placeholder="Describe the judgment you want to distill — e.g. &quot;did the model actually run the thing it says it ran&quot;">
+              <div class="sh" id="qhint">Semantic search over 7 distilled skills · try “simulation artifacts”, “claims it finished”, or “dangerous git commands”</div>
             </div>
 
             <div class="box" style="margin-bottom:18px">
-              <div class="box-h"><b>Skill library</b><span>6 skills · 2 boards</span></div>
+              <div class="box-h"><b>Distilled skills</b><span id="skillcount">7 skills · 3 domains</span></div>
               <div class="scrollx"><table class="t" id="skilltable"></table></div>
             </div>
 
-            <div class="calib">
-              <div class="calib-h">
-                <b style="font-size:13.5px">Calibration run — SK-041 · Sim-vs-Real Action Authenticity</b>
-                <div style="font-size:12px;color:var(--text-3);margin-top:2px">
-                  Author: L. Moreau, Embodied Perception · draft v2 · held-out set: 500 episodes labeled by the author
+            <div class="box" id="simbox" style="margin-bottom:18px">
+              <div class="box-h"><b>Near-duplicate detected</b><span>cosine 0.83 · shown before upload</span></div>
+              <div class="box-c">
+                <div style="font-size:12.5px;color:var(--text-2);margin-bottom:13px">
+                  A draft in the queue overlaps an already-published skill. Rather than let a second
+                  standard quietly compete with the first, the library surfaces where the two actually
+                  disagree on the same calibration set — then the author decides: reuse, extend, or justify a new skill.
                 </div>
-              </div>
-              <div class="steps" id="calsteps">
-                <div class="step done"><div class="sc">✓</div><div class="st">Upload</div><div class="sd">rubric + 60 examples</div></div>
-                <div class="step act"><div class="sc">2</div><div class="st">Calibrate</div><div class="sd">agreement on held-out set</div></div>
-                <div class="step"><div class="sc">3</div><div class="st">Publish</div><div class="sd">routed by scope</div></div>
-                <div class="step"><div class="sc">4</div><div class="st">Apply</div><div class="sd">multi-skill review</div></div>
-                <div class="step"><div class="sc">5</div><div class="st">Track</div><div class="sd">drift monitoring</div></div>
-              </div>
-              <div class="calib-body">
-                <div class="prog"><i id="progbar"></i></div>
-                <div class="plog" id="plog">Ready. Run calibration to score the draft against the author's own held-out labels.</div>
-                <div style="margin-top:12px"><button class="mini solid" id="btn-cal">Run calibration</button></div>
-
-                <div class="calres" id="calres">
-                  <div class="verdict">
-                    <div class="vv">87.4%</div>
-                    <div class="vt">
-                      <b>Below publish threshold (90.0%)</b>
-                      <span>437 / 500 episodes agree with the author. Draft stays in calibration — iterate the rubric and re-run.</span>
-                    </div>
+                <div class="simgrid">
+                  <div class="simcol">
+                    <div class="sk-id">SK-018 · v2 · published</div>
+                    <h5>Completion-claim Truthfulness</h5>
+                    <div class="who">Dr. E. Vasquez · agreement 93.0%</div>
+                    <ul>
+                      <li>Cross-checks "done" against the diff and the test output of that round</li>
+                      <li>Scope: language / agent traces</li>
+                      <li>Treats an unrun test as a failed claim</li>
+                    </ul>
                   </div>
-                  <div class="two">
-                    <div class="box">
-                      <div class="box-h"><b>Disagreement types</b><span>63 episodes</span></div>
-                      <div class="scrollx"><table class="t" id="distable"></table></div>
-                    </div>
-                    <div class="box">
-                      <div class="box-h"><b>Suggested rubric edits</b><span>mined from traces</span></div>
-                      <div class="box-c" style="font-size:12.5px;color:var(--text-2)">
-                        <div style="margin-bottom:9px">— Add an explicit clause for <b>motion-blur under 60&nbsp;fps capture</b>: 31 of 63 disagreements are the judge reading blur as a simulation artifact.</div>
-                        <div style="margin-bottom:9px">— Split <b>"contact jitter"</b> into gripper-contact vs. free-space jitter; the author scores them differently but the rubric treats them as one.</div>
-                        <div>— Scope declaration currently claims all embodied data; author's examples are 94% tabletop manipulation. Narrow the scope and agreement rises to <b>92.8%</b> in simulation.</div>
-                      </div>
-                    </div>
+                  <div class="simvs"><span>0.83 similar</span></div>
+                  <div class="simcol">
+                    <div class="sk-id">SK-052 · draft · queued</div>
+                    <h5>Self-report Reliability</h5>
+                    <div class="who">R. Adeyemi · not yet calibrated</div>
+                    <ul>
+                      <li>Cross-checks summary statements against the artifact produced</li>
+                      <li>Scope: language / agent traces + tool-use logs</li>
+                      <li>Treats an unrun test as <b>incomplete, not failed</b></li>
+                    </ul>
                   </div>
+                </div>
+                <div style="margin-top:13px;font-size:12px;color:var(--text-2);background:var(--bg-soft);border:1px solid var(--border);border-radius:8px;padding:10px 12px">
+                  <b>Where they split:</b> on 500 shared calibration traces the two rubrics agree on 431
+                  and diverge on 69 — every one of them a round where the model shipped code with tests
+                  it never executed. SK-018 scores that a false completion claim; SK-052 scores it partial.
+                  That is a real standards disagreement, not redundancy — grounds to publish SK-052 as a
+                  separate skill and let both run side by side rather than silently overwrite one with the other.
                 </div>
               </div>
             </div>
 
-            <div class="box" style="margin-top:18px">
+            <div class="box">
               <div class="box-h"><b>Leverage dashboard — Prof. H. Tanaka</b><span>SK-033 · Sensor Sync &amp; Calibration</span></div>
               <div class="box-c">
                 <div class="kpis" style="margin-bottom:0">
@@ -692,6 +871,128 @@
                 </div>
               </div>
             </div>
+          </div>
+
+          <!-- ---------- CALIBRATION ---------- -->
+          <div class="pane" id="pane-calibration">
+            <div class="ph">
+              <div>
+                <h3>Calibration</h3>
+                <p>Two review modes over the same underlying data. Pairwise builds a stable baseline fast;
+                   rubric produces the explainable multi-dimensional score. A skill has to clear the bar in
+                   both before it can be published.</p>
+              </div>
+              <div class="ph-act">
+                <div class="seg" id="calmode">
+                  <button data-mode="pair" class="on">Pairwise</button>
+                  <button data-mode="rubric">Rubric</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="calib" style="margin-bottom:16px">
+              <div class="calib-h">
+                <b style="font-size:13.5px">SK-041 · Sim-vs-Real Action Authenticity</b>
+                <div style="font-size:12px;color:var(--text-3);margin-top:2px">
+                  Author: L. Moreau, Embodied Perception · draft v2 · held-out set: 500 episodes labeled by the author
+                </div>
+              </div>
+              <div class="steps" id="calsteps">
+                <div class="step done"><div class="sc">✓</div><div class="st">Upload</div><div class="sd">rubric + 60 examples</div></div>
+                <div class="step act"><div class="sc">2</div><div class="st">Calibrate</div><div class="sd">pairwise → rubric</div></div>
+                <div class="step"><div class="sc">3</div><div class="st">Publish</div><div class="sd">routed by scope</div></div>
+                <div class="step"><div class="sc">4</div><div class="st">Apply</div><div class="sd">multi-skill review</div></div>
+                <div class="step"><div class="sc">5</div><div class="st">Track</div><div class="sd">drift monitoring</div></div>
+              </div>
+            </div>
+
+            <!-- pairwise mode -->
+            <div id="mode-pair">
+              <div class="pw-wrap">
+                <div class="pw-head">
+                  <div>
+                    <b>Pairwise baseline</b>
+                    <div style="font-size:11.5px;color:var(--text-3)">Pick the better episode. No absolute scores — this is only building the preference baseline.</div>
+                  </div>
+                  <span class="pwc" id="pwcount">0 / 5 judged</span>
+                </div>
+                <div class="pw-body">
+                  <div class="pw-q" id="pwq"></div>
+                  <div class="pw-pair">
+                    <div class="pw-card" id="pwA" data-side="A"><div class="pl">EPISODE A</div><div class="pt"></div></div>
+                    <div class="pw-card" id="pwB" data-side="B"><div class="pl">EPISODE B</div><div class="pt"></div></div>
+                  </div>
+                  <div class="pw-act">
+                    <button class="mini" id="pwtie">Too close to call</button>
+                    <span class="pw-agree" id="pwagree">Agreement with the author's own preferences will appear as you judge.</span>
+                  </div>
+                  <div class="pw-res" id="pwres"></div>
+                </div>
+              </div>
+              <div class="two" style="margin-top:16px">
+                <div class="box">
+                  <div class="box-h"><b>Why pairwise first</b><span>variance, same 500 episodes</span></div>
+                  <div class="box-c" id="variancebox"></div>
+                </div>
+                <div class="box">
+                  <div class="box-h"><b>What pairwise cannot give you</b><span>and why rubric still runs</span></div>
+                  <div class="box-c" style="font-size:12.5px;color:var(--text-2)">
+                    <div style="margin-bottom:9px">— A preference ordering is not a reason. "B is better" does not tell a data vendor <b>which</b> of the eight characteristics failed, so it can't be delivered as an audit report.</div>
+                    <div style="margin-bottom:9px">— Preferences don't compose across batches. Rubric scores do: a batch scored on fixed dimensions is comparable to one reviewed six months earlier.</div>
+                    <div>— So pairwise sets the baseline and pins the variance down; rubric then runs against that baseline and produces the traceable, per-dimension report.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- rubric mode -->
+            <div id="mode-rubric" style="display:none">
+              <div class="calib">
+                <div class="calib-body" style="padding-top:16px">
+                  <div class="prog"><i id="progbar"></i></div>
+                  <div class="plog" id="plog">Ready. Run the rubric pass to score the draft against the author's held-out labels, anchored on the pairwise baseline.</div>
+                  <div style="margin-top:12px"><button class="mini solid" id="btn-cal">Run rubric calibration</button></div>
+
+                  <div class="calres" id="calres">
+                    <div class="verdict">
+                      <div class="vv">87.4%</div>
+                      <div class="vt">
+                        <b>Below publish threshold (90.0%)</b>
+                        <span>437 / 500 episodes agree with the author. Draft stays in calibration — iterate the rubric and re-run.</span>
+                      </div>
+                    </div>
+                    <div class="two">
+                      <div class="box">
+                        <div class="box-h"><b>Disagreement types</b><span>63 episodes</span></div>
+                        <div class="scrollx"><table class="t" id="distable"></table></div>
+                      </div>
+                      <div class="box">
+                        <div class="box-h"><b>Suggested rubric edits</b><span>mined from traces</span></div>
+                        <div class="box-c" style="font-size:12.5px;color:var(--text-2)">
+                          <div style="margin-bottom:9px">— Add an explicit clause for <b>motion-blur under 60&nbsp;fps capture</b>: 31 of 63 disagreements are the judge reading blur as a simulation artifact.</div>
+                          <div style="margin-bottom:9px">— Split <b>"contact jitter"</b> into gripper-contact vs. free-space jitter; the author scores them differently but the rubric treats them as one.</div>
+                          <div>— Scope declaration currently claims all embodied data; author's examples are 94% tabletop manipulation. Narrow the scope and agreement rises to <b>92.8%</b> in simulation.</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ---------- TASK-SKILL MATCHING ---------- -->
+          <div class="pane" id="pane-matching">
+            <div class="ph">
+              <div>
+                <h3>Task–skill matching</h3>
+                <p>Data arriving in the workspace is routed to the distilled skills whose scope declaration
+                   covers it — with the reason shown. When nothing covers a batch, the kernel says so out loud
+                   instead of quietly grading it with the nearest available standard.</p>
+              </div>
+              <div class="ph-act"><button class="mini" id="btn-rematch">Re-run matching</button></div>
+            </div>
+            <div id="matchlist"></div>
           </div>
 
           <!-- ---------- LLM ---------- -->
@@ -736,6 +1037,86 @@
             <div id="rep-edims" class="erep" style="display:none"></div>
             <div id="rep-echar" class="erep" style="display:none"></div>
             <div id="rep-einspect" class="erep" style="display:none"></div>
+          </div>
+
+          <!-- ---------- FAILURE MODES ---------- -->
+          <div class="pane" id="pane-failures">
+            <div class="ph">
+              <div>
+                <h3>Failure modes</h3>
+                <p>A low score on its own is a dead end. Every flagged sample also carries a failure-mode
+                   label, and repeated labels become candidate strategies you can route straight back —
+                   without leaving the review.</p>
+              </div>
+              <div class="ph-act"><span class="pill upd">6 awaiting triage</span></div>
+            </div>
+
+            <div class="box" style="margin-bottom:16px">
+              <div class="box-h"><b>Auto-labelled failure modes</b><span>this review cycle · route from here</span></div>
+              <div class="scrollx"><table class="t" id="fmtable"></table></div>
+            </div>
+
+            <div class="two">
+              <div class="box">
+                <div class="box-h"><b>Sample evidence — "claims completion without running it"</b><span>4,120 traces</span></div>
+                <div class="box-c">
+                  <div style="font-family:var(--mono);font-size:11.5px;color:var(--text-2);background:var(--bg-soft);border:1px solid var(--border);border-radius:8px;padding:11px 12px;white-space:pre-wrap;line-height:1.6">llm/lazygit-r24817 · round 24 · model 6v1kb0
+
+model: "Fixed the staging error — `git apply` now
+succeeds for both directions and tests pass."
+
+kernel: diff touches only the help overlay.
+        no test run recorded this round.
+        reproducing input still errors identically.
+
+verdict: FLAG · false completion claim
+label:   claims-completion-without-running
+source:  SK-018 (Dr. E. Vasquez, 93.0% agreement)</div>
+                </div>
+              </div>
+              <div class="box">
+                <div class="box-h"><b>Routing targets</b><span>where a confirmed strategy goes</span></div>
+                <div class="box-c" style="font-size:12.5px;color:var(--text-2)">
+                  <div style="margin-bottom:10px">— <b>Skill library.</b> The trace is appended to the owning skill's worked examples as a new
+                    positive case. The skill version bumps and re-calibrates; if agreement drops, the edit is rejected automatically.</div>
+                  <div style="margin-bottom:10px">— <b>Collection priority.</b> The failure shape becomes a collection target, so the next batch is
+                    sampled where the current data is thinnest rather than where it is easiest to gather.</div>
+                  <div>— <b>Expert recruitment.</b> If the failure sits outside every published scope, it lands in the
+                    coverage-gap queue instead of being force-graded — see the next pane.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ---------- COVERAGE GAPS ---------- -->
+          <div class="pane" id="pane-blindspots">
+            <div class="ph">
+              <div>
+                <h3>Coverage gaps</h3>
+                <p>Reviewed data is clustered in embedding space and scored by how confidently the published
+                   skills cover each cluster. Low-confidence regions are the blind spots — found here, before
+                   the data reaches a training run, not after.</p>
+              </div>
+              <div class="ph-act"><span class="pill neu">1.24M samples · 18 clusters</span></div>
+            </div>
+
+            <div class="two">
+              <div class="box">
+                <div class="box-h"><b>Embedding map</b><span>click a cluster</span></div>
+                <div class="box-c">
+                  <div class="emb-map" id="embmap"></div>
+                  <div class="emb-legend">
+                    <span><i style="background:#0f7b4f"></i>covered — match confidence &gt; 80%</span>
+                    <span><i style="background:#c9a227"></i>thin — 50–80%</span>
+                    <span><i style="background:#c0392b"></i>blind spot — &lt; 50%</span>
+                  </div>
+                </div>
+              </div>
+              <div class="box">
+                <div class="box-h"><b id="clusterhead">Blind-spot queue</b><span>ranked by volume × risk</span></div>
+                <div class="box-c" id="clusterbody"></div>
+              </div>
+            </div>
           </div>
 
           <!-- ---------- FLYWHEEL ---------- -->
@@ -796,28 +1177,57 @@
   <div class="wrap">
     <div class="center-head">
       <p class="kicker reveal">Positioning</p>
-      <h2 class="reveal">Where this sits</h2>
+      <h2 class="reveal">Adjacent to the annotation platforms, not competing with them</h2>
       <p class="section-sub reveal">
-        Vendors compete on how much data they can collect. We compete on whether anyone can prove it's good.
+        Annotation and alignment platforms are excellent at running the workflow. But in that model the
+        expert is the labour inside a task, and the customer still owns the hard part: making sure the
+        standard being applied is any good, and stays good. We start where that ends.
       </p>
     </div>
+
+    <div class="cards" style="margin-bottom:36px">
+      <div class="card reveal">
+        <span class="num">01</span>
+        <h3>Judgment as an asset, not labour</h3>
+        <p>On a workflow platform, an expert's review is consumed by the task that requested it. Here the
+          judgment is distilled into a versioned skill with a calibrated agreement rate — it keeps running
+          after the expert logs off, and the expert can watch its leverage compound.</p>
+      </div>
+      <div class="card reveal">
+        <span class="num">02</span>
+        <h3>Full-population, not sampled</h3>
+        <p>Their review tools serve whatever sampling plan the customer already has. We treat sampling as a
+          transitional state: the target is every sample judged, because a defect rate estimated from 2%
+          tells you nothing about which 98% to fix.</p>
+      </div>
+      <div class="card reveal">
+        <span class="num">03</span>
+        <h3>Frontier, where experts run out</h3>
+        <p>General expert networks cover physical AI, multimodal and LLM work well. Our network targets
+          first-line data researchers from frontier labs, and domains — novel materials among them — where
+          the bottleneck is that even the expert needs tooling to decide.</p>
+      </div>
+    </div>
+
     <div class="vs reveal">
       <table>
         <thead>
           <tr>
-            <th style="width:26%"></th>
-            <th>Data vendors<br><span style="font-weight:400;text-transform:none;letter-spacing:0">(collection-first)</span></th>
+            <th style="width:24%"></th>
+            <th>Annotation &amp; alignment platforms</th>
             <th>In-house eval<br><span style="font-weight:400;text-transform:none;letter-spacing:0">(scripts + spreadsheets)</span></th>
             <th class="us">Agentic OS</th>
           </tr>
         </thead>
         <tbody>
-          <tr><td class="rl">Coverage</td><td>1–3% spot-check</td><td>Whatever the team has time for</td><td class="us">100% of the population</td></tr>
-          <tr><td class="rl">Who sets the standard</td><td>Vendor's internal QA</td><td>Whoever wrote the script</td><td class="us">Named experts, versioned skills</td></tr>
-          <tr><td class="rl">Explainability</td><td>A pass/fail number</td><td>Ad-hoc notes</td><td class="us">Every verdict traces to a rubric clause</td></tr>
-          <tr><td class="rl">Expert time</td><td>Consumed per delivery</td><td>Consumed per delivery</td><td class="us">Spent once, applied forever</td></tr>
-          <tr><td class="rl">Modality</td><td>Usually one</td><td>Usually one</td><td class="us">Language + embodied on one kernel</td></tr>
-          <tr><td class="rl">Drift</td><td>Unmonitored</td><td>Unmonitored</td><td class="us">Enforced re-calibration, not opt-in</td></tr>
+          <tr><td class="rl">Coverage</td><td>Whatever sampling plan you bring</td><td>Whatever the team has time for</td><td class="us">100% of the population</td></tr>
+          <tr><td class="rl">Who owns the standard</td><td>You do — the platform runs it</td><td>Whoever wrote the script</td><td class="us">Named experts, versioned skills</td></tr>
+          <tr><td class="rl">Review modes</td><td>Rubric and pairwise</td><td>Usually one, ad hoc</td><td class="us">Pairwise for the baseline, rubric for the report</td></tr>
+          <tr><td class="rl">Task routing</td><td>Experts matched to tasks</td><td>Manual</td><td class="us">Distilled skills matched to data, with reasons</td></tr>
+          <tr><td class="rl">Uncovered data</td><td>Graded anyway</td><td>Usually unnoticed</td><td class="us">Held, and a skill request opened</td></tr>
+          <tr><td class="rl">Explainability</td><td>Depends on your rubric</td><td>Ad-hoc notes</td><td class="us">Every verdict traces to a clause and an author</td></tr>
+          <tr><td class="rl">Expert time</td><td>Consumed per task</td><td>Consumed per delivery</td><td class="us">Spent once, applied forever</td></tr>
+          <tr><td class="rl">Drift</td><td>Customer's problem</td><td>Unmonitored</td><td class="us">Enforced re-calibration, not opt-in</td></tr>
         </tbody>
       </table>
     </div>
@@ -845,6 +1255,10 @@
     <span>© 2026 Index AI · Agentic OS is a product demo · figures are illustrative</span>
   </div>
 </footer>
+
+<div id="toast"></div>
+
+<div id="tourveil"><div id="spot"></div><div id="callout"></div></div>
 
 <div id="skillpop">
   <button class="x" onclick="document.getElementById('skillpop').classList.remove('on')">✕</button>
@@ -897,10 +1311,11 @@ let onVisible;
 })();
 
 /* ===================== console nav ===================== */
-function go(p) {
+function go(p, quiet) {
   document.querySelectorAll('.cnav button').forEach(b => b.classList.toggle('on', b.dataset.pane === p));
   document.querySelectorAll('.pane').forEach(el => el.classList.toggle('on', el.id === 'pane-' + p));
-  document.getElementById('console').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  /* the tour drives its own scrolling to the highlighted element */
+  if (!quiet) document.getElementById('console').scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 document.querySelectorAll('.cnav button').forEach(b => b.onclick = () => go(b.dataset.pane));
 
@@ -1025,18 +1440,19 @@ function tr(id) { return '<span class="trace" data-skill="' + id + '">' + id + '
   const order = ['SK-014', 'SK-021', 'SK-007', 'SK-018', 'SK-033', 'SK-041', 'SK-045'];
   const cls = { 'live': 'live', 'calibrating': 'cal', 'needs update': 'upd' };
   document.getElementById('skilltable').innerHTML =
-    '<thead><tr><th>Skill</th><th>Author</th><th>Scope</th><th>Status</th><th>Agreement</th><th class="num">Applied</th></tr></thead><tbody>' +
+    '<thead><tr><th>Skill</th><th>Author</th><th>Scope</th><th>Status</th><th>Agreement</th><th class="num">Applied</th><th class="num">Match</th></tr></thead><tbody>' +
     order.map(id => {
       const s = SKILLS[id];
       const pct = parseFloat(s.agree);
       const bc = pct >= 92 ? '' : (pct >= 88 ? 'mid' : 'low');
-      return '<tr>' +
+      return '<tr data-skill="' + id + '">' +
         '<td><span class="sname">' + s.name + '</span><div class="ssub">' + id + ' · ' + s.ver + '</div></td>' +
         '<td class="ssub">' + s.expert + '</td>' +
         '<td class="ssub">' + s.scope + '</td>' +
         '<td><span class="pill ' + cls[s.status] + '">' + s.status + '</span></td>' +
         '<td><div class="barwrap"><div class="bar ' + bc + '"><i style="width:' + pct + '%"></i></div><span>' + s.agree + '</span></div></td>' +
-        '<td class="num">' + s.applied + '</td></tr>';
+        '<td class="num">' + s.applied + '</td>' +
+        '<td class="num"><span class="simscore"></span></td></tr>';
     }).join('') + '</tbody>';
 
   document.getElementById('distable').innerHTML =
@@ -1494,6 +1910,406 @@ document.getElementById('strattable').innerHTML =
    ['Structural repetition inflating apparent diversity', 'Embodied', '6,105', 'SK-041', 'collection priority (queued)']]
     .map(r => '<tr><td class="sname">' + r[0] + '</td><td><span class="pill neu">' + r[1] + '</span></td>' +
       '<td class="num">' + r[2] + '</td><td>' + tr(r[3]) + '</td><td class="ssub">' + r[4] + '</td></tr>').join('') + '</tbody>';
+
+/* ===================== toast ===================== */
+let toastTimer;
+function toast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('on');
+  clearTimeout(toastTimer); toastTimer = setTimeout(() => t.classList.remove('on'), 2600);
+}
+
+/* ===================== semantic skill search ===================== */
+/* Stands in for an embedding index: each skill carries the concepts it reasons about,
+   and a query scores against those rather than against the skill's literal name. */
+const CONCEPTS = {
+  'SK-007': ['git', 'command', 'destructive', 'dangerous', 'arguments', 'parser', 'safety', 'shell', 'reset', 'data loss'],
+  'SK-014': ['long horizon', 'credit assignment', 'planning', 'multi turn', 'agent', 'reasoning', 'goal', 'context', 'execution'],
+  'SK-018': ['completion', 'claims', 'finished', 'truthfulness', 'honesty', 'self report', 'done', 'verification', 'tests', 'ran'],
+  'SK-021': ['interface', 'terminal', 'tui', 'interaction', 'ui state', 'redraw', 'focus', 'usability', 'rendering'],
+  'SK-033': ['sensor', 'synchronization', 'calibration', 'timestamp', 'extrinsics', 'depth', 'drift', 'multi sensor', 'robot'],
+  'SK-041': ['simulation', 'artifact', 'authenticity', 'real capture', 'synthetic', 'trajectory', 'contact', 'noise floor', 'sim'],
+  'SK-045': ['materials', 'chemistry', 'synthesis', 'plausibility', 'science', 'inorganic', 'reaction', 'route']
+};
+function semScore(q, id) {
+  const terms = q.toLowerCase().split(/[^a-z0-9]+/).filter(w => w.length > 2);
+  if (!terms.length) return null;
+  const bag = (CONCEPTS[id] || []).join(' ') + ' ' + SKILLS[id].name.toLowerCase() + ' ' + SKILLS[id].scope.toLowerCase();
+  let hits = 0;
+  for (const t of terms) if (bag.includes(t)) hits++;
+  /* a soft score so partial overlap still ranks, rather than a binary filter */
+  return hits ? Math.min(0.98, 0.42 + 0.19 * hits + (hits / terms.length) * 0.2) : 0;
+}
+(function () {
+  const q = document.getElementById('q'), hint = document.getElementById('qhint');
+  const baseHint = hint.textContent;
+  q.addEventListener('input', () => {
+    const v = q.value.trim();
+    const rows = [...document.querySelectorAll('#skilltable tbody tr')];
+    if (!v) {
+      rows.forEach(r => { r.classList.remove('dim'); const c = r.querySelector('.simscore'); if (c) c.textContent = ''; });
+      hint.textContent = baseHint;
+      return;
+    }
+    let matched = 0;
+    rows.forEach(r => {
+      const sc = semScore(v, r.dataset.skill);
+      const cell = r.querySelector('.simscore');
+      if (sc > 0) { matched++; r.classList.remove('dim'); if (cell) cell.textContent = sc.toFixed(2); }
+      else { r.classList.add('dim'); if (cell) cell.textContent = '0.0' + Math.floor(Math.random() * 8); }
+    });
+    hint.textContent = matched
+      ? matched + (matched > 1 ? ' skills already reason' : ' skill already reasons') + ' about this — review before distilling a new one.'
+      : 'Nothing in the library covers this. This is the case that should become a new skill.';
+  });
+})();
+
+/* ===================== pairwise calibration ===================== */
+(function () {
+  const PAIRS = [
+    { q: 'Both episodes are labelled <b>real capture, tabletop pick-and-place</b>. Which one is genuinely field-captured?',
+      A: 'contact impulse decays over 7 frames\njoint noise floor ±0.004 rad\nlighting flickers at 50 Hz\ngripper slips once, recovers',
+      B: 'contact impulse resolves in 1 frame\njoint noise floor ±0.000 rad\nlighting perfectly constant\nno recovery events in 40 episodes',
+      author: 'A', why: 'B has no measurement noise floor at all and its contacts resolve instantly — both are generator signatures.' },
+    { q: 'Both flagged for <b>motion blur</b>. Which is a capture-quality problem rather than a synthetic artifact?',
+      A: 'blur only during fast reach segments\nblur scales with joint velocity\nEXIF reports 1/60 s exposure',
+      B: 'uniform blur across every frame\nblur unrelated to motion\nno exposure metadata present',
+      author: 'A', why: 'Velocity-correlated blur at a plausible exposure is real capture; uniform motion-independent blur is a render setting.' },
+    { q: 'Two batches claim <b>11 distinct scenes</b>. Which actually has the coverage?',
+      A: 'backgrounds differ but object layout repeats\nsame table height in all 11\nsame 3 objects rearranged',
+      B: 'varied table heights and clutter\n26 distinct objects\ntwo scenes shot outdoors',
+      author: 'B', why: 'A is one scene re-dressed 11 times — apparent variety, no real distribution width.' },
+    { q: 'Both episodes have <b>sensor desync</b>. Which one is still usable for training?',
+      A: 'depth lags RGB by a constant 8 ms\noffset logged per session',
+      B: 'depth lag drifts 4 ms → 71 ms within one episode\nno timing metadata',
+      author: 'A', why: 'A constant, documented offset can be corrected in post; a drifting undocumented one cannot.' },
+    { q: 'Both are <b>teleoperated</b>. Which reflects how the robot will actually be used?',
+      A: 'operator pauses, re-grasps, corrects\naverage 14 s per task',
+      B: 'every trajectory optimal first try\naverage 4 s per task\nno failed grasps in 900 episodes',
+      author: 'A', why: 'A zero-failure teleop set has been filtered; the recovery behaviour is exactly what the policy needs to learn.' }
+  ];
+  let i = 0, agree = 0, judged = 0;
+  const qEl = document.getElementById('pwq'), aEl = document.getElementById('pwA'), bEl = document.getElementById('pwB');
+  const cnt = document.getElementById('pwcount'), res = document.getElementById('pwres'), ag = document.getElementById('pwagree');
+
+  function render() {
+    if (i >= PAIRS.length) {
+      document.querySelector('.pw-pair').style.display = 'none';
+      document.querySelector('.pw-act').style.display = 'none';
+      qEl.style.display = 'none';
+      res.classList.add('on');
+      const pct = Math.round(agree / judged * 100);
+      res.innerHTML = '<div class="pw-done"><b>Baseline established — ' + pct + '% agreement over ' + judged + ' comparisons.</b><br>' +
+        'Five judgments took under a minute and pinned the preference ordering. The rubric pass now runs anchored ' +
+        'on this baseline, so its absolute scores inherit a calibrated zero point instead of drifting with whoever is scoring that day. ' +
+        '<button class="mini solid" style="margin-top:10px" onclick="setCalMode(\'rubric\')">Continue to rubric pass →</button></div>';
+      return;
+    }
+    const p = PAIRS[i];
+    qEl.innerHTML = p.q;
+    aEl.querySelector('.pt').textContent = p.A;
+    bEl.querySelector('.pt').textContent = p.B;
+    aEl.classList.remove('picked'); bEl.classList.remove('picked');
+    cnt.textContent = judged + ' / ' + PAIRS.length + ' judged';
+    res.classList.remove('on'); res.innerHTML = '';
+  }
+  function choose(side) {
+    if (i >= PAIRS.length) return;
+    const p = PAIRS[i];
+    const ok = side === p.author;
+    judged++; if (ok) agree++;
+    (side === 'A' ? aEl : bEl).classList.add('picked');
+    res.classList.add('on');
+    res.innerHTML = '<div style="font-size:12px;padding:10px 12px;border-radius:8px;border:1px solid ' +
+      (ok ? 'var(--pos-bd);background:var(--pos-bg)' : 'var(--warn-bd);background:var(--warn-bg)') + '">' +
+      '<b>' + (ok ? 'Matches the author' : 'Differs from the author') + '</b> — author chose ' + p.author + '. ' + p.why + '</div>';
+    ag.innerHTML = 'Running agreement: <b>' + Math.round(agree / judged * 100) + '%</b> over ' + judged + ' comparison' + (judged > 1 ? 's' : '');
+    cnt.textContent = judged + ' / ' + PAIRS.length + ' judged';
+    i++;
+    setTimeout(render, 2100);
+  }
+  aEl.onclick = () => choose('A');
+  bEl.onclick = () => choose('B');
+  document.getElementById('pwtie').onclick = () => {
+    if (i >= PAIRS.length) return;
+    judged++; i++;
+    ag.innerHTML = 'Ties are recorded as low-signal and excluded from the baseline.';
+    setTimeout(render, 400);
+  };
+  render();
+
+  const VAR = [['Rubric, absolute scores', 100, 'σ = 0.84 across 6 experts'],
+               ['Rubric, after pairwise anchor', 46, 'σ = 0.39'],
+               ['Pairwise preference', 28, 'σ = 0.23']];
+  document.getElementById('variancebox').innerHTML =
+    '<div style="font-size:12px;color:var(--text-2);margin-bottom:12px">Same 500 episodes, same six experts. Absolute scoring drifts; a forced choice between two items does not.</div>' +
+    VAR.map(v => '<div style="margin-bottom:11px">' +
+      '<div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px"><span>' + v[0] + '</span>' +
+      '<span style="font-family:var(--mono);color:var(--text-3)">' + v[2] + '</span></div>' +
+      '<div class="bar ' + (v[1] > 70 ? 'low' : v[1] > 40 ? 'mid' : '') + '"><i style="width:' + v[1] + '%"></i></div></div>').join('');
+})();
+
+function setCalMode(m) {
+  document.querySelectorAll('#calmode button').forEach(b => b.classList.toggle('on', b.dataset.mode === m));
+  document.getElementById('mode-pair').style.display = m === 'pair' ? '' : 'none';
+  document.getElementById('mode-rubric').style.display = m === 'rubric' ? '' : 'none';
+}
+document.querySelectorAll('#calmode button').forEach(b => b.onclick = () => setCalMode(b.dataset.mode));
+
+/* ===================== task-skill matching ===================== */
+const BATCHES = [
+  { id: 'llm/tool-use-traces-0912', meta: '220,400 traces · language · multi-turn tool use · vendor: Arcadia Data',
+    state: 'ok', cands: [
+      ['SK-014', 0.94, 'Scope declares long-horizon multi-turn agents; this batch is 100% multi-turn. Historical agreement 94.2% on comparable traces.'],
+      ['SK-018', 0.91, 'Every trace contains explicit completion statements — exactly the signal this skill was distilled to check.'],
+      ['SK-021', 0.62, 'Only 18% of traces touch an interface. Runs, but its verdicts are marked low-confidence and excluded from the headline score.']
+    ] },
+  { id: 'emb/warehouse-2026w34', meta: '48,200 episodes · embodied · 6 devices · fleet capture',
+    state: 'ok', cands: [
+      ['SK-033', 0.96, 'Multi-sensor scope match; the batch ships RGB, depth and joint-state on a shared clock, which is this skill\'s core object.'],
+      ['SK-041', 0.71, 'Draft, not published — held at 87.4% agreement. Runs in shadow mode only; its verdicts are recorded but do not gate the batch.']
+    ] },
+  { id: 'sci/inorganic-synthesis-routes', meta: '210,000 reaction routes · science · chemistry',
+    state: 'thin', cands: [
+      ['SK-045', 0.58, 'Scope matches on domain, but the drift detector fired: −5.2 pt over 14 days as the corpus shifted toward inorganic routes. Matched at reduced confidence and queued for re-calibration.']
+    ] },
+  { id: 'emb/dexterous-bimanual-v2', meta: '31,900 episodes · embodied · two-arm, in-hand reorientation',
+    state: 'none', cands: [] }
+];
+function renderMatching() {
+  document.getElementById('matchlist').innerHTML = BATCHES.map(b => {
+    const badge = b.state === 'ok' ? '<span class="pill live">matched</span>'
+      : b.state === 'thin' ? '<span class="pill upd">low confidence</span>'
+      : '<span class="pill neu" style="background:var(--neg-bg);color:var(--neg);border-color:var(--neg-bd)">no coverage</span>';
+    const body = b.cands.length
+      ? b.cands.map(c => {
+          const lvl = c[1] >= 0.8 ? '' : c[1] >= 0.5 ? 'mid' : 'low';
+          return '<div class="mcand">' +
+            '<div><span class="mname">' + SKILLS[c[0]].name + '</span><div class="ssub">' + tr(c[0]) + '</div></div>' +
+            '<div class="conf ' + lvl + '"><div class="cb"><i style="width:' + (c[1] * 100) + '%"></i></div><span>' + c[1].toFixed(2) + '</span></div>' +
+            '<div class="mwhy">' + c[2] + '</div></div>';
+        }).join('')
+      : '<div class="nocover"><b>No published skill covers this batch.</b>' +
+        'Closest candidate is SK-033 at 0.34 — single-arm scope, no in-hand reorientation in its examples. ' +
+        'The kernel will not grade 31,900 episodes with a standard that was never calibrated on them. ' +
+        'The batch is held and routed to expert recruitment, and the requirement is published as an open skill request: ' +
+        '<b>bimanual in-hand manipulation, contact-rich</b>.' +
+        '<div class="route" style="margin-top:10px">' +
+        '<button class="rbtn" data-route="Skill request published — 3 researchers in the network match this scope.">Publish skill request</button>' +
+        '<button class="rbtn" data-route="Batch held. It will not enter any report until a matching skill is published.">Hold batch</button>' +
+        '</div></div>';
+    return '<div class="mrow"><div class="mrow-h"><b>' + b.id + '</b><span class="meta">' + b.meta + '</span>' +
+      '<span class="right">' + badge + '</span></div><div class="mrow-b">' + body + '</div></div>';
+  }).join('');
+}
+renderMatching();
+document.getElementById('btn-rematch').onclick = function () {
+  this.textContent = 'Matching…'; this.disabled = true;
+  setTimeout(() => { renderMatching(); this.textContent = 'Re-run matching'; this.disabled = false;
+    toast('Re-matched 4 batches against 7 published skills · 1 still uncovered'); }, 900);
+};
+
+/* ===================== failure modes + routing ===================== */
+const FMODES = [
+  ['claims-completion-without-running', 'Language', 4120, 'SK-018', 'Model reports a fix that the diff and test log contradict.'],
+  ['patch-context-under-anchored', 'Language', 2880, 'SK-021', 'Generated patches drop context lines and fail to apply.'],
+  ['partial-fix-defers-hardest', 'Language', 1940, 'SK-014', 'Two of three reported defects addressed; the hard one is left.'],
+  ['depth-lag-beyond-tolerance', 'Embodied', 9340, 'SK-033', 'Depth stream arrives outside the declared sync envelope.'],
+  ['blur-read-as-sim-artifact', 'Embodied', 1610, 'SK-041', 'Judge scores motion blur as a generator signature.'],
+  ['structural-repetition', 'Embodied', 6105, 'SK-041', 'Layouts repeat with small perturbations, inflating apparent diversity.']
+];
+document.getElementById('fmtable').innerHTML =
+  '<thead><tr><th>Failure mode</th><th>Board</th><th class="num">Samples</th><th>Owning skill</th><th>Route to</th></tr></thead><tbody>' +
+  FMODES.map(f => '<tr>' +
+    '<td><span class="sname" style="font-family:var(--mono);font-size:11.5px">' + f[0] + '</span><div class="ssub">' + f[4] + '</div></td>' +
+    '<td><span class="pill neu">' + f[1] + '</span></td>' +
+    '<td class="num">' + f[2].toLocaleString() + '</td>' +
+    '<td>' + tr(f[3]) + '</td>' +
+    '<td><div class="route">' +
+      '<button class="rbtn" data-route="Appended to ' + f[3] + ' worked examples. Re-calibration queued — the edit is reverted automatically if agreement drops.">→ skill</button>' +
+      '<button class="rbtn" data-route="Added to the collection brief. Next batch will oversample this failure shape.">→ collection</button>' +
+    '</div></td></tr>').join('') + '</tbody>';
+
+document.addEventListener('click', e => {
+  const b = e.target.closest('.rbtn');
+  if (!b || b.classList.contains('done')) return;
+  b.classList.add('done');
+  b.textContent = '✓ ' + b.textContent.replace('→ ', '').replace('Publish skill request', 'requested').replace('Hold batch', 'held');
+  toast(b.dataset.route);
+});
+
+/* ===================== coverage blind spots ===================== */
+const CLUSTERS = [
+  { n: 'Bimanual in-hand reorientation', c: 0.34, v: '31,900', x: 78, y: 24, r: 26, risk: 'high',
+    d: 'No published skill declares this scope. Closest is single-arm manipulation at 0.34 — its examples contain no in-hand regrasp at all.', act: 'Expert recruitment' },
+  { n: 'Inorganic synthesis routes', c: 0.41, v: '96,400', x: 20, y: 72, r: 22, risk: 'high',
+    d: 'SK-045 nominally covers chemistry, but drift since the corpus shifted has pushed effective confidence below the gate.', act: 'Re-calibrate SK-045' },
+  { n: 'Long-horizon multi-agent negotiation', c: 0.47, v: '18,200', x: 62, y: 78, r: 17, risk: 'high',
+    d: 'SK-014 handles long-horizon single-agent traces. Multi-agent turn-taking introduces credit assignment across actors, which its rubric never addresses.', act: 'Extend SK-014 scope' },
+  { n: 'Terminal UI interaction', c: 0.92, v: '340,000', x: 34, y: 30, r: 24, risk: 'ok',
+    d: 'Fully covered by SK-021 at 91.8% agreement.', act: 'None' },
+  { n: 'Git command semantics', c: 0.96, v: '880,000', x: 46, y: 46, r: 30, risk: 'ok',
+    d: 'Fully covered by SK-007 at 96.1% agreement — the densest covered region in the workspace.', act: 'None' },
+  { n: 'Multi-sensor sync', c: 0.94, v: '4.1M', x: 68, y: 52, r: 34, risk: 'ok',
+    d: 'Covered by SK-033. Rolling agreement slipped 0.9 pt this month; a drift check is scheduled.', act: 'Drift check due' },
+  { n: 'Sim-vs-real authenticity', c: 0.71, v: '620,000', x: 84, y: 62, r: 20, risk: 'thin',
+    d: 'SK-041 is still a draft at 87.4%. It runs in shadow mode only, so this region is observed but not gated.', act: 'Publish SK-041' },
+  { n: 'Completion-claim checking', c: 0.89, v: '760,000', x: 26, y: 52, r: 22, risk: 'ok',
+    d: 'Covered by SK-018 at 93.0% agreement.', act: 'None' }
+];
+(function () {
+  const col = c => c.risk === 'ok' ? '#0f7b4f' : c.risk === 'thin' ? '#c9a227' : '#c0392b';
+  document.getElementById('embmap').innerHTML =
+    '<svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet" aria-label="Embedding map of reviewed data clustered by skill coverage confidence">' +
+    CLUSTERS.map((c, i) => '<g class="clus" data-i="' + i + '">' +
+      '<circle cx="' + c.x + '" cy="' + c.y + '" r="' + (c.r / 4) + '" fill="' + col(c) + '" fill-opacity="' + (c.risk === 'ok' ? .18 : .26) + '" stroke="' + col(c) + '" stroke-opacity=".55" stroke-width=".5"/>' +
+      '<circle cx="' + c.x + '" cy="' + c.y + '" r="1.4" fill="' + col(c) + '"/>' +
+      '<title>' + c.n + ' — match confidence ' + c.c.toFixed(2) + '</title></g>').join('') +
+    '</svg>';
+  function showQueue() {
+    document.getElementById('clusterhead').textContent = 'Blind-spot queue';
+    document.getElementById('clusterbody').innerHTML =
+      '<div style="font-size:12px;color:var(--text-2);margin-bottom:12px">Three clusters sit below the 0.50 confidence gate. Together they are 146,500 samples that no published standard can currently judge.</div>' +
+      CLUSTERS.filter(c => c.risk === 'high').map((c, i) =>
+        '<div style="border:1px solid var(--border);border-radius:8px;padding:11px 12px;margin-bottom:9px;background:var(--bg-soft)">' +
+        '<div style="display:flex;justify-content:space-between;gap:10px;align-items:baseline">' +
+        '<b style="font-size:12.5px">' + c.n + '</b><span style="font-family:var(--mono);font-size:11px;color:var(--neg)">' + c.c.toFixed(2) + '</span></div>' +
+        '<div style="font-size:11.5px;color:var(--text-2);margin:5px 0 8px">' + c.d + '</div>' +
+        '<div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap">' +
+        '<span class="ssub" style="font-family:var(--mono)">' + c.v + ' samples</span>' +
+        '<button class="rbtn" data-route="' + c.act + ' queued for ' + c.n + '.">' + c.act + '</button></div></div>').join('');
+  }
+  showQueue();
+  document.getElementById('embmap').addEventListener('click', e => {
+    const g = e.target.closest('.clus'); if (!g) return;
+    const c = CLUSTERS[+g.dataset.i];
+    document.getElementById('clusterhead').textContent = c.n;
+    document.getElementById('clusterbody').innerHTML =
+      '<div style="display:flex;gap:14px;align-items:baseline;margin-bottom:10px">' +
+      '<div style="font-size:26px;font-weight:650;letter-spacing:-.03em;color:' + col(c) + '">' + c.c.toFixed(2) + '</div>' +
+      '<div style="font-size:12px;color:var(--text-3)">match confidence<br>' + c.v + ' samples</div></div>' +
+      '<div style="font-size:12.5px;color:var(--text-2);margin-bottom:12px">' + c.d + '</div>' +
+      (c.act === 'None'
+        ? '<span class="pill live">no action needed</span>'
+        : '<button class="rbtn" data-route="' + c.act + ' queued for ' + c.n + '.">' + c.act + '</button>') +
+      '<div style="margin-top:14px"><button class="mini" id="backq">← Back to blind-spot queue</button></div>';
+    document.getElementById('backq').onclick = showQueue;
+  });
+})();
+
+/* ===================== guided tour ===================== */
+const TOUR = [
+  { pane: 'overview', sel: '#pane-overview .kpis', t: 'Full-population coverage, not a sample',
+    b: 'Every number here is computed over 100% of the delivery. The industry default is a 1–3% spot-check; the rest ships on trust. This is the claim the rest of the product has to earn.' },
+  { pane: 'skills', sel: '#skillsearch', t: 'The library is searched by meaning',
+    b: 'Before an expert distils anything, the library shows what already reasons the same way. Type "claims it finished" — SK-018 surfaces even though those words appear nowhere in its name.' },
+  { pane: 'skills', sel: '#simbox', t: 'Near-duplicates are surfaced, not merged',
+    b: 'Two skills at 0.83 similarity disagree on 69 of 500 shared traces. That is a genuine standards split, so both get published and run side by side — the kernel never silently picks a winner.' },
+  { pane: 'calibration', sel: '#pane-calibration .pw-wrap', t: 'Pairwise builds the baseline',
+    b: 'Judge a few pairs yourself. A forced choice between two items is faster and far more stable than an absolute score — it collapses the inter-expert variance before any number is assigned.' },
+  { pane: 'calibration', sel: '#variancebox', t: 'Why the order matters',
+    b: 'Same episodes, same six experts. Absolute scoring drifts at σ 0.84; anchored on a pairwise baseline it drops to 0.39. Pairwise sets the zero point, rubric then produces the explainable report.' },
+  { pane: 'matching', sel: '#matchlist', t: 'Data is routed to skills, with reasons',
+    b: 'Each batch is matched against every published scope declaration, and the match shows its reasoning. Drafts run in shadow mode; low-confidence matches are marked and excluded from the headline score.' },
+  { pane: 'matching', sel: '#pane-matching .nocover', t: 'Uncovered data is held, not guessed at',
+    b: 'When nothing covers a batch, the kernel refuses to grade 31,900 episodes with a standard never calibrated on them. It holds the batch and opens a skill request instead.' },
+  { pane: 'llm', sel: '#pane-llm .ph-act', t: 'The rubric report',
+    b: 'Four models, one spec, aligned column by column: statistics, verdicts, every round, eight capability dimensions and eight behaviour patterns. Fix rounds count against the model rather than being hidden.' },
+  { pane: 'failures', sel: '#fmtable', t: 'A score is a dead end; a label is not',
+    b: 'Every flagged sample carries a failure-mode label. Route it back to the owning skill or into the collection brief without leaving the review — and if the edit lowers agreement, it reverts itself.' },
+  { pane: 'blindspots', sel: '#embmap', t: 'Find the gaps before training does',
+    b: 'Reviewed data clustered in embedding space, coloured by how confidently the published skills cover it. Three red clusters — 146,500 samples nothing in the library can currently judge.' },
+  { pane: 'flywheel', sel: '#pane-flywheel .fw', t: 'And back around',
+    b: 'Traces become strategies, strategies become rubric edits, edits raise agreement, higher agreement widens what the library can cover. That loop is the product.' }
+];
+let ti = -1;
+function tourAt(n) {
+  if (n < 0 || n >= TOUR.length) return endTour();
+  ti = n;
+  const st = TOUR[n];
+  go(st.pane, true);
+  /* Wait a frame for the pane swap to lay out, then scroll. The spotlight is
+     re-painted on every scroll event below, so a smooth scroll of any duration
+     stays tracked instead of being sampled once on a guessed timer. */
+  setTimeout(() => {
+    const el = document.querySelector(st.sel);
+    if (!el) return endTour();
+    paint(st, el);
+    el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }, 0);
+}
+/* keep the spotlight glued to its target while the page scrolls under it */
+let repaintQueued = false;
+function trackTour() {
+  if (ti < 0 || repaintQueued) return;
+  repaintQueued = true;
+  setTimeout(() => {
+    repaintQueued = false;
+    if (ti < 0) return;
+    const el = document.querySelector(TOUR[ti].sel);
+    if (el) paint(TOUR[ti], el);
+  }, 0);
+}
+window.addEventListener('scroll', trackTour, { passive: true });
+function paint(st, el) {
+  const veil = document.getElementById('tourveil');
+  veil.classList.add('on');
+  const r = el.getBoundingClientRect(), pad = 8;
+  const spot = document.getElementById('spot');
+  spot.style.top = (r.top - pad) + 'px'; spot.style.left = (r.left - pad) + 'px';
+  spot.style.width = (r.width + pad * 2) + 'px'; spot.style.height = (r.height + pad * 2) + 'px';
+
+  const co = document.getElementById('callout');
+  co.innerHTML =
+    '<div class="tstep">STEP ' + (ti + 1) + ' OF ' + TOUR.length + '</div>' +
+    '<h5>' + st.t + '</h5><p>' + st.b + '</p>' +
+    '<div class="tdots">' + TOUR.map((_, k) => '<i class="' + (k <= ti ? 'on' : '') + '"></i>').join('') + '</div>' +
+    '<div class="tnav">' +
+      '<button class="mini" onclick="endTour()">Exit</button>' +
+      '<span class="sp"></span>' +
+      (ti > 0 ? '<button class="mini" onclick="tourAt(' + (ti - 1) + ')">Back</button>' : '') +
+      '<button class="mini solid" onclick="tourAt(' + (ti + 1) + ')">' + (ti === TOUR.length - 1 ? 'Finish' : 'Next') + '</button>' +
+    '</div>';
+  const pos = place(co, r);
+  co.style.left = pos.l + 'px'; co.style.top = pos.t + 'px';
+}
+/* Try each side in turn and take the first that both fits on screen and does not
+   sit on top of the thing it is pointing at. Wide targets have no room left or
+   right, so below/above carry most cases. */
+function place(co, r) {
+  const cw = co.offsetWidth || 340, ch = co.offsetHeight || 190, m = 14;
+  const clamp = (v, lo, hi) => Math.min(Math.max(v, lo), hi);
+  const maxL = Math.max(m, innerWidth - cw - m), maxT = Math.max(m, innerHeight - ch - m);
+  const cands = [
+    { l: r.right + m,      t: r.top },              // right
+    { l: r.left - cw - m,  t: r.top },              // left
+    { l: r.left,           t: r.bottom + m },       // below
+    { l: r.left,           t: r.top - ch - m }      // above
+  ];
+  for (const c of cands) {
+    const l = clamp(c.l, m, maxL), t = clamp(c.t, m, maxT);
+    const fits = l + cw <= innerWidth - m + 1 && t + ch <= innerHeight - m + 1;
+    const hits = l < r.right + 2 && l + cw > r.left - 2 && t < r.bottom + 2 && t + ch > r.top - 2;
+    if (fits && !hits) return { l, t };
+  }
+  /* target fills the viewport — tuck it into whichever corner has the most clearance */
+  return { l: maxL, t: r.top > innerHeight / 2 ? m : maxT };
+}
+function startTour() {
+  document.getElementById('console').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  setTimeout(() => tourAt(0), 500);
+}
+function endTour() {
+  ti = -1;
+  document.getElementById('tourveil').classList.remove('on');
+}
+document.addEventListener('keydown', e => {
+  if (!document.getElementById('tourveil').classList.contains('on')) return;
+  if (e.key === 'Escape') endTour();
+  if (e.key === 'ArrowRight') tourAt(ti + 1);
+  if (e.key === 'ArrowLeft' && ti > 0) tourAt(ti - 1);
+});
+window.addEventListener('resize', trackTour, { passive: true });
 
 </script>
 
